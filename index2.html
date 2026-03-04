@@ -31,36 +31,6 @@
         font-family: "Noto Sans KR", sans-serif;
         color: var(--ink);
         overflow-x: hidden;
-        cursor: none;
-      }
-
-      .cursor {
-        width: 10px;
-        height: 10px;
-        background: var(--gold);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition:
-          width 0.2s,
-          height 0.2s;
-        mix-blend-mode: multiply;
-      }
-      .cursor-ring {
-        width: 36px;
-        height: 36px;
-        border: 1.5px solid var(--gold);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9998;
-        transform: translate(-50%, -50%);
-        transition:
-          left 0.12s ease,
-          top 0.12s ease;
-        opacity: 0.45;
       }
 
       ::-webkit-scrollbar {
@@ -375,9 +345,6 @@
     </style>
   </head>
   <body>
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
-
     <!-- ═══ LOCK SCREEN ═══ -->
     <div
       id="lockScreen"
@@ -1363,7 +1330,7 @@
             font-size: 0.82rem;
             font-weight: 600;
             border: none;
-            cursor: none;
+            cursor: pointer;
             transition:
               transform 0.25s,
               box-shadow 0.25s;
@@ -1396,28 +1363,6 @@
     </footer>
 
     <script>
-      // Custom cursor
-      const cursor = document.getElementById("cursor");
-      const ring = document.getElementById("cursorRing");
-      document.addEventListener("mousemove", (e) => {
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-        ring.style.left = e.clientX + "px";
-        ring.style.top = e.clientY + "px";
-      });
-      document
-        .querySelectorAll("button, .photo-card, .envelope, [onclick]")
-        .forEach((el) => {
-          el.addEventListener("mouseenter", () => {
-            cursor.style.width = "18px";
-            cursor.style.height = "18px";
-          });
-          el.addEventListener("mouseleave", () => {
-            cursor.style.width = "10px";
-            cursor.style.height = "10px";
-          });
-        });
-
       // D+ count
       const start = new Date("2025-03-07");
       const days = Math.max(1, Math.floor((new Date() - start) / 86400000));
