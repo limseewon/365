@@ -1,0 +1,1094 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>지영아, 1주년 🐥</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500&display=swap"
+      rel="stylesheet" />
+    <style>
+      :root {
+        --gold: #e8b84b;
+        --gold-light: #f5d98a;
+        --gold-pale: #fdf6e3;
+        --cream: #fefcf5;
+        --ink: #1c1a16;
+        --muted: #8a8070;
+        --line: #ecdcaa;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--cream);
+        font-family: "Noto Sans KR", sans-serif;
+        color: var(--ink);
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      .cursor {
+        width: 10px;
+        height: 10px;
+        background: var(--gold);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.2s,
+          height 0.2s;
+        mix-blend-mode: multiply;
+      }
+      .cursor-ring {
+        width: 36px;
+        height: 36px;
+        border: 1.5px solid var(--gold);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition:
+          left 0.12s ease,
+          top 0.12s ease;
+        opacity: 0.45;
+      }
+
+      ::-webkit-scrollbar {
+        width: 3px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--gold-light);
+        border-radius: 2px;
+      }
+
+      .serif {
+        font-family: "Nanum Myeongjo", serif;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 1000;
+        opacity: 0.35;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .big-num {
+        font-family: "Nanum Myeongjo", serif;
+        font-size: clamp(9rem, 26vw, 16rem);
+        line-height: 0.85;
+        color: transparent;
+        -webkit-text-stroke: 2px var(--gold);
+        letter-spacing: -0.03em;
+        user-select: none;
+      }
+      .big-num-fill {
+        font-family: "Nanum Myeongjo", serif;
+        font-size: clamp(9rem, 26vw, 16rem);
+        line-height: 0.85;
+        color: var(--gold);
+        letter-spacing: -0.03em;
+        position: absolute;
+        top: 0;
+        left: 0;
+        clip-path: inset(0 100% 0 0);
+        animation: fillNum 1.6s 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        user-select: none;
+      }
+      @keyframes fillNum {
+        to {
+          clip-path: inset(0 0% 0 0);
+        }
+      }
+
+      @keyframes duckFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-4deg);
+        }
+        50% {
+          transform: translateY(-8px) rotate(4deg);
+        }
+      }
+      .duck-float {
+        animation: duckFloat 2.2s ease-in-out infinite;
+        display: inline-block;
+      }
+      @keyframes duckWalk {
+        0%,
+        100% {
+          transform: rotate(-5deg) translateY(0);
+        }
+        25% {
+          transform: rotate(5deg) translateY(-3px);
+        }
+        75% {
+          transform: rotate(-3deg) translateY(-3px);
+        }
+      }
+      .duck-walk {
+        animation: duckWalk 1s ease-in-out infinite;
+        display: inline-block;
+      }
+
+      .line {
+        width: 48px;
+        height: 1px;
+        background: var(--line);
+        margin: 0 auto;
+      }
+      .section-label {
+        font-size: 0.62rem;
+        letter-spacing: 0.3em;
+        color: #ccc;
+        text-transform: uppercase;
+      }
+
+      .letter-paper {
+        background: #fffef8;
+        border: 1px solid #f0e4b0;
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+        box-shadow:
+          0 2px 40px rgba(0, 0, 0, 0.05),
+          0 0 0 6px rgba(240, 228, 176, 0.2);
+      }
+      .letter-paper::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          transparent,
+          transparent 31px,
+          rgba(216, 196, 120, 0.12) 31px,
+          rgba(216, 196, 120, 0.12) 32px
+        );
+        pointer-events: none;
+      }
+      .letter-paper::after {
+        content: "";
+        position: absolute;
+        left: 48px;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: rgba(216, 160, 160, 0.18);
+        pointer-events: none;
+      }
+
+      .photo-card {
+        background: #fff;
+        border-radius: 3px;
+        padding: 10px 10px 36px;
+        box-shadow:
+          0 6px 28px rgba(0, 0, 0, 0.08),
+          0 1px 3px rgba(0, 0, 0, 0.04);
+        transform: rotate(var(--r));
+        transition:
+          transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          box-shadow 0.4s;
+        cursor: pointer;
+        position: relative;
+      }
+      .photo-card:hover {
+        transform: rotate(0deg) scale(1.06) translateY(-6px);
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12);
+        z-index: 5;
+      }
+      .photo-inner {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 1px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.2rem;
+        position: relative;
+      }
+      .photo-cap {
+        text-align: center;
+        margin-top: 10px;
+        font-family: "Nanum Myeongjo", serif;
+        font-size: 0.7rem;
+        color: #aaa;
+        letter-spacing: 0.02em;
+      }
+
+      .t-dot {
+        width: 10px;
+        height: 10px;
+        background: var(--cream);
+        border-radius: 50%;
+        border: 2px solid var(--gold);
+        flex-shrink: 0;
+        margin-top: 6px;
+        transition: transform 0.3s;
+      }
+      .t-dot:hover {
+        transform: scale(1.5);
+      }
+      .t-dot.now {
+        width: 12px;
+        height: 12px;
+        background: var(--gold);
+        border: none;
+        box-shadow:
+          0 0 0 3px var(--cream),
+          0 0 0 5px var(--gold-light),
+          0 0 16px rgba(232, 184, 75, 0.4);
+        margin-top: 4px;
+      }
+
+      .player {
+        background: rgba(254, 252, 245, 0.95);
+        border: 1px solid rgba(232, 184, 75, 0.25);
+        border-radius: 999px;
+        backdrop-filter: blur(16px);
+        box-shadow:
+          0 4px 24px rgba(0, 0, 0, 0.06),
+          0 1px 0 rgba(255, 255, 255, 0.8) inset;
+      }
+      .play-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--gold), #d4a030);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        flex-shrink: 0;
+        box-shadow: 0 2px 8px rgba(232, 184, 75, 0.4);
+      }
+      .play-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 16px rgba(232, 184, 75, 0.5);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 20px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--line);
+        font-size: 0.75rem;
+        color: #9a8040;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        backdrop-filter: blur(8px);
+      }
+
+      .envelope {
+        background: linear-gradient(145deg, #fff8dc, #fff3c0);
+        border: 1px solid #f0e090;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+      }
+      .envelope:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+      }
+      .envelope-flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50%;
+        background: linear-gradient(160deg, #fff0a0, #ffe878);
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        border-bottom: 1px solid #f0d870;
+      }
+
+      .dot-pattern {
+        background-image: radial-gradient(
+          circle,
+          rgba(232, 184, 75, 0.12) 1px,
+          transparent 1px
+        );
+        background-size: 22px 22px;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.08);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- Music Player -->
+    <div
+      class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[88%] max-w-[300px]">
+      <div class="player flex items-center gap-3 px-4 py-2.5">
+        <button class="play-btn" onclick="toggleMusic()">
+          <svg
+            id="playIcon"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="#fff">
+            <polygon points="6,3 20,12 6,21" />
+          </svg>
+          <svg
+            id="pauseIcon"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="#fff"
+            style="display: none">
+            <rect x="5" y="4" width="4" height="16" />
+            <rect x="15" y="4" width="4" height="16" />
+          </svg>
+        </button>
+        <div class="flex-1">
+          <div
+            style="
+              font-size: 0.65rem;
+              color: #a09060;
+              margin-bottom: 5px;
+              letter-spacing: 0.05em;
+            ">
+            🎵 たぶん — YOASOBI
+          </div>
+          <div
+            style="
+              width: 100%;
+              height: 1.5px;
+              border-radius: 1px;
+              background: #f0e8a0;
+              overflow: hidden;
+            ">
+            <div
+              id="pbar"
+              style="
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(90deg, var(--gold), #d4a030);
+                transition: width 0.4s linear;
+                border-radius: 1px;
+              "></div>
+          </div>
+        </div>
+        <span class="duck-walk" style="font-size: 1.1rem">🐥</span>
+      </div>
+    </div>
+    <audio id="bgm" loop>
+      <source src="./audio/ji.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- HERO -->
+    <section
+      style="
+        background: linear-gradient(
+          160deg,
+          #fffef0 0%,
+          #fefcf0 50%,
+          #fafaf5 100%
+        );
+        min-height: 100svh;
+      "
+      class="flex flex-col items-center justify-center text-center px-6 relative overflow-hidden dot-pattern">
+      <div
+        style="
+          position: absolute;
+          top: -80px;
+          right: -80px;
+          width: 420px;
+          height: 420px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(232, 184, 75, 0.08),
+            transparent 70%
+          );
+          pointer-events: none;
+        "></div>
+      <div
+        style="
+          position: absolute;
+          bottom: -60px;
+          left: -60px;
+          width: 320px;
+          height: 320px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(232, 184, 75, 0.06),
+            transparent 70%
+          );
+          pointer-events: none;
+        "></div>
+
+      <div
+        style="
+          position: relative;
+          animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+        ">
+        <div class="big-num">1</div>
+        <div class="big-num-fill">1</div>
+      </div>
+      <h1
+        class="serif"
+        style="
+          font-size: clamp(1.6rem, 5vw, 2.4rem);
+          margin-top: 0.2rem;
+          margin-bottom: 1rem;
+          color: var(--ink);
+          font-weight: 400;
+          animation: fadeUp 1s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+          opacity: 0;
+          letter-spacing: 0.08em;
+        ">
+        주년
+      </h1>
+      <p
+        style="
+          color: var(--muted);
+          font-size: 0.88rem;
+          line-height: 2.1;
+          animation: fadeUp 1s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+          opacity: 0;
+        ">
+        지영아,<br />같이한 1년 고마워.
+      </p>
+      <div
+        style="
+          margin-top: 1.8rem;
+          animation: fadeUp 1s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+          opacity: 0;
+        ">
+        <div class="badge">
+          <span>📅</span><span>2025. 03. 07</span>
+          <span
+            style="
+              width: 1px;
+              height: 10px;
+              background: #e0d090;
+              display: inline-block;
+            "></span>
+          <span id="dayCount" style="color: var(--gold); font-weight: 600"
+            >D+1일</span
+          >
+        </div>
+      </div>
+      <div
+        class="duck-float"
+        style="
+          margin-top: 2.8rem;
+          font-size: 2.4rem;
+          animation: fadeUp 1s 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+          opacity: 0;
+        ">
+        🐥
+      </div>
+      <div
+        style="
+          position: absolute;
+          bottom: 2.5rem;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          color: #d0c8a0;
+        ">
+        <span style="font-size: 0.55rem; letter-spacing: 0.25em">SCROLL</span>
+        <div
+          style="
+            width: 1px;
+            height: 36px;
+            background: linear-gradient(
+              to bottom,
+              rgba(200, 180, 100, 0.4),
+              transparent
+            );
+          "
+          class="animate-bounce"></div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="py-28 px-6" style="background: #fafaf5">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-16 reveal">
+          <p class="section-label mb-3">memories</p>
+          <h2
+            class="serif"
+            style="font-size: 2rem; color: var(--ink); font-weight: 400">
+            우리 추억
+          </h2>
+          <div class="line mt-5"></div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-7">
+          <div class="photo-card reveal" style="--r: -2.8deg">
+            <div
+              class="photo-inner"
+              style="background: linear-gradient(135deg, #fff8e0, #fff0c0)">
+              🐥
+            </div>
+            <p class="photo-cap">오리 좋아하는 지영</p>
+          </div>
+          <div
+            class="photo-card reveal"
+            style="--r: 2.2deg; margin-top: 22px; transition-delay: 0.08s">
+            <div
+              class="photo-inner"
+              style="background: linear-gradient(135deg, #fff5e8, #ffe8d0)">
+              🍽️
+            </div>
+            <p class="photo-cap">같이 먹은 밥</p>
+          </div>
+          <div
+            class="photo-card reveal"
+            style="--r: -1.8deg; transition-delay: 0.15s">
+            <div
+              class="photo-inner"
+              style="background: linear-gradient(135deg, #fff8e0, #ffecc0)">
+              🌅
+            </div>
+            <p class="photo-cap">같이 본 노을</p>
+          </div>
+          <div
+            class="photo-card reveal"
+            style="--r: 2.8deg; margin-top: -10px; transition-delay: 0.22s">
+            <div
+              class="photo-inner"
+              style="background: linear-gradient(135deg, #f8f8f0, #f0f0e0)">
+              ☕
+            </div>
+            <p class="photo-cap">카페에서</p>
+          </div>
+          <div
+            class="photo-card reveal"
+            style="--r: -2.2deg; transition-delay: 0.28s">
+            <div
+              class="photo-inner"
+              style="background: linear-gradient(135deg, #f0f0f8, #e0e4f0)">
+              🌙
+            </div>
+            <p class="photo-cap">같이 본 밤</p>
+          </div>
+          <div
+            class="photo-card reveal"
+            style="--r: 1.5deg; margin-top: 16px; transition-delay: 0.35s">
+            <div
+              class="photo-inner"
+              style="background: linear-gradient(135deg, #fff0e8, #ffe0d0)">
+              🎡
+            </div>
+            <p class="photo-cap">첫 데이트</p>
+          </div>
+        </div>
+        <p
+          style="
+            text-align: center;
+            font-size: 0.62rem;
+            color: #ccc;
+            margin-top: 2.5rem;
+            letter-spacing: 0.15em;
+          "
+          class="reveal">
+          CLICK TO ENLARGE
+        </p>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="py-28 px-6" style="background: var(--cream)">
+      <div class="max-w-md mx-auto">
+        <div class="text-center mb-16 reveal">
+          <p class="section-label mb-3">our story</p>
+          <h2
+            class="serif"
+            style="font-size: 2rem; color: var(--ink); font-weight: 400">
+            1년의 기록
+          </h2>
+          <div class="line mt-5"></div>
+        </div>
+        <div style="position: relative; padding-left: 32px">
+          <div
+            style="
+              position: absolute;
+              left: 5px;
+              top: 8px;
+              bottom: 8px;
+              width: 1px;
+              background: linear-gradient(
+                to bottom,
+                var(--gold),
+                rgba(232, 184, 75, 0.1),
+                transparent
+              );
+            "></div>
+          <div
+            style="
+              display: flex;
+              gap: 20px;
+              align-items: flex-start;
+              margin-bottom: 44px;
+            "
+            class="reveal">
+            <div class="t-dot" style="margin-left: -5px"></div>
+            <div>
+              <div
+                style="
+                  font-size: 0.65rem;
+                  color: #c0a860;
+                  margin-bottom: 6px;
+                  letter-spacing: 0.1em;
+                ">
+                2025 · 03 · 07
+              </div>
+              <h4
+                class="serif"
+                style="
+                  font-size: 1.15rem;
+                  margin-bottom: 6px;
+                  font-weight: 700;
+                ">
+                처음 만난 날
+              </h4>
+              <p
+                style="
+                  font-size: 0.82rem;
+                  color: var(--muted);
+                  line-height: 1.9;
+                ">
+                잘 부탁해, 라고 했던 그날.<br />설렜는지 몰랐는데 설렜었어.
+              </p>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              gap: 20px;
+              align-items: flex-start;
+              margin-bottom: 44px;
+            "
+            class="reveal">
+            <div class="t-dot" style="margin-left: -5px"></div>
+            <div>
+              <div
+                style="
+                  font-size: 0.65rem;
+                  color: #c0a860;
+                  margin-bottom: 6px;
+                  letter-spacing: 0.1em;
+                ">
+                봄 · 여름
+              </div>
+              <h4
+                class="serif"
+                style="
+                  font-size: 1.15rem;
+                  margin-bottom: 6px;
+                  font-weight: 700;
+                ">
+                설레던 날들
+              </h4>
+              <p
+                style="
+                  font-size: 0.82rem;
+                  color: var(--muted);
+                  line-height: 1.9;
+                ">
+                뭘 해도 재밌고, 어디 가도 좋았어.<br />그냥 네가 있어서 좋았어.
+              </p>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              gap: 20px;
+              align-items: flex-start;
+              margin-bottom: 44px;
+            "
+            class="reveal">
+            <div class="t-dot" style="margin-left: -5px"></div>
+            <div>
+              <div
+                style="
+                  font-size: 0.65rem;
+                  color: #c0a860;
+                  margin-bottom: 6px;
+                  letter-spacing: 0.1em;
+                ">
+                가을 · 겨울
+              </div>
+              <h4
+                class="serif"
+                style="
+                  font-size: 1.15rem;
+                  margin-bottom: 6px;
+                  font-weight: 700;
+                ">
+                편안해진 우리
+              </h4>
+              <p
+                style="
+                  font-size: 0.82rem;
+                  color: var(--muted);
+                  line-height: 1.9;
+                ">
+                같이 있는 게 당연해진 때.<br />그게 제일 좋았어.
+              </p>
+            </div>
+          </div>
+          <div
+            style="display: flex; gap: 20px; align-items: flex-start"
+            class="reveal">
+            <div class="t-dot now" style="margin-left: -6px"></div>
+            <div>
+              <div
+                style="
+                  font-size: 0.65rem;
+                  color: var(--gold);
+                  font-weight: 600;
+                  margin-bottom: 6px;
+                  letter-spacing: 0.1em;
+                ">
+                오늘 ✦
+              </div>
+              <h4
+                class="serif"
+                style="
+                  font-size: 1.25rem;
+                  margin-bottom: 6px;
+                  font-weight: 700;
+                ">
+                1주년
+              </h4>
+              <p
+                style="
+                  font-size: 0.82rem;
+                  color: var(--muted);
+                  line-height: 1.9;
+                ">
+                벌써 1년이네.<br />앞으로도 잘 부탁해. 🐥
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LETTER -->
+    <section class="py-28 px-6" style="background: #fafaf5">
+      <div class="max-w-md mx-auto">
+        <div class="text-center mb-12 reveal">
+          <p class="section-label mb-3">letter</p>
+          <h2
+            class="serif"
+            style="font-size: 1.8rem; color: var(--ink); font-weight: 400">
+            우주최강 귀염코딱지에게
+          </h2>
+          <div class="line mt-5"></div>
+        </div>
+        <div
+          id="envWrap"
+          class="envelope reveal"
+          onclick="openLetter()"
+          style="padding: 48px 32px; text-align: center">
+          <div class="envelope-flap"></div>
+          <div style="position: relative; z-index: 1; margin-top: 16px">
+            <div
+              style="
+                font-size: 2.4rem;
+                margin-bottom: 12px;
+                filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+              ">
+              💌
+            </div>
+            <p
+              class="serif"
+              style="
+                color: #a08840;
+                font-size: 0.88rem;
+                letter-spacing: 0.04em;
+              ">
+              눌러서 편지 읽기
+            </p>
+            <p
+              style="
+                font-size: 0.62rem;
+                color: #c0a860;
+                margin-top: 6px;
+                letter-spacing: 0.12em;
+              ">
+              OPEN LETTER
+            </p>
+          </div>
+        </div>
+        <div
+          id="letterBox"
+          class="letter-paper px-10 py-12 reveal"
+          style="display: none">
+          <div
+            class="serif"
+            style="
+              font-size: 0.94rem;
+              line-height: 2.5;
+              color: #2a2820;
+              position: relative;
+              z-index: 1;
+              padding-left: 8px;
+            ">
+            <p>지영아,</p>
+            <br />
+            <p>같이 한 1년 동안 너무 고마웠어.</p>
+            <p>내 여자친구가 되어주어서 너무 고마워.</p>
+            <p>나한테 너무 소중한 존재얌</p>
+            <br />
+            <p>별거 아닌 날도 네 덕에 좋았고,</p>
+            <p>힘든 날도 네가 있어서 괜찮았어.</p>
+            <br />
+            <p>앞으로도 잘 부탁해. 🐥</p>
+            <br />
+            <p style="text-align: right; color: var(--gold)">— 임시원</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section class="py-32 px-6 text-center" style="background: var(--cream)">
+      <div class="max-w-sm mx-auto reveal">
+        <div
+          style="
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            animation: pulse 2.5s ease-in-out infinite;
+          ">
+          🐥
+        </div>
+        <h2
+          class="serif"
+          style="
+            font-size: 2.6rem;
+            margin-bottom: 1.2rem;
+            color: var(--ink);
+            font-weight: 800;
+            line-height: 1.2;
+          ">
+          1년,<br />고마워
+        </h2>
+        <div class="line mb-6"></div>
+        <p
+          style="
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 2;
+            margin-bottom: 2.5rem;
+          ">
+          오지영, 사랑해.
+        </p>
+        <button
+          onclick="duckPop(event)"
+          style="
+            padding: 14px 36px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--gold), #d4a030);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border: none;
+            cursor: none;
+            transition:
+              transform 0.25s,
+              box-shadow 0.25s;
+            box-shadow: 0 6px 24px rgba(232, 184, 75, 0.35);
+            letter-spacing: 0.05em;
+          "
+          onmouseover="
+            this.style.transform = 'scale(1.05)';
+            this.style.boxShadow = '0 10px 32px rgba(232,184,75,0.5)';
+          "
+          onmouseout="
+            this.style.transform = '';
+            this.style.boxShadow = '0 6px 24px rgba(232,184,75,0.35)';
+          ">
+          🐥 오리 날리기
+        </button>
+      </div>
+    </section>
+
+    <footer
+      style="
+        padding: 28px;
+        text-align: center;
+        background: #fafaf5;
+        border-top: 1px solid #f0e8c0;
+      ">
+      <p style="font-size: 0.62rem; color: #ccc; letter-spacing: 0.15em">
+        🐥 오지영 · 1주년 · 2026
+      </p>
+    </footer>
+
+    <script>
+      // Custom cursor
+      const cursor = document.getElementById("cursor");
+      const ring = document.getElementById("cursorRing");
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+        ring.style.left = e.clientX + "px";
+        ring.style.top = e.clientY + "px";
+      });
+      document
+        .querySelectorAll("button, .photo-card, .envelope, [onclick]")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.style.width = "18px";
+            cursor.style.height = "18px";
+          });
+          el.addEventListener("mouseleave", () => {
+            cursor.style.width = "10px";
+            cursor.style.height = "10px";
+          });
+        });
+
+      // D+ count
+      const start = new Date("2025-03-07");
+      const days = Math.max(1, Math.floor((new Date() - start) / 86400000));
+      document.getElementById("dayCount").textContent = `D+${days}일`;
+
+      // Scroll reveal
+      document.querySelectorAll(".reveal").forEach((el) =>
+        new IntersectionObserver(
+          ([e]) => {
+            if (e.isIntersecting) el.classList.add("show");
+          },
+          { threshold: 0.1 },
+        ).observe(el),
+      );
+
+      // Music
+      const audio = document.getElementById("bgm");
+      const pbar = document.getElementById("pbar");
+      let playing = false;
+      audio.addEventListener("timeupdate", () => {
+        if (audio.duration)
+          pbar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
+      });
+      function toggleMusic() {
+        if (playing) {
+          audio.pause();
+          document.getElementById("playIcon").style.display = "";
+          document.getElementById("pauseIcon").style.display = "none";
+        } else {
+          audio.play().catch(() => {});
+          document.getElementById("playIcon").style.display = "none";
+          document.getElementById("pauseIcon").style.display = "";
+        }
+        playing = !playing;
+      }
+
+      // Letter
+      function openLetter() {
+        document.getElementById("envWrap").style.display = "none";
+        const box = document.getElementById("letterBox");
+        box.style.display = "block";
+        setTimeout(() => box.classList.add("show"), 30);
+      }
+
+      // Duck pop
+      function duckPop(e) {
+        const items = ["🐥", "🐥", "🐥", "🐣", "💛", "✨", "🌟", "🌼", "💝"];
+        for (let i = 0; i < 30; i++) {
+          setTimeout(() => {
+            const el = document.createElement("div");
+            const ang = Math.random() * Math.PI * 2;
+            const dist = 70 + Math.random() * 160;
+            const size = 0.9 + Math.random() * 1;
+            el.textContent = items[Math.floor(Math.random() * items.length)];
+            el.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;font-size:${size}rem;pointer-events:none;z-index:1000;transition:transform .9s cubic-bezier(.2,.8,.3,1),opacity .9s ease;opacity:1`;
+            document.body.appendChild(el);
+            requestAnimationFrame(() => {
+              el.style.transform = `translate(${Math.cos(ang) * dist}px,${Math.sin(ang) * dist}px) scale(.3) rotate(${Math.random() * 360}deg)`;
+              el.style.opacity = "0";
+            });
+            setTimeout(() => el.remove(), 1000);
+          }, i * 25);
+        }
+      }
+
+      // Photo zoom
+      document.querySelectorAll(".photo-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const ov = document.createElement("div");
+          ov.style.cssText =
+            "position:fixed;inset:0;background:rgba(20,18,14,.75);z-index:1000;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(10px);animation:fadeIn .25s ease";
+          const cl = card.cloneNode(true);
+          cl.style.cssText =
+            "--r:0deg;transform:scale(1);max-width:300px;width:78vw;cursor:default;box-shadow:0 32px 80px rgba(0,0,0,0.3)";
+          ov.appendChild(cl);
+          ov.addEventListener("click", () => ov.remove());
+          document.body.appendChild(ov);
+        });
+      });
+    </script>
+  </body>
+</html>
