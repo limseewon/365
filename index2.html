@@ -479,29 +479,17 @@
                   );
                 "></div>
               <div style="display: flex; gap: 5px; align-items: center">
-                <div
-                  style="
-                    width: 3px;
-                    height: 3px;
-                    border-radius: 50%;
-                    background: rgba(255, 200, 60, 0.4);
-                  "></div>
+                <span style="font-size: 0.7rem">💛</span>
                 <span
                   style="
-                    font-size: 0.48rem;
-                    letter-spacing: 0.3em;
+                    font-size: 0.46rem;
+                    letter-spacing: 0.28em;
                     color: rgba(255, 200, 60, 0.5);
                     font-family: &quot;Noto Sans KR&quot;, sans-serif;
                   "
-                  >ANNIVERSARY LOCK</span
+                  >ANNIVERSARY</span
                 >
-                <div
-                  style="
-                    width: 3px;
-                    height: 3px;
-                    border-radius: 50%;
-                    background: rgba(255, 200, 60, 0.4);
-                  "></div>
+                <span style="font-size: 0.7rem">💛</span>
               </div>
               <div
                 style="
@@ -563,16 +551,16 @@
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
               ">
-              우리 기념일은?
+              우리 기념일이 언제야? 🤔
             </h2>
             <p
               style="
-                color: rgba(255, 210, 100, 0.35);
-                font-size: 0.67rem;
-                letter-spacing: 0.14em;
+                color: rgba(255, 210, 100, 0.4);
+                font-size: 0.68rem;
+                letter-spacing: 0.08em;
                 font-family: &quot;Noto Sans KR&quot;, sans-serif;
               ">
-              사귄 날짜를 맞춰야 열려
+              맞히면 열어줄게 🐥💛
             </p>
           </div>
 
@@ -602,21 +590,22 @@
                   placeholder="YYYY"
                   style="
                     width: 82px;
-                    background: rgba(255, 200, 50, 0.05);
-                    border: 1px solid rgba(255, 190, 40, 0.2);
-                    border-bottom: 2px solid rgba(255, 180, 30, 0.5);
+                    background: rgba(255, 200, 50, 0.1);
+                    border: 1px solid rgba(255, 190, 40, 0.25);
+                    border-bottom: 2px solid rgba(255, 180, 30, 0.6);
                     border-radius: 14px 14px 4px 4px;
                     padding: 14px 6px 12px;
                     color: #ffe87a;
-                    font-size: 1.05rem;
+                    -webkit-text-fill-color: #ffe87a;
+                    font-size: 1.1rem;
                     text-align: center;
                     outline: none;
                     font-family: &quot;Nanum Myeongjo&quot;, serif;
                     transition: all 0.2s;
-                    letter-spacing: 0.08em;
+                    letter-spacing: 0.1em;
                     caret-color: #ffd040;
                   "
-                  oninput="handleLockInput(this, 'inMonth', 4)"
+                  oninput="onlyNums(this)"
                   onfocus="lockFocus(this)"
                   onblur="lockBlur(this)"
                   onkeydown="if (event.key === 'Enter') checkDate();" />
@@ -658,21 +647,22 @@
                 placeholder="MM"
                 style="
                   width: 60px;
-                  background: rgba(255, 200, 50, 0.05);
-                  border: 1px solid rgba(255, 190, 40, 0.2);
-                  border-bottom: 2px solid rgba(255, 180, 30, 0.5);
+                  background: rgba(255, 200, 50, 0.1);
+                  border: 1px solid rgba(255, 190, 40, 0.25);
+                  border-bottom: 2px solid rgba(255, 180, 30, 0.6);
                   border-radius: 14px 14px 4px 4px;
                   padding: 14px 6px 12px;
                   color: #ffe87a;
-                  font-size: 1.05rem;
+                  -webkit-text-fill-color: #ffe87a;
+                  font-size: 1.1rem;
                   text-align: center;
                   outline: none;
                   font-family: &quot;Nanum Myeongjo&quot;, serif;
                   transition: all 0.2s;
-                  letter-spacing: 0.08em;
+                  letter-spacing: 0.1em;
                   caret-color: #ffd040;
                 "
-                oninput="handleLockInput(this, 'inDay', 2)"
+                oninput="onlyNums(this)"
                 onfocus="lockFocus(this)"
                 onblur="lockBlur(this)"
                 onkeydown="if (event.key === 'Enter') checkDate();" />
@@ -713,21 +703,22 @@
                 placeholder="DD"
                 style="
                   width: 60px;
-                  background: rgba(255, 200, 50, 0.05);
-                  border: 1px solid rgba(255, 190, 40, 0.2);
-                  border-bottom: 2px solid rgba(255, 180, 30, 0.5);
+                  background: rgba(255, 200, 50, 0.1);
+                  border: 1px solid rgba(255, 190, 40, 0.25);
+                  border-bottom: 2px solid rgba(255, 180, 30, 0.6);
                   border-radius: 14px 14px 4px 4px;
                   padding: 14px 6px 12px;
                   color: #ffe87a;
-                  font-size: 1.05rem;
+                  -webkit-text-fill-color: #ffe87a;
+                  font-size: 1.1rem;
                   text-align: center;
                   outline: none;
                   font-family: &quot;Nanum Myeongjo&quot;, serif;
                   transition: all 0.2s;
-                  letter-spacing: 0.08em;
+                  letter-spacing: 0.1em;
                   caret-color: #ffd040;
                 "
-                oninput="if (this.value.length >= 2) checkDate();"
+                oninput="onlyNums(this)"
                 onfocus="lockFocus(this)"
                 onblur="lockBlur(this)"
                 onkeydown="if (event.key === 'Enter') checkDate();" />
@@ -752,10 +743,10 @@
                 color: rgba(255, 120, 100, 0.9);
                 opacity: 0;
                 transition: opacity 0.3s;
-                letter-spacing: 0.06em;
+                letter-spacing: 0.04em;
                 font-family: &quot;Noto Sans KR&quot;, sans-serif;
               ">
-              날짜가 틀렸어 🐥 다시 생각해봐
+              🐥 삐약.. 틀렸어! 다시 생각해봐
             </p>
           </div>
 
@@ -779,12 +770,12 @@
                 box-shadow:
                   0 4px 28px rgba(255, 180, 0, 0.28),
                   0 1px 0 rgba(255, 255, 200, 0.3) inset;
-                letter-spacing: 0.12em;
+                letter-spacing: 0.06em;
                 font-family: &quot;Noto Sans KR&quot;, sans-serif;
                 overflow: hidden;
               "
               onmouseover="
-                this.style.transform = 'translateY(-2px)';
+                this.style.transform = 'translateY(-2px) scale(1.03)';
                 this.style.boxShadow =
                   '0 12px 36px rgba(255,180,0,0.44),0 1px 0 rgba(255,255,200,0.3) inset';
               "
@@ -793,9 +784,7 @@
                 this.style.boxShadow =
                   '0 4px 28px rgba(255,180,0,0.28),0 1px 0 rgba(255,255,200,0.3) inset';
               ">
-              <span style="position: relative; z-index: 1"
-                >열기&nbsp;&nbsp;🐥</span
-              >
+              <span style="position: relative; z-index: 1">🐥 열어봐!</span>
               <div
                 style="
                   position: absolute;
@@ -1010,21 +999,27 @@
       })();
 
       function lockFocus(el) {
-        el.style.borderColor = "rgba(255,210,50,0.6)";
+        el.style.borderColor = "rgba(255,210,50,0.7)";
         el.style.borderBottomColor = "#ffd040";
         el.style.boxShadow =
-          "0 0 0 3px rgba(255,200,40,0.1),0 0 12px rgba(255,180,0,0.1)";
-        el.style.background = "rgba(255,200,50,0.08)";
+          "0 0 0 3px rgba(255,200,40,0.12),0 0 16px rgba(255,180,0,0.12)";
+        el.style.background = "rgba(255,200,50,0.14)";
+        el.style.webkitTextFillColor = "#ffe87a";
+        el.style.color = "#ffe87a";
       }
       function lockBlur(el) {
-        el.style.borderColor = "rgba(255,190,40,0.2)";
-        el.style.borderBottomColor = "rgba(255,180,30,0.5)";
+        el.style.borderColor = "rgba(255,190,40,0.25)";
+        el.style.borderBottomColor = "rgba(255,180,30,0.6)";
         el.style.boxShadow = "none";
-        el.style.background = "rgba(255,200,50,0.05)";
+        el.style.background = "rgba(255,200,50,0.1)";
+        el.style.webkitTextFillColor = "#ffe87a";
+        el.style.color = "#ffe87a";
+      }
+      function onlyNums(el) {
+        el.value = el.value.replace(/\D/g, "");
       }
       function handleLockInput(el, nextId, maxLen) {
-        el.value = el.value.replace(/\D/g, "");
-        if (el.value.length >= maxLen) document.getElementById(nextId).focus();
+        onlyNums(el);
       }
       function checkDate() {
         const y = document.getElementById("inYear").value.trim();
