@@ -1,58 +1,47 @@
-// D+ count
+/* ── D+ count ── */
 const start = new Date("2025-03-07");
-const days = Math.max(1, Math.floor((new Date() - start) / 86400000));
-document.getElementById("dayCount").textContent = `D+${days}일`;
+document.getElementById("dayCount").textContent =
+  `D+${Math.max(1, Math.floor((new Date() - start) / 86400000))}일`;
 
-// Scroll reveal
-document.querySelectorAll(".reveal").forEach((el) =>
-  new IntersectionObserver(
-    ([e]) => {
-      if (e.isIntersecting) el.classList.add("show");
-    },
-    { threshold: 0.1 },
-  ).observe(el),
+/* ── Scroll reveal (IntersectionObserver) ── */
+const revealObs = new IntersectionObserver(
+  (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add("show")),
+  { threshold: 0.1 }
 );
+document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
 
-// Music
+/* ── Music player ── */
 const audio = document.getElementById("bgm");
 const pbar = document.getElementById("pbar");
 let playing = false;
 audio.addEventListener("timeupdate", () => {
-  if (audio.duration)
-    pbar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
+  if (audio.duration) pbar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
 });
 function toggleMusic() {
-  if (playing) {
-    audio.pause();
-    document.getElementById("playIcon").style.display = "";
-    document.getElementById("pauseIcon").style.display = "none";
-  } else {
-    audio.play().catch(() => { });
-    document.getElementById("playIcon").style.display = "none";
-    document.getElementById("pauseIcon").style.display = "";
-  }
+  playing ? audio.pause() : audio.play().catch(() => { });
   playing = !playing;
+  document.getElementById("playIcon").style.display = playing ? "none" : "";
+  document.getElementById("pauseIcon").style.display = playing ? "" : "none";
 }
 
-// Letter
+/* ── Letter ── */
 function openLetter() {
   document.getElementById("envWrap").style.display = "none";
   const box = document.getElementById("letterBox");
   box.style.display = "block";
-  setTimeout(() => box.classList.add("show"), 30);
+  requestAnimationFrame(() => requestAnimationFrame(() => box.classList.add("show")));
 }
 
-// Duck pop
+/* ── Duck pop ── */
 function duckPop(e) {
   const items = ["🐥", "🐥", "🐥", "🐣", "💛", "✨", "🌟", "🌼", "💝"];
   for (let i = 0; i < 30; i++) {
     setTimeout(() => {
       const el = document.createElement("div");
-      const ang = Math.random() * Math.PI * 2,
-        dist = 70 + Math.random() * 160,
-        size = 0.9 + Math.random() * 1;
-      el.textContent = items[Math.floor(Math.random() * items.length)];
-      el.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;font-size:${size}rem;pointer-events:none;z-index:1000;transition:transform .9s cubic-bezier(.2,.8,.3,1),opacity .9s ease;opacity:1`;
+      const ang = Math.random() * Math.PI * 2;
+      const dist = 70 + Math.random() * 160;
+      el.textContent = items[Math.random() * items.length | 0];
+      el.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;font-size:${0.9 + Math.random()}rem;pointer-events:none;z-index:9000;transition:transform .9s cubic-bezier(.2,.8,.3,1),opacity .9s ease;opacity:1`;
       document.body.appendChild(el);
       requestAnimationFrame(() => {
         el.style.transform = `translate(${Math.cos(ang) * dist}px,${Math.sin(ang) * dist}px) scale(.3) rotate(${Math.random() * 360}deg)`;
@@ -63,201 +52,290 @@ function duckPop(e) {
   }
 }
 
-// 기존 photo-card zoom (강릉 카드는 onclick 없음)
-document
-  .querySelectorAll(".photo-card:not(.gangneung-card)")
-  .forEach((card) => {
-    card.addEventListener("click", () => {
-      const ov = document.createElement("div");
-      ov.style.cssText =
-        "position:fixed;inset:0;background:rgba(20,18,14,.75);z-index:1000;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(10px);animation:fadeIn .25s ease";
-      const cl = card.cloneNode(true);
-      cl.style.cssText =
-        "--r:0deg;transform:scale(1);max-width:300px;width:78vw;cursor:default;box-shadow:0 32px 80px rgba(0,0,0,0.3)";
-      ov.appendChild(cl);
-      ov.addEventListener("click", () => ov.remove());
-      document.body.appendChild(ov);
-    });
+/* ── 일반 photo-card 줌 (강릉/경주 카드 제외) ── */
+document.querySelectorAll(".photo-card:not(.gangneung-card):not(.gyeongju-card)").forEach(card => {
+  card.addEventListener("click", () => {
+    const ov = document.createElement("div");
+    ov.style.cssText = "position:fixed;inset:0;background:rgba(20,18,14,.75);z-index:1000;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(10px);animation:fadeIn .25s ease";
+    const cl = card.cloneNode(true);
+    cl.style.cssText = "--r:0deg;transform:scale(1);max-width:300px;width:78vw;cursor:default;box-shadow:0 32px 80px rgba(0,0,0,0.3)";
+    ov.appendChild(cl);
+    ov.addEventListener("click", () => ov.remove());
+    document.body.appendChild(ov);
   });
-
-// ══════════════════════════════════
-// 강릉여행 슬라이드쇼
-// ══════════════════════════════════
-
-// 📁 강릉여행 이미지 목록 (총 20장)
-const gangneungImages = [
-  "KakaoTalk_20260305_104517673_07.jpg", // 대표 썸네일
-  "KakaoTalk_20260305_104517673.jpg",
-  "KakaoTalk_20260305_104517673_01.jpg",
-  "KakaoTalk_20260305_104517673_02.jpg",
-  "KakaoTalk_20260305_104517673_03.jpg",
-  "KakaoTalk_20260305_104517673_04.jpg",
-  "KakaoTalk_20260305_104517673_05.jpg",
-  "KakaoTalk_20260305_104517673_06.jpg",
-  "KakaoTalk_20260305_104517673_08.jpg",
-  "KakaoTalk_20260305_104517673_09.png",
-  "KakaoTalk_20260305_104517673_10.png",
-  "KakaoTalk_20260305_104517673_11.jpg",
-  "KakaoTalk_20260305_104517673_12.jpg",
-  "KakaoTalk_20260305_104517673_13.jpg",
-  "KakaoTalk_20260305_104517673_14.jpg",
-  "KakaoTalk_20260305_104517673_15.jpg",
-  "KakaoTalk_20260305_104517673_16.jpg",
-  "KakaoTalk_20260305_104517673_17.jpg",
-  "KakaoTalk_20260305_104517673_18.jpg",
-  "KakaoTalk_20260305_104517673_19.jpg",
-];
-const BASE = "./images/first/";
-let ssIdx = 0;
-
-function buildStrip() {
-  document.getElementById("ssStrip").innerHTML = gangneungImages
-    .map(
-      (f, i) => `
-          <div class="ss-dot${i === ssIdx ? " active" : ""}" id="ssdot${i}" onclick="ssGo(${i})">
-            <img src="${BASE}${f}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=ss-dot-fb>🌊</div>'"/>
-          </div>`,
-    )
-    .join("");
-}
-
-function updateStrip() {
-  document
-    .querySelectorAll(".ss-dot")
-    .forEach((d, i) => d.classList.toggle("active", i === ssIdx));
-  const dot = document.getElementById(`ssdot${ssIdx}`);
-  if (dot)
-    dot.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "nearest",
-    });
-}
-
-function ssSetImg(src) {
-  const img = document.getElementById("ssImg");
-  img.classList.add("fading");
-  setTimeout(() => {
-    img.src = src;
-    img.onload = () => img.classList.remove("fading");
-    img.onerror = () => img.classList.remove("fading");
-  }, 200);
-}
-
-function openSlideshow(startIdx) {
-  ssIdx = startIdx || 0;
-  document.getElementById("slideshow").classList.add("open");
-  document.body.style.overflow = "hidden";
-  document.getElementById("ssIdx").textContent = ssIdx + 1;
-  document.getElementById("ssTotal").textContent = gangneungImages.length;
-  buildStrip();
-  ssSetImg(BASE + gangneungImages[ssIdx]);
-  document.addEventListener("keydown", ssKey);
-  startAutoplay();
-}
-
-function closeSlideshow() {
-  document.getElementById("slideshow").classList.remove("open");
-  document.body.style.overflow = "";
-  document.removeEventListener("keydown", ssKey);
-  stopAutoplay();
-}
-
-function ssMove(dir) {
-  ssIdx = (ssIdx + dir + gangneungImages.length) % gangneungImages.length;
-  document.getElementById("ssIdx").textContent = ssIdx + 1;
-  ssSetImg(BASE + gangneungImages[ssIdx]);
-  updateStrip();
-  if (autoOn) resetAutoplay();
-}
-
-function ssGo(i) {
-  ssIdx = i;
-  document.getElementById("ssIdx").textContent = ssIdx + 1;
-  ssSetImg(BASE + gangneungImages[ssIdx]);
-  updateStrip();
-  if (autoOn) resetAutoplay();
-}
-
-function ssKey(e) {
-  if (e.key === "ArrowLeft") ssMove(-1);
-  if (e.key === "ArrowRight") ssMove(1);
-  if (e.key === "Escape") closeSlideshow();
-}
-
-// 배경 클릭 닫기
-document
-  .getElementById("slideshow")
-  .addEventListener("click", function (e) {
-    if (e.target === this) closeSlideshow();
-  });
-
-// 터치 스와이프
-let tx = 0;
-document.getElementById("slideshow").addEventListener(
-  "touchstart",
-  (e) => {
-    tx = e.touches[0].clientX;
-  },
-  { passive: true },
-);
-document.getElementById("slideshow").addEventListener("touchend", (e) => {
-  const dx = e.changedTouches[0].clientX - tx;
-  if (Math.abs(dx) > 50) ssMove(dx < 0 ? 1 : -1);
 });
 
-// ── 자동재생 ──
-const AUTOPLAY_DELAY = 3500; // ms
-let autoOn = true;
-let autoTimer = null;
-let progressAnim = null;
+/* ══════════════════════════════════════════════════════
+   슬라이드쇼 팩토리 — 강릉/경주 공통 로직 하나로 통합
+══════════════════════════════════════════════════════ */
+const AUTOPLAY_DELAY = 3500;
 
-function startAutoplay() {
-  if (!autoOn) return;
-  stopAutoplay();
-  // 진행 바 애니메이션
-  const bar = document.getElementById("ssProgress");
-  bar.style.transition = "none";
-  bar.style.width = "0%";
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
+function createSlideshow({ id, images, base, idxElId, totalElId, imgElId, stripElId, progressElId, autoBtnId, fallbackEmoji }) {
+  let idx = 0;
+  let autoOn = true;
+  let timer = null;
+  const el = document.getElementById(id);
+  const imgEl = document.getElementById(imgElId);
+
+  /* 썸네일 스트립 빌드 */
+  function buildStrip() {
+    document.getElementById(stripElId).innerHTML = images.map((f, i) =>
+      `<div class="ss-dot${i === idx ? " active" : ""}" id="${id}_dot_${i}" onclick="${id}_go(${i})">
+         <img src="${base}${f}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=ss-dot-fb>${fallbackEmoji}</div>'"/>
+       </div>`
+    ).join("");
+  }
+
+  function updateStrip() {
+    document.querySelectorAll(`#${stripElId} .ss-dot`).forEach((d, i) => d.classList.toggle("active", i === idx));
+    const dot = document.getElementById(`${id}_dot_${idx}`);
+    if (dot) dot.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }
+
+  function setImg(src) {
+    imgEl.classList.add("fading");
+    setTimeout(() => {
+      imgEl.src = src;
+      const done = () => imgEl.classList.remove("fading");
+      imgEl.onload = done; imgEl.onerror = done;
+    }, 200);
+  }
+
+  /* 자동재생 */
+  function startAuto() {
+    if (!autoOn) return;
+    stopAuto();
+    const bar = document.getElementById(progressElId);
+    bar.style.transition = "none"; bar.style.width = "0%";
+    requestAnimationFrame(() => requestAnimationFrame(() => {
       bar.style.transition = `width ${AUTOPLAY_DELAY}ms linear`;
       bar.style.width = "100%";
-    });
-  });
-  autoTimer = setTimeout(() => {
-    ssMove(1);
-    startAutoplay();
-  }, AUTOPLAY_DELAY);
-}
-
-function stopAutoplay() {
-  clearTimeout(autoTimer);
-  autoTimer = null;
-  const bar = document.getElementById("ssProgress");
-  if (bar) {
-    bar.style.transition = "none";
-    bar.style.width = "0%";
+    }));
+    timer = setTimeout(() => { move(1); startAuto(); }, AUTOPLAY_DELAY);
   }
+  function stopAuto() {
+    clearTimeout(timer); timer = null;
+    const bar = document.getElementById(progressElId);
+    if (bar) { bar.style.transition = "none"; bar.style.width = "0%"; }
+  }
+
+  /* 탐색 */
+  function move(dir) {
+    idx = (idx + dir + images.length) % images.length;
+    document.getElementById(idxElId).textContent = idx + 1;
+    setImg(base + images[idx]);
+    updateStrip();
+    if (autoOn) { stopAuto(); startAuto(); }
+  }
+  function go(i) {
+    idx = i;
+    document.getElementById(idxElId).textContent = idx + 1;
+    setImg(base + images[idx]);
+    updateStrip();
+    if (autoOn) { stopAuto(); startAuto(); }
+  }
+
+  /* 키보드 */
+  function onKey(e) {
+    if (e.key === "ArrowLeft") move(-1);
+    if (e.key === "ArrowRight") move(1);
+    if (e.key === "Escape") close();
+  }
+
+  /* 열기/닫기 */
+  function open(startIdx) {
+    idx = startIdx || 0;
+    el.classList.add("open");
+    document.body.style.overflow = "hidden";
+    document.getElementById(idxElId).textContent = idx + 1;
+    document.getElementById(totalElId).textContent = images.length;
+    buildStrip();
+    setImg(base + images[idx]);
+    document.addEventListener("keydown", onKey);
+    startAuto();
+  }
+  function close() {
+    el.classList.remove("open");
+    document.body.style.overflow = "";
+    document.removeEventListener("keydown", onKey);
+    stopAuto();
+  }
+
+  /* AUTO 버튼 토글 */
+  function toggleAuto() {
+    autoOn = !autoOn;
+    const btn = document.getElementById(autoBtnId);
+    if (autoOn) {
+      btn.textContent = "▶ AUTO";
+      btn.style.color = "rgba(255,210,100,0.6)";
+      btn.style.borderColor = "rgba(255,200,60,0.25)";
+      startAuto();
+    } else {
+      btn.textContent = "⏸ AUTO";
+      btn.style.color = "rgba(255,180,75,0.9)";
+      btn.style.borderColor = "rgba(255,200,60,0.5)";
+      stopAuto();
+    }
+  }
+
+  /* 배경 클릭 닫기 */
+  el.addEventListener("click", e => { if (e.target === el) close(); });
+
+  /* 터치 스와이프 */
+  let tx = 0;
+  el.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
+  el.addEventListener("touchend", e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) move(dx < 0 ? 1 : -1); });
+
+  /* 전역 노출 (HTML onclick 바인딩용) */
+  window[`${id}_open`] = open;
+  window[`${id}_close`] = close;
+  window[`${id}_move`] = move;
+  window[`${id}_go`] = go;
+  window[`${id}_toggleAuto`] = toggleAuto;
 }
 
-function resetAutoplay() {
-  stopAutoplay();
-  startAutoplay();
-}
+/* ── 강릉여행 슬라이드쇼 ── */
+createSlideshow({
+  id: "slideshow",
+  images: [
+    "KakaoTalk_20260305_104517673_07.jpg",
+    "KakaoTalk_20260305_104517673.jpg",
+    "KakaoTalk_20260305_104517673_01.jpg",
+    "KakaoTalk_20260305_104517673_02.jpg",
+    "KakaoTalk_20260305_104517673_03.jpg",
+    "KakaoTalk_20260305_104517673_04.jpg",
+    "KakaoTalk_20260305_104517673_05.jpg",
+    "KakaoTalk_20260305_104517673_06.jpg",
+    "KakaoTalk_20260305_104517673_08.jpg",
+    "KakaoTalk_20260305_104517673_09.png",
+    "KakaoTalk_20260305_104517673_10.png",
+    "KakaoTalk_20260305_104517673_11.jpg",
+    "KakaoTalk_20260305_104517673_12.jpg",
+    "KakaoTalk_20260305_104517673_13.jpg",
+    "KakaoTalk_20260305_104517673_14.jpg",
+    "KakaoTalk_20260305_104517673_15.jpg",
+    "KakaoTalk_20260305_104517673_16.jpg",
+    "KakaoTalk_20260305_104517673_17.jpg",
+    "KakaoTalk_20260305_104517673_18.jpg",
+    "KakaoTalk_20260305_104517673_19.jpg",
+  ],
+  base: "./images/first/",
+  idxElId: "ssIdx",
+  totalElId: "ssTotal",
+  imgElId: "ssImg",
+  stripElId: "ssStrip",
+  progressElId: "ssProgress",
+  autoBtnId: "ssAutoBtn",
+  fallbackEmoji: "🌊",
+});
 
-function toggleAutoplay() {
-  autoOn = !autoOn;
-  const btn = document.getElementById("ssAutoBtn");
-  if (autoOn) {
-    btn.textContent = "▶ AUTO";
-    btn.style.color = "rgba(255,210,100,0.6)";
-    btn.style.borderColor = "rgba(255,200,60,0.25)";
-    startAutoplay();
+/* ── 경주여행 슬라이드쇼 ── */
+createSlideshow({
+  id: "slideshow2",
+  images: [
+    "KakaoTalk_20260305_104533933_07.jpg",
+    "KakaoTalk_20260305_104533933.jpg",
+    "KakaoTalk_20260305_104533933_01.jpg",
+    "KakaoTalk_20260305_104533933_02.jpg",
+    "KakaoTalk_20260305_104533933_03.jpg",
+    "KakaoTalk_20260305_104533933_04.jpg",
+    "KakaoTalk_20260305_104533933_05.jpg",
+    "KakaoTalk_20260305_104533933_06.jpg",
+    "KakaoTalk_20260305_104533933_08.jpg",
+    "KakaoTalk_20260305_104533933_09.jpg",
+    "KakaoTalk_20260305_104533933_10.jpg",
+  ],
+  base: "./images/second/",
+  idxElId: "ssIdx2",
+  totalElId: "ssTotal2",
+  imgElId: "ssImg2",
+  stripElId: "ssStrip2",
+  progressElId: "ssProgress2",
+  autoBtnId: "ssAutoBtn2",
+  fallbackEmoji: "🏛️",
+});
+
+/* ── 잠금화면 ── */
+function lockFocus(el) {
+  el.style.borderColor = "rgba(255,210,50,0.7)"; el.style.borderBottomColor = "#ffd040";
+  el.style.boxShadow = "0 0 0 3px rgba(255,200,40,0.12),0 0 16px rgba(255,180,0,0.12)";
+  el.style.background = "rgba(255,200,50,0.14)";
+}
+function lockBlur(el) {
+  el.style.borderColor = "rgba(255,190,40,0.25)"; el.style.borderBottomColor = "rgba(255,180,30,0.6)";
+  el.style.boxShadow = "none"; el.style.background = "rgba(255,200,50,0.1)";
+}
+function onlyNums(el) { el.value = el.value.replace(/\D/g, ""); }
+
+function checkDate() {
+  const y = document.getElementById("inYear").value.trim();
+  const m = document.getElementById("inMonth").value.trim().padStart(2, "0");
+  const d = document.getElementById("inDay").value.trim().padStart(2, "0");
+  if (y.length < 4 || m.length < 2 || d.length < 2) return;
+  if (`${y}-${m}-${d}` === "2025-03-07") {
+    const lock = document.getElementById("lockScreen");
+    const duck = document.getElementById("lockDuck");
+    duck.style.animation = "none"; duck.textContent = "🎉"; duck.style.fontSize = "4rem";
+    for (let i = 0; i < 28; i++) {
+      setTimeout(() => {
+        const el = document.createElement("div");
+        const ang = Math.random() * Math.PI * 2, dist = 90 + Math.random() * 170;
+        el.textContent = ["🐥", "🐣", "💛", "✨", "🌟", "🌼", "🐥"][Math.random() * 7 | 0];
+        el.style.cssText = `position:fixed;left:50%;top:50%;font-size:${0.9 + Math.random() * 1.3}rem;pointer-events:none;z-index:9999;transition:transform 1s cubic-bezier(.2,.8,.3,1),opacity 1s;opacity:1`;
+        document.body.appendChild(el);
+        requestAnimationFrame(() => {
+          el.style.transform = `translate(calc(-50% + ${Math.cos(ang) * dist}px),calc(-50% + ${Math.sin(ang) * dist}px)) scale(0.2) rotate(${Math.random() * 360}deg)`;
+          el.style.opacity = "0";
+        });
+        setTimeout(() => el.remove(), 1100);
+      }, i * 35);
+    }
+    setTimeout(() => {
+      lock.style.transition = "opacity 1s ease"; lock.style.opacity = "0";
+      setTimeout(() => { lock.style.display = "none"; }, 1000);
+    }, 1000);
   } else {
-    btn.textContent = "⏸ AUTO";
-    btn.style.color = "rgba(255,180,75,0.9)";
-    btn.style.borderColor = "rgba(255,200,60,0.5)";
-    stopAutoplay();
+    const msg = document.getElementById("lockErrMsg");
+    const inputs = document.getElementById("dateInputs");
+    msg.style.opacity = "1";
+    inputs.classList.remove("lock-shake"); void inputs.offsetWidth; inputs.classList.add("lock-shake");
+    ["inYear", "inMonth", "inDay"].forEach(id => {
+      const el = document.getElementById(id);
+      el.style.borderBottomColor = "rgba(255,100,80,0.8)"; el.style.boxShadow = "0 0 0 3px rgba(255,80,60,0.08)";
+      setTimeout(() => { el.style.borderBottomColor = "rgba(255,180,30,0.5)"; el.style.boxShadow = "none"; }, 700);
+    });
+    document.getElementById("inDay").value = "";
+    setTimeout(() => { msg.style.opacity = "0"; }, 2600);
+    document.getElementById("inYear").focus();
   }
 }
+
+/* ── 잠금화면 파티클 ── */
+(function () {
+  const c = document.getElementById("lockCanvas");
+  if (!c) return;
+  let W, H, pts = [];
+  function resize() { W = c.width = innerWidth; H = c.height = innerHeight; }
+  function mkPt() {
+    return {
+      x: Math.random() * W, y: Math.random() * H + H,
+      vx: (Math.random() - .5) * .4, vy: -(Math.random() * .6 + .2),
+      a: Math.random() * .5 + .1, r: Math.random() * 1.5 + .3,
+      life: 0, maxLife: 200 + Math.random() * 300
+    };
+  }
+  for (let i = 0; i < 60; i++) { pts.push(mkPt()); pts[i].y = Math.random() * H; }
+  function draw() {
+    const ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, W, H);
+    pts.forEach((p, i) => {
+      p.life++; p.x += p.vx; p.y += p.vy;
+      const fade = p.life < 30 ? p.life / 30 : p.life > p.maxLife - 30 ? 1 - (p.life - (p.maxLife - 30)) / 30 : 1;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,${180 + Math.random() * 60 | 0},20,${p.a * fade * .7})`; ctx.fill();
+      if (p.life > p.maxLife) pts[i] = mkPt();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener("resize", resize); resize(); draw();
+})();
