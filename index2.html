@@ -3,346 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>지영아, 1주년 🐥</title>
+    <title>우래기 1주년 축하해 🐥</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500&display=swap"
       rel="stylesheet" />
-    <style>
-      :root {
-        --gold: #e8b84b;
-        --gold-light: #f5d98a;
-        --gold-pale: #fdf6e3;
-        --cream: #fefcf5;
-        --ink: #1c1a16;
-        --muted: #8a8070;
-        --line: #ecdcaa;
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        background: var(--cream);
-        font-family: "Noto Sans KR", sans-serif;
-        color: var(--ink);
-        overflow-x: hidden;
-      }
-
-      ::-webkit-scrollbar {
-        width: 3px;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: var(--gold-light);
-        border-radius: 2px;
-      }
-
-      .serif {
-        font-family: "Nanum Myeongjo", serif;
-      }
-
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-        pointer-events: none;
-        z-index: 1000;
-        opacity: 0.35;
-      }
-
-      .reveal {
-        opacity: 0;
-        transform: translateY(32px);
-        transition:
-          opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
-          transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .reveal.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .big-num {
-        font-family: "Nanum Myeongjo", serif;
-        font-size: clamp(9rem, 26vw, 16rem);
-        line-height: 0.85;
-        color: transparent;
-        -webkit-text-stroke: 2px var(--gold);
-        letter-spacing: -0.03em;
-        user-select: none;
-      }
-      .big-num-fill {
-        font-family: "Nanum Myeongjo", serif;
-        font-size: clamp(9rem, 26vw, 16rem);
-        line-height: 0.85;
-        color: var(--gold);
-        letter-spacing: -0.03em;
-        position: absolute;
-        top: 0;
-        left: 0;
-        clip-path: inset(0 100% 0 0);
-        animation: fillNum 1.6s 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        user-select: none;
-      }
-      @keyframes fillNum {
-        to {
-          clip-path: inset(0 0% 0 0);
-        }
-      }
-
-      @keyframes duckFloat {
-        0%,
-        100% {
-          transform: translateY(0) rotate(-4deg);
-        }
-        50% {
-          transform: translateY(-8px) rotate(4deg);
-        }
-      }
-      .duck-float {
-        animation: duckFloat 2.2s ease-in-out infinite;
-        display: inline-block;
-      }
-      @keyframes duckWalk {
-        0%,
-        100% {
-          transform: rotate(-5deg) translateY(0);
-        }
-        25% {
-          transform: rotate(5deg) translateY(-3px);
-        }
-        75% {
-          transform: rotate(-3deg) translateY(-3px);
-        }
-      }
-      .duck-walk {
-        animation: duckWalk 1s ease-in-out infinite;
-        display: inline-block;
-      }
-
-      .line {
-        width: 48px;
-        height: 1px;
-        background: var(--line);
-        margin: 0 auto;
-      }
-      .section-label {
-        font-size: 0.62rem;
-        letter-spacing: 0.3em;
-        color: #ccc;
-        text-transform: uppercase;
-      }
-
-      .letter-paper {
-        background: #fffef8;
-        border: 1px solid #f0e4b0;
-        border-radius: 4px;
-        position: relative;
-        overflow: hidden;
-        box-shadow:
-          0 2px 40px rgba(0, 0, 0, 0.05),
-          0 0 0 6px rgba(240, 228, 176, 0.2);
-      }
-      .letter-paper::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: repeating-linear-gradient(
-          transparent,
-          transparent 31px,
-          rgba(216, 196, 120, 0.12) 31px,
-          rgba(216, 196, 120, 0.12) 32px
-        );
-        pointer-events: none;
-      }
-      .letter-paper::after {
-        content: "";
-        position: absolute;
-        left: 48px;
-        top: 0;
-        bottom: 0;
-        width: 1px;
-        background: rgba(216, 160, 160, 0.18);
-        pointer-events: none;
-      }
-
-      .photo-card {
-        background: #fff;
-        border-radius: 3px;
-        padding: 10px 10px 36px;
-        box-shadow:
-          0 6px 28px rgba(0, 0, 0, 0.08),
-          0 1px 3px rgba(0, 0, 0, 0.04);
-        transform: rotate(var(--r));
-        transition:
-          transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-          box-shadow 0.4s;
-        cursor: pointer;
-        position: relative;
-      }
-      .photo-card:hover {
-        transform: rotate(0deg) scale(1.06) translateY(-6px);
-        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12);
-        z-index: 5;
-      }
-      .photo-inner {
-        width: 100%;
-        aspect-ratio: 1;
-        border-radius: 1px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3.2rem;
-        position: relative;
-      }
-      .photo-cap {
-        text-align: center;
-        margin-top: 10px;
-        font-family: "Nanum Myeongjo", serif;
-        font-size: 0.7rem;
-        color: #aaa;
-        letter-spacing: 0.02em;
-      }
-
-      .t-dot {
-        width: 10px;
-        height: 10px;
-        background: var(--cream);
-        border-radius: 50%;
-        border: 2px solid var(--gold);
-        flex-shrink: 0;
-        margin-top: 6px;
-        transition: transform 0.3s;
-      }
-      .t-dot:hover {
-        transform: scale(1.5);
-      }
-      .t-dot.now {
-        width: 12px;
-        height: 12px;
-        background: var(--gold);
-        border: none;
-        box-shadow:
-          0 0 0 3px var(--cream),
-          0 0 0 5px var(--gold-light),
-          0 0 16px rgba(232, 184, 75, 0.4);
-        margin-top: 4px;
-      }
-
-      .player {
-        background: rgba(254, 252, 245, 0.95);
-        border: 1px solid rgba(232, 184, 75, 0.25);
-        border-radius: 999px;
-        backdrop-filter: blur(16px);
-        box-shadow:
-          0 4px 24px rgba(0, 0, 0, 0.06),
-          0 1px 0 rgba(255, 255, 255, 0.8) inset;
-      }
-      .play-btn {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        border: none;
-        cursor: pointer;
-        background: linear-gradient(135deg, var(--gold), #d4a030);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
-        flex-shrink: 0;
-        box-shadow: 0 2px 8px rgba(232, 184, 75, 0.4);
-      }
-      .play-btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 4px 16px rgba(232, 184, 75, 0.5);
-      }
-
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 8px 20px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid var(--line);
-        font-size: 0.75rem;
-        color: #9a8040;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-        backdrop-filter: blur(8px);
-      }
-
-      .envelope {
-        background: linear-gradient(145deg, #fff8dc, #fff3c0);
-        border: 1px solid #f0e090;
-        border-radius: 8px;
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        transition:
-          transform 0.3s,
-          box-shadow 0.3s;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-      }
-      .envelope:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-      }
-      .envelope-flap {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 50%;
-        background: linear-gradient(160deg, #fff0a0, #ffe878);
-        clip-path: polygon(0 0, 100% 0, 50% 100%);
-        border-bottom: 1px solid #f0d870;
-      }
-
-      .dot-pattern {
-        background-image: radial-gradient(
-          circle,
-          rgba(232, 184, 75, 0.12) 1px,
-          transparent 1px
-        );
-        background-size: 22px 22px;
-      }
-
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(24px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.08);
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="./css/365.css" />
   </head>
   <body>
     <!-- ═══ LOCK SCREEN ═══ -->
@@ -357,7 +23,6 @@
         justify-content: center;
         overflow: hidden;
       ">
-      <!-- Warm amber background -->
       <div
         style="
           position: absolute;
@@ -370,19 +35,13 @@
             #0e0c00 100%
           );
         "></div>
-
-      <!-- Gold bokeh blobs -->
       <div class="lb lb1"></div>
       <div class="lb lb2"></div>
       <div class="lb lb3"></div>
       <div class="lb lb4"></div>
-
-      <!-- Particle canvas -->
       <canvas
         id="lockCanvas"
         style="position: absolute; inset: 0; pointer-events: none"></canvas>
-
-      <!-- Faint honeycomb grid overlay -->
       <svg
         style="
           position: absolute;
@@ -410,8 +69,6 @@
         </defs>
         <rect width="100%" height="100%" fill="url(#hex)" />
       </svg>
-
-      <!-- Card -->
       <div
         id="lockCard"
         style="
@@ -422,7 +79,6 @@
           margin: 0 20px;
           animation: lcIn 1s cubic-bezier(0.16, 1, 0.3, 1) both;
         ">
-        <!-- Outer glow ring -->
         <div
           style="
             position: absolute;
@@ -445,8 +101,6 @@
               background: transparent;
             "></div>
         </div>
-
-        <!-- Card body -->
         <div
           style="
             position: relative;
@@ -465,7 +119,6 @@
               0 0 60px rgba(200, 140, 0, 0.08),
               0 1px 0 rgba(255, 220, 100, 0.1) inset;
           ">
-          <!-- Top ornament -->
           <div style="text-align: center; margin-bottom: 28px">
             <div style="display: inline-flex; align-items: center; gap: 12px">
               <div
@@ -479,8 +132,8 @@
                   );
                 "></div>
               <div style="display: flex; gap: 5px; align-items: center">
-                <span style="font-size: 0.7rem">💛</span>
-                <span
+                <span style="font-size: 0.7rem">💛</span
+                ><span
                   style="
                     font-size: 0.46rem;
                     letter-spacing: 0.28em;
@@ -488,8 +141,7 @@
                     font-family: &quot;Noto Sans KR&quot;, sans-serif;
                   "
                   >ANNIVERSARY</span
-                >
-                <span style="font-size: 0.7rem">💛</span>
+                ><span style="font-size: 0.7rem">💛</span>
               </div>
               <div
                 style="
@@ -503,8 +155,6 @@
                 "></div>
             </div>
           </div>
-
-          <!-- Duck with glow halo -->
           <div
             style="text-align: center; margin-bottom: 20px; position: relative">
             <div
@@ -536,8 +186,6 @@
               🐥
             </div>
           </div>
-
-          <!-- Title -->
           <div style="text-align: center; margin-bottom: 28px">
             <h2
               class="serif"
@@ -563,8 +211,6 @@
               맞히면 열어줄게 🐥💛
             </p>
           </div>
-
-          <!-- Inputs -->
           <div
             id="dateInputs"
             style="
@@ -581,35 +227,33 @@
                 align-items: center;
                 gap: 8px;
               ">
-              <div style="position: relative">
-                <input
-                  id="inYear"
-                  type="text"
-                  inputmode="numeric"
-                  maxlength="4"
-                  placeholder="YYYY"
-                  style="
-                    width: 82px;
-                    background: rgba(255, 200, 50, 0.1);
-                    border: 1px solid rgba(255, 190, 40, 0.25);
-                    border-bottom: 2px solid rgba(255, 180, 30, 0.6);
-                    border-radius: 14px 14px 4px 4px;
-                    padding: 14px 6px 12px;
-                    color: #ffe87a;
-                    -webkit-text-fill-color: #ffe87a;
-                    font-size: 1.1rem;
-                    text-align: center;
-                    outline: none;
-                    font-family: &quot;Nanum Myeongjo&quot;, serif;
-                    transition: all 0.2s;
-                    letter-spacing: 0.1em;
-                    caret-color: #ffd040;
-                  "
-                  oninput="onlyNums(this)"
-                  onfocus="lockFocus(this)"
-                  onblur="lockBlur(this)"
-                  onkeydown="if (event.key === 'Enter') checkDate();" />
-              </div>
+              <input
+                id="inYear"
+                type="text"
+                inputmode="numeric"
+                maxlength="4"
+                placeholder="YYYY"
+                style="
+                  width: 82px;
+                  background: rgba(255, 200, 50, 0.1);
+                  border: 1px solid rgba(255, 190, 40, 0.25);
+                  border-bottom: 2px solid rgba(255, 180, 30, 0.6);
+                  border-radius: 14px 14px 4px 4px;
+                  padding: 14px 6px 12px;
+                  color: #ffe87a;
+                  -webkit-text-fill-color: #ffe87a;
+                  font-size: 1.1rem;
+                  text-align: center;
+                  outline: none;
+                  font-family: &quot;Nanum Myeongjo&quot;, serif;
+                  transition: all 0.2s;
+                  letter-spacing: 0.1em;
+                  caret-color: #ffd040;
+                "
+                oninput="onlyNums(this)"
+                onfocus="lockFocus(this)"
+                onblur="lockBlur(this)"
+                onkeydown="if (event.key === 'Enter') checkDate();" />
               <span
                 style="
                   font-size: 0.46rem;
@@ -620,7 +264,6 @@
                 >YEAR</span
               >
             </div>
-
             <div
               style="
                 padding-bottom: 28px;
@@ -631,7 +274,6 @@
               ">
               —
             </div>
-
             <div
               style="
                 display: flex;
@@ -676,7 +318,6 @@
                 >MONTH</span
               >
             </div>
-
             <div
               style="
                 padding-bottom: 28px;
@@ -687,7 +328,6 @@
               ">
               —
             </div>
-
             <div
               style="
                 display: flex;
@@ -733,8 +373,6 @@
               >
             </div>
           </div>
-
-          <!-- Error -->
           <div style="height: 22px; text-align: center; margin-bottom: 20px">
             <p
               id="lockErrMsg"
@@ -749,8 +387,6 @@
               🐥 삐약.. 틀렸어! 다시 생각해봐
             </p>
           </div>
-
-          <!-- Button -->
           <div style="text-align: center">
             <button
               onclick="checkDate()"
@@ -799,8 +435,6 @@
                 "></div>
             </button>
           </div>
-
-          <!-- Bottom ornament -->
           <div
             style="
               display: flex;
@@ -944,7 +578,6 @@
     </style>
 
     <script>
-      // Gold floating particles
       (function () {
         const c = document.getElementById("lockCanvas");
         let W,
@@ -997,29 +630,21 @@
         resize();
         draw();
       })();
-
       function lockFocus(el) {
         el.style.borderColor = "rgba(255,210,50,0.7)";
         el.style.borderBottomColor = "#ffd040";
         el.style.boxShadow =
           "0 0 0 3px rgba(255,200,40,0.12),0 0 16px rgba(255,180,0,0.12)";
         el.style.background = "rgba(255,200,50,0.14)";
-        el.style.webkitTextFillColor = "#ffe87a";
-        el.style.color = "#ffe87a";
       }
       function lockBlur(el) {
         el.style.borderColor = "rgba(255,190,40,0.25)";
         el.style.borderBottomColor = "rgba(255,180,30,0.6)";
         el.style.boxShadow = "none";
         el.style.background = "rgba(255,200,50,0.1)";
-        el.style.webkitTextFillColor = "#ffe87a";
-        el.style.color = "#ffe87a";
       }
       function onlyNums(el) {
         el.value = el.value.replace(/\D/g, "");
-      }
-      function handleLockInput(el, nextId, maxLen) {
-        onlyNums(el);
       }
       function checkDate() {
         const y = document.getElementById("inYear").value.trim();
@@ -1032,7 +657,6 @@
           .value.trim()
           .padStart(2, "0");
         if (y.length < 4 || m.length < 2 || d.length < 2) return;
-
         if (`${y}-${m}-${d}` === "2025-03-07") {
           const lock = document.getElementById("lockScreen");
           const duck = document.getElementById("lockDuck");
@@ -1190,7 +814,6 @@
           );
           pointer-events: none;
         "></div>
-
       <div
         style="
           position: relative;
@@ -1230,15 +853,15 @@
           opacity: 0;
         ">
         <div class="badge">
-          <span>📅</span><span>2025. 03. 07</span>
-          <span
+          <span>📅</span><span>2025. 03. 07</span
+          ><span
             style="
               width: 1px;
               height: 10px;
               background: #e0d090;
               display: inline-block;
-            "></span>
-          <span id="dayCount" style="color: var(--gold); font-weight: 600"
+            "></span
+          ><span id="dayCount" style="color: var(--gold); font-weight: 600"
             >D+1일</span
           >
         </div>
@@ -1293,14 +916,47 @@
           <div class="line mt-5"></div>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-7">
-          <div class="photo-card reveal" style="--r: -2.8deg">
-            <div
-              class="photo-inner"
-              style="background: linear-gradient(135deg, #fff8e0, #fff0c0)">
-              🐥
+          <!-- ① 강릉여행 카드 → 클릭 시 슬라이드쇼 -->
+          <div
+            class="photo-card gangneung-card reveal"
+            style="--r: -2.8deg"
+            onclick="openSlideshow(0)">
+            <div class="gangneung-badge">🌊 강릉여행</div>
+            <div class="photo-inner">
+              <img
+                src="./images/first/KakaoTalk_20260305_104517673_07.jpg"
+                alt="강릉여행"
+                onerror="
+                  this.style.display = 'none';
+                  this.nextElementSibling.style.display = 'flex';
+                " />
+              <div
+                style="
+                  display: none;
+                  width: 100%;
+                  height: 100%;
+                  align-items: center;
+                  justify-content: center;
+                  background: linear-gradient(135deg, #daeef8, #b8dcf0);
+                  flex-direction: column;
+                  gap: 8px;
+                ">
+                <span style="font-size: 2.8rem">🌊</span>
+                <span
+                  style="
+                    font-size: 0.58rem;
+                    color: #5a9ec0;
+                    letter-spacing: 0.1em;
+                    font-family: &quot;Noto Sans KR&quot;, sans-serif;
+                  "
+                  >강릉여행</span
+                >
+              </div>
             </div>
-            <p class="photo-cap">오리 좋아하는 지영</p>
+            <p class="photo-cap">강릉여행 🌊</p>
           </div>
+
+          <!-- ② ~ ⑥ 기존 카드 -->
           <div
             class="photo-card reveal"
             style="--r: 2.2deg; margin-top: 22px; transition-delay: 0.08s">
@@ -1365,6 +1021,47 @@
         </p>
       </div>
     </section>
+
+    <!-- ══ 슬라이드쇼 ══ -->
+    <div id="slideshow">
+      <div class="ss-topbar">
+        <div>
+          <div class="ss-title">🌊 강릉여행</div>
+          <div class="ss-counter">
+            <span id="ssIdx">1</span> / <span id="ssTotal">1</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <!-- 자동재생 토글 -->
+          <button
+            id="ssAutoBtn"
+            onclick="toggleAutoplay()"
+            style="
+              background: none;
+              border: 1px solid rgba(255, 200, 60, 0.25);
+              border-radius: 999px;
+              color: rgba(255, 210, 100, 0.6);
+              font-size: 0.6rem;
+              letter-spacing: 0.12em;
+              padding: 5px 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            ">
+            ▶ AUTO
+          </button>
+          <button class="ss-close" onclick="closeSlideshow()">✕</button>
+        </div>
+      </div>
+      <!-- 자동재생 진행 바 -->
+      <div class="ss-progress" id="ssProgress"></div>
+      <div class="ss-stage">
+        <button class="ss-arrow" id="ssArrowL" onclick="ssMove(-1)">‹</button>
+        <img id="ssImg" src="" alt="강릉여행" />
+        <button class="ss-arrow" id="ssArrowR" onclick="ssMove(1)">›</button>
+      </div>
+      <div class="ss-strip" id="ssStrip"></div>
+    </div>
 
     <!-- TIMELINE -->
     <section class="py-28 px-6" style="background: var(--cream)">
@@ -1697,86 +1394,6 @@
       </p>
     </footer>
 
-    <script>
-      // D+ count
-      const start = new Date("2025-03-07");
-      const days = Math.max(1, Math.floor((new Date() - start) / 86400000));
-      document.getElementById("dayCount").textContent = `D+${days}일`;
-
-      // Scroll reveal
-      document.querySelectorAll(".reveal").forEach((el) =>
-        new IntersectionObserver(
-          ([e]) => {
-            if (e.isIntersecting) el.classList.add("show");
-          },
-          { threshold: 0.1 },
-        ).observe(el),
-      );
-
-      // Music
-      const audio = document.getElementById("bgm");
-      const pbar = document.getElementById("pbar");
-      let playing = false;
-      audio.addEventListener("timeupdate", () => {
-        if (audio.duration)
-          pbar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
-      });
-      function toggleMusic() {
-        if (playing) {
-          audio.pause();
-          document.getElementById("playIcon").style.display = "";
-          document.getElementById("pauseIcon").style.display = "none";
-        } else {
-          audio.play().catch(() => {});
-          document.getElementById("playIcon").style.display = "none";
-          document.getElementById("pauseIcon").style.display = "";
-        }
-        playing = !playing;
-      }
-
-      // Letter
-      function openLetter() {
-        document.getElementById("envWrap").style.display = "none";
-        const box = document.getElementById("letterBox");
-        box.style.display = "block";
-        setTimeout(() => box.classList.add("show"), 30);
-      }
-
-      // Duck pop
-      function duckPop(e) {
-        const items = ["🐥", "🐥", "🐥", "🐣", "💛", "✨", "🌟", "🌼", "💝"];
-        for (let i = 0; i < 30; i++) {
-          setTimeout(() => {
-            const el = document.createElement("div");
-            const ang = Math.random() * Math.PI * 2;
-            const dist = 70 + Math.random() * 160;
-            const size = 0.9 + Math.random() * 1;
-            el.textContent = items[Math.floor(Math.random() * items.length)];
-            el.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;font-size:${size}rem;pointer-events:none;z-index:1000;transition:transform .9s cubic-bezier(.2,.8,.3,1),opacity .9s ease;opacity:1`;
-            document.body.appendChild(el);
-            requestAnimationFrame(() => {
-              el.style.transform = `translate(${Math.cos(ang) * dist}px,${Math.sin(ang) * dist}px) scale(.3) rotate(${Math.random() * 360}deg)`;
-              el.style.opacity = "0";
-            });
-            setTimeout(() => el.remove(), 1000);
-          }, i * 25);
-        }
-      }
-
-      // Photo zoom
-      document.querySelectorAll(".photo-card").forEach((card) => {
-        card.addEventListener("click", () => {
-          const ov = document.createElement("div");
-          ov.style.cssText =
-            "position:fixed;inset:0;background:rgba(20,18,14,.75);z-index:1000;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(10px);animation:fadeIn .25s ease";
-          const cl = card.cloneNode(true);
-          cl.style.cssText =
-            "--r:0deg;transform:scale(1);max-width:300px;width:78vw;cursor:default;box-shadow:0 32px 80px rgba(0,0,0,0.3)";
-          ov.appendChild(cl);
-          ov.addEventListener("click", () => ov.remove());
-          document.body.appendChild(ov);
-        });
-      });
-    </script>
+    <script src="./js/365.js"></script>
   </body>
 </html>
