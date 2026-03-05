@@ -339,3 +339,34 @@ function checkDate() {
   }
   window.addEventListener("resize", resize); resize(); draw();
 })();
+
+/* ── 인생네컷 슬라이드쇼 ── */
+createSlideshow({
+  id: "slideshow3",
+  images: [
+    "KakaoTalk_20260305_133543598.jpg",
+    "KakaoTalk_20260305_133543598_01.jpg",
+    "KakaoTalk_20260305_133543598_02.jpg",
+    "KakaoTalk_20260305_133543598_03.jpg",
+    "KakaoTalk_20260305_133543598_04.jpg",
+    "KakaoTalk_20260305_133543598_05.jpg",
+    "KakaoTalk_20260305_133543598_06.jpg",
+    "KakaoTalk_20260305_133543598_07.jpg",
+    "KakaoTalk_20260305_133543598_08.jpg",
+    "KakaoTalk_20260305_133543598_09.jpg",
+    "KakaoTalk_20260305_133543598_10.jpg",
+    "KakaoTalk_20260305_133543598_11.jpg",
+    "KakaoTalk_20260305_133543598_12.jpg",
+    "KakaoTalk_20260305_133543598_13.webp",
+    "KakaoTalk_20260305_133543598_14.jpg",
+    "KakaoTalk_20260305_133543598_15.jpg",
+  ],
+  base: "./images/third/",
+  idxElId: "ssIdx3",
+  totalElId: "ssTotal3",
+  imgElId: "ssImg3",
+  stripElId: "ssStrip3",
+  progressElId: "ssProgress3",
+  autoBtnId: "ssAutoBtn3",
+  fallbackEmoji: "📸",
+});
