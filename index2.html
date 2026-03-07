@@ -3,65 +3,251 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>우래기 1주년 축하해 🐥</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>우래기 1주년 축하해 🍮</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500&display=swap"
       rel="stylesheet" />
     <link rel="stylesheet" href="./css/365.css" />
   </head>
   <body>
+    <!-- ═══ LOCK SCREEN (주석처리 중 - 작업용) ═══
+    <div id="lockScreen" ...>
+      ...
+    </div>
+    ═══ LOCK SCREEN END ═══ -->
 
     <!-- ═══ LOCK SCREEN ═══ -->
-    <div id="lockScreen" style="position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a0806;overflow:hidden;">
-      <canvas id="lockCanvas" style="position:absolute;inset:0;pointer-events:none;"></canvas>
-      <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:0;">
-        <div id="lockDuck" style="font-size:3rem;animation:duckBob 2.4s ease-in-out infinite;margin-bottom:18px;">🐥</div>
-        <p style="font-family:'Nanum Myeongjo',serif;color:rgba(255,210,80,0.82);font-size:1.05rem;letter-spacing:0.22em;margin-bottom:6px;">우리가 사귄 날</p>
-        <p style="font-family:'Noto Sans KR',sans-serif;color:rgba(255,190,60,0.45);font-size:0.6rem;letter-spacing:0.28em;margin-bottom:36px;">DATE PASSWORD</p>
-        <div id="dateInputs" style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-          <input id="inYear" type="tel" maxlength="4" placeholder="YYYY"
-            oninput="onlyNums(this);if(this.value.length===4)document.getElementById('inMonth').focus()"
-            onfocus="lockFocus(this)" onblur="lockBlur(this)"
-            style="width:72px;background:rgba(255,200,50,0.1);border:1px solid rgba(255,190,40,0.25);border-bottom:2px solid rgba(255,180,30,0.6);border-radius:8px;color:#ffd060;font-size:1.1rem;text-align:center;padding:10px 6px;outline:none;font-family:'Noto Sans KR',sans-serif;letter-spacing:0.1em;transition:all 0.2s;-webkit-appearance:none;" />
-          <span style="color:rgba(255,190,50,0.4);font-size:1.2rem;">-</span>
-          <input id="inMonth" type="tel" maxlength="2" placeholder="MM"
-            oninput="onlyNums(this);if(this.value.length===2)document.getElementById('inDay').focus()"
-            onfocus="lockFocus(this)" onblur="lockBlur(this)"
-            style="width:52px;background:rgba(255,200,50,0.1);border:1px solid rgba(255,190,40,0.25);border-bottom:2px solid rgba(255,180,30,0.6);border-radius:8px;color:#ffd060;font-size:1.1rem;text-align:center;padding:10px 6px;outline:none;font-family:'Noto Sans KR',sans-serif;letter-spacing:0.1em;transition:all 0.2s;-webkit-appearance:none;" />
-          <span style="color:rgba(255,190,50,0.4);font-size:1.2rem;">-</span>
-          <input id="inDay" type="tel" maxlength="2" placeholder="DD"
-            oninput="onlyNums(this);if(this.value.length===2)checkDate()"
-            onfocus="lockFocus(this)" onblur="lockBlur(this)"
-            style="width:52px;background:rgba(255,200,50,0.1);border:1px solid rgba(255,190,40,0.25);border-bottom:2px solid rgba(255,180,30,0.6);border-radius:8px;color:#ffd060;font-size:1.1rem;text-align:center;padding:10px 6px;outline:none;font-family:'Noto Sans KR',sans-serif;letter-spacing:0.1em;transition:all 0.2s;-webkit-appearance:none;" />
+    <div
+      id="lockScreen"
+      style="
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #0a0806;
+        overflow: hidden;
+      ">
+      <canvas
+        id="lockCanvas"
+        style="position: absolute; inset: 0; pointer-events: none"></canvas>
+      <div
+        style="
+          position: relative;
+          z-index: 2;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+        ">
+        <div
+          id="lockDuck"
+          style="
+            margin-bottom: 18px;
+            animation: duckBob 2.4s ease-in-out infinite;
+          ">
+          <img
+            src="./images/icon/pompom.png"
+            alt="pompom"
+            style="width: 72px; height: 72px; object-fit: contain" />
         </div>
-        <p id="lockErrMsg" style="font-family:'Noto Sans KR',sans-serif;color:rgba(255,100,80,0.8);font-size:0.62rem;letter-spacing:0.18em;height:18px;opacity:0;transition:opacity 0.3s;">날짜가 맞지 않아요 🐣</p>
+        <p
+          style="
+            font-family: &quot;Nanum Myeongjo&quot;, serif;
+            color: rgba(255, 210, 80, 0.82);
+            font-size: 1.05rem;
+            letter-spacing: 0.22em;
+            margin-bottom: 6px;
+          ">
+          우리가 사귄 날
+        </p>
+        <p
+          style="
+            font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            color: rgba(255, 190, 60, 0.45);
+            font-size: 0.6rem;
+            letter-spacing: 0.28em;
+            margin-bottom: 36px;
+          ">
+          DATE PASSWORD
+        </p>
+        <div
+          id="dateInputs"
+          style="
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+          ">
+          <input
+            id="inYear"
+            type="tel"
+            maxlength="4"
+            placeholder="YYYY"
+            oninput="
+              onlyNums(this);
+              if (this.value.length === 4)
+                document.getElementById('inMonth').focus();
+            "
+            onfocus="lockFocus(this)"
+            onblur="lockBlur(this)"
+            style="
+              width: 72px;
+              background: rgba(255, 200, 50, 0.1);
+              border: 1px solid rgba(255, 190, 40, 0.25);
+              border-bottom: 2px solid rgba(255, 180, 30, 0.6);
+              border-radius: 8px;
+              color: #ffd060;
+              font-size: 1.1rem;
+              text-align: center;
+              padding: 10px 6px;
+              outline: none;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+              letter-spacing: 0.1em;
+              transition: all 0.2s;
+              -webkit-appearance: none;
+            " />
+          <span style="color: rgba(255, 190, 50, 0.4); font-size: 1.2rem"
+            >-</span
+          >
+          <input
+            id="inMonth"
+            type="tel"
+            maxlength="2"
+            placeholder="MM"
+            oninput="
+              onlyNums(this);
+              if (this.value.length === 2)
+                document.getElementById('inDay').focus();
+            "
+            onfocus="lockFocus(this)"
+            onblur="lockBlur(this)"
+            style="
+              width: 52px;
+              background: rgba(255, 200, 50, 0.1);
+              border: 1px solid rgba(255, 190, 40, 0.25);
+              border-bottom: 2px solid rgba(255, 180, 30, 0.6);
+              border-radius: 8px;
+              color: #ffd060;
+              font-size: 1.1rem;
+              text-align: center;
+              padding: 10px 6px;
+              outline: none;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+              letter-spacing: 0.1em;
+              transition: all 0.2s;
+              -webkit-appearance: none;
+            " />
+          <span style="color: rgba(255, 190, 50, 0.4); font-size: 1.2rem"
+            >-</span
+          >
+          <input
+            id="inDay"
+            type="tel"
+            maxlength="2"
+            placeholder="DD"
+            oninput="
+              onlyNums(this);
+              if (this.value.length === 2) checkDate();
+            "
+            onfocus="lockFocus(this)"
+            onblur="lockBlur(this)"
+            style="
+              width: 52px;
+              background: rgba(255, 200, 50, 0.1);
+              border: 1px solid rgba(255, 190, 40, 0.25);
+              border-bottom: 2px solid rgba(255, 180, 30, 0.6);
+              border-radius: 8px;
+              color: #ffd060;
+              font-size: 1.1rem;
+              text-align: center;
+              padding: 10px 6px;
+              outline: none;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+              letter-spacing: 0.1em;
+              transition: all 0.2s;
+              -webkit-appearance: none;
+            " />
+        </div>
+        <p
+          id="lockErrMsg"
+          style="
+            font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            color: rgba(255, 100, 80, 0.8);
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            height: 18px;
+            opacity: 0;
+            transition: opacity 0.3s;
+          ">
+          날짜가 맞지 않아요 🍮
+        </p>
       </div>
     </div>
     <!-- ═══ LOCK SCREEN END ═══ -->
 
     <!-- Music Player -->
-    <div class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[88%] max-w-[300px]">
+    <div
+      class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[88%] max-w-[300px]">
       <div class="player flex items-center gap-3 px-4 py-2.5">
         <button class="play-btn" onclick="toggleMusic()">
-          <svg id="playIcon" width="12" height="12" viewBox="0 0 24 24" fill="#fff">
+          <svg
+            id="playIcon"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="#fff">
             <polygon points="6,3 20,12 6,21" />
           </svg>
-          <svg id="pauseIcon" width="12" height="12" viewBox="0 0 24 24" fill="#fff" style="display: none">
+          <svg
+            id="pauseIcon"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="#fff"
+            style="display: none">
             <rect x="5" y="4" width="4" height="16" />
             <rect x="15" y="4" width="4" height="16" />
           </svg>
         </button>
         <div class="flex-1">
-          <div style="font-size: 0.65rem; color: #a09060; margin-bottom: 5px; letter-spacing: 0.05em;">
+          <div
+            style="
+              font-size: 0.65rem;
+              color: #a09060;
+              margin-bottom: 5px;
+              letter-spacing: 0.05em;
+            ">
             🎵 たぶん — YOASOBI
           </div>
-          <div style="width: 100%; height: 1.5px; border-radius: 1px; background: #f0e8a0; overflow: hidden;">
-            <div id="pbar" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--gold), #d4a030); transition: width 0.4s linear; border-radius: 1px;"></div>
+          <div
+            style="
+              width: 100%;
+              height: 1.5px;
+              border-radius: 1px;
+              background: #f0e8a0;
+              overflow: hidden;
+            ">
+            <div
+              id="pbar"
+              style="
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(90deg, var(--gold), #d4a030);
+                transition: width 0.4s linear;
+                border-radius: 1px;
+              "></div>
           </div>
         </div>
-        <span class="duck-walk" style="font-size: 1.1rem">🐥</span>
+        <img
+          src="./images/icon/pompom.png"
+          alt="pompom"
+          class="duck-walk"
+          style="width: 28px; height: 28px; object-fit: contain" />
       </div>
     </div>
     <audio id="bgm" loop>
@@ -70,29 +256,134 @@
 
     <!-- HERO -->
     <section
-      style="background: linear-gradient(160deg, #fffef0 0%, #fefcf0 50%, #fafaf5 100%); min-height: 100svh;"
+      style="
+        background: linear-gradient(
+          160deg,
+          #fffef0 0%,
+          #fefcf0 50%,
+          #fafaf5 100%
+        );
+        min-height: 100svh;
+      "
       class="flex flex-col items-center justify-center text-center px-6 relative overflow-hidden dot-pattern">
-      <div style="position: absolute; top: -80px; right: -80px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(232,184,75,0.08), transparent 70%); pointer-events: none;"></div>
-      <div style="position: absolute; bottom: -60px; left: -60px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(232,184,75,0.06), transparent 70%); pointer-events: none;"></div>
-      <div style="position: relative; animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) both;">
+      <div
+        style="
+          position: absolute;
+          top: -80px;
+          right: -80px;
+          width: 420px;
+          height: 420px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(232, 184, 75, 0.08),
+            transparent 70%
+          );
+          pointer-events: none;
+        "></div>
+      <div
+        style="
+          position: absolute;
+          bottom: -60px;
+          left: -60px;
+          width: 320px;
+          height: 320px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(232, 184, 75, 0.06),
+            transparent 70%
+          );
+          pointer-events: none;
+        "></div>
+      <div
+        style="
+          position: relative;
+          animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+        ">
         <div class="big-num">1</div>
         <div class="big-num-fill">1</div>
       </div>
-      <h1 class="serif" style="font-size: clamp(1.6rem,5vw,2.4rem); margin-top: 0.2rem; margin-bottom: 1rem; color: var(--ink); font-weight: 400; animation: fadeUp 1s 0.2s cubic-bezier(0.16,1,0.3,1) both; opacity: 0; letter-spacing: 0.08em;">주년</h1>
-      <p style="color: var(--muted); font-size: 0.88rem; line-height: 2.1; animation: fadeUp 1s 0.35s cubic-bezier(0.16,1,0.3,1) both; opacity: 0;">
+      <h1
+        class="serif"
+        style="
+          font-size: clamp(1.6rem, 5vw, 2.4rem);
+          margin-top: 0.2rem;
+          margin-bottom: 1rem;
+          color: var(--ink);
+          font-weight: 400;
+          animation: fadeUp 1s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+          opacity: 0;
+          letter-spacing: 0.08em;
+        ">
+        주년
+      </h1>
+      <p
+        style="
+          color: var(--muted);
+          font-size: 0.88rem;
+          line-height: 2.1;
+          animation: fadeUp 1s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+          opacity: 0;
+        ">
         지영아,<br />같이한 1년 고마워.
       </p>
-      <div style="margin-top: 1.8rem; animation: fadeUp 1s 0.5s cubic-bezier(0.16,1,0.3,1) both; opacity: 0;">
+      <div
+        style="
+          margin-top: 1.8rem;
+          animation: fadeUp 1s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+          opacity: 0;
+        ">
         <div class="badge">
           <span>📅</span><span>2025. 03. 07</span>
-          <span style="width: 1px; height: 10px; background: #e0d090; display: inline-block;"></span>
-          <span id="dayCount" style="color: var(--gold); font-weight: 600;">D+1일</span>
+          <span
+            style="
+              width: 1px;
+              height: 10px;
+              background: #e0d090;
+              display: inline-block;
+            "></span>
+          <span id="dayCount" style="color: var(--gold); font-weight: 600"
+            >D+1일</span
+          >
         </div>
       </div>
-      <div class="duck-float" style="margin-top: 2.8rem; font-size: 2.4rem; animation: fadeUp 1s 0.65s cubic-bezier(0.16,1,0.3,1) both; opacity: 0;">🐥</div>
-      <div style="position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: #d0c8a0;">
-        <span style="font-size: 0.55rem; letter-spacing: 0.25em;">SCROLL</span>
-        <div style="width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(200,180,100,0.4), transparent);" class="animate-bounce"></div>
+      <div
+        class="duck-float"
+        style="
+          margin-top: 2.8rem;
+          animation: fadeUp 1s 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+          opacity: 0;
+        ">
+        <img
+          src="./images/icon/pompom.png"
+          alt="pompom"
+          style="width: 64px; height: 64px; object-fit: contain" />
+      </div>
+      <div
+        style="
+          position: absolute;
+          bottom: 2.5rem;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          color: #d0c8a0;
+        ">
+        <span style="font-size: 0.55rem; letter-spacing: 0.25em">SCROLL</span>
+        <div
+          style="
+            width: 1px;
+            height: 36px;
+            background: linear-gradient(
+              to bottom,
+              rgba(200, 180, 100, 0.4),
+              transparent
+            );
+          "
+          class="animate-bounce"></div>
       </div>
     </section>
 
@@ -101,230 +392,723 @@
       <div class="max-w-3xl mx-auto">
         <div class="text-center mb-16 reveal">
           <p class="section-label mb-3">memories</p>
-          <h2 class="serif" style="font-size: 2rem; color: var(--ink); font-weight: 400;">우리 추억</h2>
+          <h2
+            class="serif"
+            style="font-size: 2rem; color: var(--ink); font-weight: 400">
+            우리 추억
+          </h2>
           <div class="line mt-5"></div>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-7">
-          <!-- ① 강릉여행 카드 → 클릭 시 슬라이드쇼 -->
-          <div class="photo-card gangneung-card reveal" style="--r:-2.8deg" onclick="slideshow_open(0)">
+          <!-- ① 강릉여행 카드 -->
+          <div
+            class="photo-card gangneung-card reveal"
+            style="--r: -2.8deg"
+            onclick="slideshow_open(0)">
             <div class="gangneung-badge">🌊 강릉여행</div>
             <div class="photo-inner">
               <img
                 src="./images/first/KakaoTalk_20260305_104517673_07.jpg"
                 loading="lazy"
                 alt="강릉여행"
-                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-              <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#daeef8,#b8dcf0);flex-direction:column;gap:8px;">
-                <span style="font-size:2.8rem;">🌊</span>
-                <span style="font-size:0.58rem;color:#5a9ec0;letter-spacing:0.1em;font-family:'Noto Sans KR',sans-serif;">강릉여행</span>
+                onerror="
+                  this.style.display = 'none';
+                  this.nextElementSibling.style.display = 'flex';
+                " />
+              <div
+                style="
+                  display: none;
+                  width: 100%;
+                  height: 100%;
+                  align-items: center;
+                  justify-content: center;
+                  background: linear-gradient(135deg, #daeef8, #b8dcf0);
+                  flex-direction: column;
+                  gap: 8px;
+                ">
+                <span style="font-size: 2.8rem">🌊</span>
+                <span
+                  style="
+                    font-size: 0.58rem;
+                    color: #5a9ec0;
+                    letter-spacing: 0.1em;
+                    font-family: &quot;Noto Sans KR&quot;, sans-serif;
+                  "
+                  >강릉여행</span
+                >
               </div>
             </div>
             <p class="photo-cap">강릉여행 🌊</p>
           </div>
 
-          <!-- ② 경주여행 카드 → 클릭 시 슬라이드쇼2 -->
-          <div class="photo-card gyeongju-card reveal" style="--r:2.2deg;margin-top:22px;transition-delay:0.08s" onclick="slideshow2_open(0)">
+          <!-- ② 경주여행 카드 -->
+          <div
+            class="photo-card gyeongju-card reveal"
+            style="--r: 2.2deg; margin-top: 22px; transition-delay: 0.08s"
+            onclick="slideshow2_open(0)">
             <div class="gyeongju-badge">🏛️ 경주여행</div>
             <div class="photo-inner">
               <img
                 src="./images/second/KakaoTalk_20260305_104533933_07.jpg"
                 loading="lazy"
                 alt="경주여행"
-                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-              <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#f5ede0,#e8d4b0);flex-direction:column;gap:8px;">
-                <span style="font-size:2.8rem;">🏛️</span>
-                <span style="font-size:0.58rem;color:#a08040;letter-spacing:0.1em;font-family:'Noto Sans KR',sans-serif;">경주여행</span>
+                onerror="
+                  this.style.display = 'none';
+                  this.nextElementSibling.style.display = 'flex';
+                " />
+              <div
+                style="
+                  display: none;
+                  width: 100%;
+                  height: 100%;
+                  align-items: center;
+                  justify-content: center;
+                  background: linear-gradient(135deg, #f5ede0, #e8d4b0);
+                  flex-direction: column;
+                  gap: 8px;
+                ">
+                <span style="font-size: 2.8rem">🏛️</span>
+                <span
+                  style="
+                    font-size: 0.58rem;
+                    color: #a08040;
+                    letter-spacing: 0.1em;
+                    font-family: &quot;Noto Sans KR&quot;, sans-serif;
+                  "
+                  >경주여행</span
+                >
               </div>
             </div>
             <p class="photo-cap">경주여행 🏛️</p>
           </div>
 
-          <!-- ③ 인생네컷 카드 → 클릭 시 슬라이드쇼3 -->
-          <div class="photo-card photobooth-card reveal" style="--r:-1.8deg;transition-delay:0.15s" onclick="slideshow3_open(0)">
+          <!-- ③ 인생네컷 카드 -->
+          <div
+            class="photo-card photobooth-card reveal"
+            style="--r: -1.8deg; transition-delay: 0.15s"
+            onclick="slideshow3_open(0)">
             <div class="photobooth-badge">📸 인생네컷</div>
             <div class="photo-inner">
-              <img src="./images/third/KakaoTalk_20260305_133543598.jpg" loading="lazy" alt="인생네컷"
-                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-              <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#fce4ec,#f8bbd0);flex-direction:column;gap:8px;">
-                <span style="font-size:2.8rem">📸</span>
-                <span style="font-size:0.58rem;color:#c06080;letter-spacing:0.1em;font-family:'Noto Sans KR',sans-serif;">인생네컷</span>
+              <img
+                src="./images/third/KakaoTalk_20260305_133543598.jpg"
+                loading="lazy"
+                alt="인생네컷"
+                onerror="
+                  this.style.display = 'none';
+                  this.nextElementSibling.style.display = 'flex';
+                " />
+              <div
+                style="
+                  display: none;
+                  width: 100%;
+                  height: 100%;
+                  align-items: center;
+                  justify-content: center;
+                  background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+                  flex-direction: column;
+                  gap: 8px;
+                ">
+                <span style="font-size: 2.8rem">📸</span>
+                <span
+                  style="
+                    font-size: 0.58rem;
+                    color: #c06080;
+                    letter-spacing: 0.1em;
+                    font-family: &quot;Noto Sans KR&quot;, sans-serif;
+                  "
+                  >인생네컷</span
+                >
               </div>
             </div>
             <p class="photo-cap">인생네컷 📸</p>
           </div>
-          <div class="photo-card fukuoka-card reveal" style="--r:2.8deg;margin-top:-10px;transition-delay:0.22s" onclick="slideshow4_open(0)">
+
+          <!-- ④ 후쿠오카 카드 -->
+          <div
+            class="photo-card fukuoka-card reveal"
+            style="--r: 2.8deg; margin-top: -10px; transition-delay: 0.22s"
+            onclick="slideshow4_open(0)">
             <div class="fukuoka-badge">✈️ 후쿠오카</div>
             <div class="photo-inner">
-              <img src="./images/fourth/KakaoTalk_20260307_102604166_05.jpg" loading="lazy" alt="후쿠오카"
-                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-              <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff0e0,#ffe0c0);flex-direction:column;gap:8px;">
-                <span style="font-size:2.8rem">✈️</span>
-                <span style="font-size:0.58rem;color:#c07030;letter-spacing:0.1em;font-family:'Noto Sans KR',sans-serif;">후쿠오카</span>
+              <img
+                src="./images/fourth/KakaoTalk_20260307_102604166_05.jpg"
+                loading="lazy"
+                alt="후쿠오카"
+                onerror="
+                  this.style.display = 'none';
+                  this.nextElementSibling.style.display = 'flex';
+                " />
+              <div
+                style="
+                  display: none;
+                  width: 100%;
+                  height: 100%;
+                  align-items: center;
+                  justify-content: center;
+                  background: linear-gradient(135deg, #fff0e0, #ffe0c0);
+                  flex-direction: column;
+                  gap: 8px;
+                ">
+                <span style="font-size: 2.8rem">✈️</span>
+                <span
+                  style="
+                    font-size: 0.58rem;
+                    color: #c07030;
+                    letter-spacing: 0.1em;
+                    font-family: &quot;Noto Sans KR&quot;, sans-serif;
+                  "
+                  >후쿠오카</span
+                >
               </div>
             </div>
             <p class="photo-cap">후쿠오카 ✈️</p>
           </div>
-          <div class="photo-card daegu-card reveal" style="--r:-2.2deg;transition-delay:0.28s" onclick="slideshow5_open(0)">
+
+          <!-- ⑤ 대구 카드 -->
+          <div
+            class="photo-card daegu-card reveal"
+            style="--r: -2.2deg; transition-delay: 0.28s"
+            onclick="slideshow5_open(0)">
             <div class="daegu-badge">🎡 대구</div>
             <div class="photo-inner">
-              <img src="./images/fifth/KakaoTalk_20260307_104300036_05.jpg" loading="lazy" alt="대구"
-                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-              <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#e8f0ff,#c8d8f8);flex-direction:column;gap:8px;">
-                <span style="font-size:2.8rem">🎡</span>
-                <span style="font-size:0.58rem;color:#4060c0;letter-spacing:0.1em;font-family:'Noto Sans KR',sans-serif;">대구</span>
+              <img
+                src="./images/fifth/KakaoTalk_20260307_104300036_05.jpg"
+                loading="lazy"
+                alt="대구"
+                onerror="
+                  this.style.display = 'none';
+                  this.nextElementSibling.style.display = 'flex';
+                " />
+              <div
+                style="
+                  display: none;
+                  width: 100%;
+                  height: 100%;
+                  align-items: center;
+                  justify-content: center;
+                  background: linear-gradient(135deg, #e8f0ff, #c8d8f8);
+                  flex-direction: column;
+                  gap: 8px;
+                ">
+                <span style="font-size: 2.8rem">🎡</span>
+                <span
+                  style="
+                    font-size: 0.58rem;
+                    color: #4060c0;
+                    letter-spacing: 0.1em;
+                    font-family: &quot;Noto Sans KR&quot;, sans-serif;
+                  "
+                  >대구</span
+                >
               </div>
             </div>
             <p class="photo-cap">대구 🎡</p>
           </div>
-          <div class="photo-card reveal" style="--r:1.5deg;margin-top:16px;transition-delay:0.35s">
-            <div class="photo-inner" style="background:linear-gradient(135deg,#f0f0f8,#e0e4f0)">🌙</div>
-            <p class="photo-cap">같이 본 밤</p>
+
+          <!-- ⑥ 우주최강겸둥 카드 -->
+          <div
+            class="photo-card gyemdong-card reveal"
+            style="--r: 1.8deg; margin-top: 16px; transition-delay: 0.35s"
+            onclick="slideshow6_open(0)">
+            <div class="gyemdong-badge">🍮 우주최강겸둥</div>
+            <div class="photo-inner">
+              <img
+                src="./images/sixth/KakaoTalk_20260307_105306661_08.jpg"
+                loading="lazy"
+                alt="우주최강겸둥"
+                onerror="
+                  this.style.display = 'none';
+                  this.nextElementSibling.style.display = 'flex';
+                " />
+              <div
+                style="
+                  display: none;
+                  width: 100%;
+                  height: 100%;
+                  align-items: center;
+                  justify-content: center;
+                  background: linear-gradient(135deg, #fff0f5, #ffd6e8);
+                  flex-direction: column;
+                  gap: 8px;
+                ">
+                <span style="font-size: 2.8rem">🍮</span>
+                <span
+                  style="
+                    font-size: 0.58rem;
+                    color: #c04070;
+                    letter-spacing: 0.1em;
+                    font-family: &quot;Noto Sans KR&quot;, sans-serif;
+                  "
+                  >우주최강겸둥</span
+                >
+              </div>
+            </div>
+            <p class="photo-cap">우주최강겸둥 🍮</p>
           </div>
         </div>
-        <p style="text-align:center;font-size:0.62rem;color:#ccc;margin-top:2.5rem;letter-spacing:0.15em;" class="reveal">CLICK TO ENLARGE</p>
+        <p
+          style="
+            text-align: center;
+            font-size: 0.62rem;
+            color: #ccc;
+            margin-top: 2.5rem;
+            letter-spacing: 0.15em;
+          "
+          class="reveal">
+          CLICK TO ENLARGE
+        </p>
       </div>
     </section>
 
-    <!-- ══ 슬라이드쇼 ══ -->
+    <!-- ══ 슬라이드쇼1 (강릉) ══ -->
     <div id="slideshow">
       <div class="ss-topbar">
         <div>
           <div class="ss-title">🌊 강릉여행</div>
-          <div class="ss-counter"><span id="ssIdx">1</span> / <span id="ssTotal">1</span></div>
+          <div class="ss-counter">
+            <span id="ssIdx">1</span> / <span id="ssTotal">1</span>
+          </div>
         </div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <button id="ssAutoBtn" onclick="slideshow_toggleAuto()" style="min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;background:none;border:1px solid rgba(255,200,60,0.25);border-radius:999px;color:rgba(255,210,100,0.6);font-size:0.6rem;letter-spacing:0.12em;padding:5px 12px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;">▶ AUTO</button>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <button
+            id="ssAutoBtn"
+            onclick="slideshow_toggleAuto()"
+            style="
+              min-height: 44px;
+              touch-action: manipulation;
+              -webkit-tap-highlight-color: transparent;
+              background: none;
+              border: 1px solid rgba(255, 200, 60, 0.25);
+              border-radius: 999px;
+              color: rgba(255, 210, 100, 0.6);
+              font-size: 0.6rem;
+              letter-spacing: 0.12em;
+              padding: 5px 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            ">
+            ▶ AUTO
+          </button>
           <button class="ss-close" id="ssCloseBtn">✕</button>
         </div>
       </div>
       <div class="ss-progress" id="ssProgress"></div>
       <div class="ss-stage">
-        <button class="ss-arrow" id="ssArrowL" onclick="slideshow_move(-1)">‹</button>
+        <button class="ss-arrow" id="ssArrowL" onclick="slideshow_move(-1)">
+          ‹
+        </button>
         <img id="ssImg" src="" alt="강릉여행" />
-        <button class="ss-arrow" id="ssArrowR" onclick="slideshow_move(1)">›</button>
+        <button class="ss-arrow" id="ssArrowR" onclick="slideshow_move(1)">
+          ›
+        </button>
       </div>
       <div class="ss-strip" id="ssStrip"></div>
     </div>
 
-    <!-- ══ 경주 슬라이드쇼 ══ -->
+    <!-- ══ 슬라이드쇼2 (경주) ══ -->
     <div id="slideshow2">
       <div class="ss-topbar">
         <div>
           <div class="ss-title">🏛️ 경주여행</div>
-          <div class="ss-counter"><span id="ssIdx2">1</span> / <span id="ssTotal2">1</span></div>
+          <div class="ss-counter">
+            <span id="ssIdx2">1</span> / <span id="ssTotal2">1</span>
+          </div>
         </div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <button id="ssAutoBtn2" onclick="slideshow2_toggleAuto()" style="min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;background:none;border:1px solid rgba(255,200,60,0.25);border-radius:999px;color:rgba(255,210,100,0.6);font-size:0.6rem;letter-spacing:0.12em;padding:5px 12px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;">▶ AUTO</button>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <button
+            id="ssAutoBtn2"
+            onclick="slideshow2_toggleAuto()"
+            style="
+              min-height: 44px;
+              touch-action: manipulation;
+              -webkit-tap-highlight-color: transparent;
+              background: none;
+              border: 1px solid rgba(255, 200, 60, 0.25);
+              border-radius: 999px;
+              color: rgba(255, 210, 100, 0.6);
+              font-size: 0.6rem;
+              letter-spacing: 0.12em;
+              padding: 5px 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            ">
+            ▶ AUTO
+          </button>
           <button class="ss-close" id="ssCloseBtn2">✕</button>
         </div>
       </div>
       <div class="ss-progress" id="ssProgress2"></div>
       <div class="ss-stage">
-        <button class="ss-arrow" id="ssArrowL2" onclick="slideshow2_move(-1)">‹</button>
-        <img id="ssImg2" src="" alt="경주여행"/>
-        <button class="ss-arrow" id="ssArrowR2" onclick="slideshow2_move(1)">›</button>
+        <button class="ss-arrow" id="ssArrowL2" onclick="slideshow2_move(-1)">
+          ‹
+        </button>
+        <img id="ssImg2" src="" alt="경주여행" />
+        <button class="ss-arrow" id="ssArrowR2" onclick="slideshow2_move(1)">
+          ›
+        </button>
       </div>
       <div class="ss-strip" id="ssStrip2"></div>
     </div>
 
-    <!-- ══ 인생네컷 슬라이드쇼 ══ -->
+    <!-- ══ 슬라이드쇼3 (인생네컷) ══ -->
     <div id="slideshow3">
       <div class="ss-topbar">
         <div>
           <div class="ss-title">📸 인생네컷</div>
-          <div class="ss-counter"><span id="ssIdx3">1</span> / <span id="ssTotal3">1</span></div>
+          <div class="ss-counter">
+            <span id="ssIdx3">1</span> / <span id="ssTotal3">1</span>
+          </div>
         </div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <button id="ssAutoBtn3" onclick="slideshow3_toggleAuto()" style="min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;background:none;border:1px solid rgba(255,200,60,0.25);border-radius:999px;color:rgba(255,210,100,0.6);font-size:0.6rem;letter-spacing:0.12em;padding:5px 12px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;">▶ AUTO</button>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <button
+            id="ssAutoBtn3"
+            onclick="slideshow3_toggleAuto()"
+            style="
+              min-height: 44px;
+              touch-action: manipulation;
+              -webkit-tap-highlight-color: transparent;
+              background: none;
+              border: 1px solid rgba(255, 200, 60, 0.25);
+              border-radius: 999px;
+              color: rgba(255, 210, 100, 0.6);
+              font-size: 0.6rem;
+              letter-spacing: 0.12em;
+              padding: 5px 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            ">
+            ▶ AUTO
+          </button>
           <button class="ss-close" id="ssCloseBtn3">✕</button>
         </div>
       </div>
       <div class="ss-progress" id="ssProgress3"></div>
       <div class="ss-stage">
-        <button class="ss-arrow" id="ssArrowL3" onclick="slideshow3_move(-1)">‹</button>
-        <img id="ssImg3" src="" alt="인생네컷"/>
-        <button class="ss-arrow" id="ssArrowR3" onclick="slideshow3_move(1)">›</button>
+        <button class="ss-arrow" id="ssArrowL3" onclick="slideshow3_move(-1)">
+          ‹
+        </button>
+        <img id="ssImg3" src="" alt="인생네컷" />
+        <button class="ss-arrow" id="ssArrowR3" onclick="slideshow3_move(1)">
+          ›
+        </button>
       </div>
       <div class="ss-strip" id="ssStrip3"></div>
     </div>
 
-    <!-- ══ 후쿠오카 슬라이드쇼 ══ -->
+    <!-- ══ 슬라이드쇼4 (후쿠오카) ══ -->
     <div id="slideshow4">
       <div class="ss-topbar">
         <div>
           <div class="ss-title">✈️ 후쿠오카</div>
-          <div class="ss-counter"><span id="ssIdx4">1</span> / <span id="ssTotal4">1</span></div>
+          <div class="ss-counter">
+            <span id="ssIdx4">1</span> / <span id="ssTotal4">1</span>
+          </div>
         </div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <button id="ssAutoBtn4" onclick="slideshow4_toggleAuto()" style="min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;background:none;border:1px solid rgba(255,200,60,0.25);border-radius:999px;color:rgba(255,210,100,0.6);font-size:0.6rem;letter-spacing:0.12em;padding:5px 12px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;">▶ AUTO</button>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <button
+            id="ssAutoBtn4"
+            onclick="slideshow4_toggleAuto()"
+            style="
+              min-height: 44px;
+              touch-action: manipulation;
+              -webkit-tap-highlight-color: transparent;
+              background: none;
+              border: 1px solid rgba(255, 200, 60, 0.25);
+              border-radius: 999px;
+              color: rgba(255, 210, 100, 0.6);
+              font-size: 0.6rem;
+              letter-spacing: 0.12em;
+              padding: 5px 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            ">
+            ▶ AUTO
+          </button>
           <button class="ss-close" id="ssCloseBtn4">✕</button>
         </div>
       </div>
       <div class="ss-progress" id="ssProgress4"></div>
       <div class="ss-stage">
-        <button class="ss-arrow" id="ssArrowL4" onclick="slideshow4_move(-1)">‹</button>
-        <img id="ssImg4" src="" alt="후쿠오카"/>
-        <button class="ss-arrow" id="ssArrowR4" onclick="slideshow4_move(1)">›</button>
+        <button class="ss-arrow" id="ssArrowL4" onclick="slideshow4_move(-1)">
+          ‹
+        </button>
+        <img id="ssImg4" src="" alt="후쿠오카" />
+        <button class="ss-arrow" id="ssArrowR4" onclick="slideshow4_move(1)">
+          ›
+        </button>
       </div>
       <div class="ss-strip" id="ssStrip4"></div>
     </div>
 
-    <!-- ══ 대구 슬라이드쇼 ══ -->
+    <!-- ══ 슬라이드쇼5 (대구) ══ -->
     <div id="slideshow5">
       <div class="ss-topbar">
         <div>
           <div class="ss-title">🎡 대구</div>
-          <div class="ss-counter"><span id="ssIdx5">1</span> / <span id="ssTotal5">1</span></div>
+          <div class="ss-counter">
+            <span id="ssIdx5">1</span> / <span id="ssTotal5">1</span>
+          </div>
         </div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <button id="ssAutoBtn5" onclick="slideshow5_toggleAuto()" style="min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;background:none;border:1px solid rgba(255,200,60,0.25);border-radius:999px;color:rgba(255,210,100,0.6);font-size:0.6rem;letter-spacing:0.12em;padding:5px 12px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;">▶ AUTO</button>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <button
+            id="ssAutoBtn5"
+            onclick="slideshow5_toggleAuto()"
+            style="
+              min-height: 44px;
+              touch-action: manipulation;
+              -webkit-tap-highlight-color: transparent;
+              background: none;
+              border: 1px solid rgba(255, 200, 60, 0.25);
+              border-radius: 999px;
+              color: rgba(255, 210, 100, 0.6);
+              font-size: 0.6rem;
+              letter-spacing: 0.12em;
+              padding: 5px 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            ">
+            ▶ AUTO
+          </button>
           <button class="ss-close" id="ssCloseBtn5">✕</button>
         </div>
       </div>
       <div class="ss-progress" id="ssProgress5"></div>
       <div class="ss-stage">
-        <button class="ss-arrow" id="ssArrowL5" onclick="slideshow5_move(-1)">‹</button>
-        <img id="ssImg5" src="" alt="대구"/>
-        <button class="ss-arrow" id="ssArrowR5" onclick="slideshow5_move(1)">›</button>
+        <button class="ss-arrow" id="ssArrowL5" onclick="slideshow5_move(-1)">
+          ‹
+        </button>
+        <img id="ssImg5" src="" alt="대구" />
+        <button class="ss-arrow" id="ssArrowR5" onclick="slideshow5_move(1)">
+          ›
+        </button>
       </div>
       <div class="ss-strip" id="ssStrip5"></div>
     </div>
+
+    <!-- ══ 슬라이드쇼6 (우주최강겸둥) ══ -->
+    <div id="slideshow6">
+      <div class="ss-topbar">
+        <div>
+          <div class="ss-title">🍮 우주최강겸둥</div>
+          <div class="ss-counter">
+            <span id="ssIdx6">1</span> / <span id="ssTotal6">1</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <button
+            id="ssAutoBtn6"
+            onclick="slideshow6_toggleAuto()"
+            style="
+              min-height: 44px;
+              touch-action: manipulation;
+              -webkit-tap-highlight-color: transparent;
+              background: none;
+              border: 1px solid rgba(255, 200, 60, 0.25);
+              border-radius: 999px;
+              color: rgba(255, 210, 100, 0.6);
+              font-size: 0.6rem;
+              letter-spacing: 0.12em;
+              padding: 5px 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            ">
+            ▶ AUTO
+          </button>
+          <button class="ss-close" id="ssCloseBtn6">✕</button>
+        </div>
+      </div>
+      <div class="ss-progress" id="ssProgress6"></div>
+      <div class="ss-stage">
+        <button class="ss-arrow" id="ssArrowL6" onclick="slideshow6_move(-1)">
+          ‹
+        </button>
+        <img id="ssImg6" src="" alt="우주최강겸둥" />
+        <button class="ss-arrow" id="ssArrowR6" onclick="slideshow6_move(1)">
+          ›
+        </button>
+      </div>
+      <div class="ss-strip" id="ssStrip6"></div>
+    </div>
+
+    <!-- TIMELINE -->
+    <section class="py-28 px-6" style="background: var(--cream)">
+      <div class="max-w-md mx-auto">
+        <div class="text-center mb-16 reveal">
           <p class="section-label mb-3">our story</p>
-          <h2 class="serif" style="font-size: 2rem; color: var(--ink); font-weight: 400;">1년의 기록</h2>
+          <h2
+            class="serif"
+            style="font-size: 2rem; color: var(--ink); font-weight: 400">
+            1년의 기록
+          </h2>
           <div class="line mt-5"></div>
         </div>
-        <div style="position:relative;padding-left:32px;">
-          <div style="position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--gold),rgba(232,184,75,0.1),transparent);"></div>
-          <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:44px;" class="reveal">
-            <div class="t-dot" style="margin-left:-5px;"></div>
+        <div style="position: relative; padding-left: 32px">
+          <div
+            style="
+              position: absolute;
+              left: 5px;
+              top: 8px;
+              bottom: 8px;
+              width: 1px;
+              background: linear-gradient(
+                to bottom,
+                var(--gold),
+                rgba(232, 184, 75, 0.1),
+                transparent
+              );
+            "></div>
+          <div
+            style="
+              display: flex;
+              gap: 20px;
+              align-items: flex-start;
+              margin-bottom: 44px;
+            "
+            class="reveal">
+            <div class="t-dot" style="margin-left: -5px"></div>
             <div>
-              <div style="font-size:0.65rem;color:#c0a860;margin-bottom:6px;letter-spacing:0.1em;">2025 · 03 · 07</div>
-              <h4 class="serif" style="font-size:1.15rem;margin-bottom:6px;font-weight:700;">처음 만난 날</h4>
-              <p style="font-size:0.82rem;color:var(--muted);line-height:1.9;">잘 부탁해, 라고 했던 그날.<br/>설렜는지 몰랐는데 설렜었어.</p>
+              <div
+                style="
+                  font-size: 0.65rem;
+                  color: #c0a860;
+                  margin-bottom: 6px;
+                  letter-spacing: 0.1em;
+                ">
+                2025 · 02 · 15
+              </div>
+              <h4
+                class="serif"
+                style="
+                  font-size: 1.15rem;
+                  margin-bottom: 6px;
+                  font-weight: 700;
+                ">
+                처음 만난 날
+              </h4>
+              <p
+                style="
+                  font-size: 0.82rem;
+                  color: var(--muted);
+                  line-height: 1.9;
+                ">
+                인스타 알려달라고 했던 그날.<br />너가 거칠어질 줄 몰랐어.
+              </p>
             </div>
           </div>
-          <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:44px;" class="reveal">
-            <div class="t-dot" style="margin-left:-5px;"></div>
+          <div
+            style="
+              display: flex;
+              gap: 20px;
+              align-items: flex-start;
+              margin-bottom: 44px;
+            "
+            class="reveal">
+            <div class="t-dot" style="margin-left: -5px"></div>
             <div>
-              <div style="font-size:0.65rem;color:#c0a860;margin-bottom:6px;letter-spacing:0.1em;">봄 · 여름</div>
-              <h4 class="serif" style="font-size:1.15rem;margin-bottom:6px;font-weight:700;">설레던 날들</h4>
-              <p style="font-size:0.82rem;color:var(--muted);line-height:1.9;">뭘 해도 재밌고, 어디 가도 좋았어.<br/>그냥 네가 있어서 좋았어.</p>
+              <div
+                style="
+                  font-size: 0.65rem;
+                  color: #c0a860;
+                  margin-bottom: 6px;
+                  letter-spacing: 0.1em;
+                ">
+                봄 · 여름
+              </div>
+              <h4
+                class="serif"
+                style="
+                  font-size: 1.15rem;
+                  margin-bottom: 6px;
+                  font-weight: 700;
+                ">
+                설레던 날들
+              </h4>
+              <p
+                style="
+                  font-size: 0.82rem;
+                  color: var(--muted);
+                  line-height: 1.9;
+                ">
+                뭘 해도 재밌고, 어디 가도 좋았어.<br />그냥 네가 있어서 좋았어.
+              </p>
             </div>
           </div>
-          <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:44px;" class="reveal">
-            <div class="t-dot" style="margin-left:-5px;"></div>
+          <div
+            style="
+              display: flex;
+              gap: 20px;
+              align-items: flex-start;
+              margin-bottom: 44px;
+            "
+            class="reveal">
+            <div class="t-dot" style="margin-left: -5px"></div>
             <div>
-              <div style="font-size:0.65rem;color:#c0a860;margin-bottom:6px;letter-spacing:0.1em;">가을 · 겨울</div>
-              <h4 class="serif" style="font-size:1.15rem;margin-bottom:6px;font-weight:700;">편안해진 우리</h4>
-              <p style="font-size:0.82rem;color:var(--muted);line-height:1.9;">같이 있는 게 당연해진 때.<br/>그게 제일 좋았어.</p>
+              <div
+                style="
+                  font-size: 0.65rem;
+                  color: #c0a860;
+                  margin-bottom: 6px;
+                  letter-spacing: 0.1em;
+                ">
+                가을 · 겨울
+              </div>
+              <h4
+                class="serif"
+                style="
+                  font-size: 1.15rem;
+                  margin-bottom: 6px;
+                  font-weight: 700;
+                ">
+                편안해진 우리
+              </h4>
+              <p
+                style="
+                  font-size: 0.82rem;
+                  color: var(--muted);
+                  line-height: 1.9;
+                ">
+                같이 있는 게 당연해진 때.<br />그게 제일 좋았어.
+              </p>
             </div>
           </div>
-          <div style="display:flex;gap:20px;align-items:flex-start;" class="reveal">
-            <div class="t-dot now" style="margin-left:-6px;"></div>
+          <div
+            style="display: flex; gap: 20px; align-items: flex-start"
+            class="reveal">
+            <div class="t-dot now" style="margin-left: -6px"></div>
             <div>
-              <div style="font-size:0.65rem;color:var(--gold);font-weight:600;margin-bottom:6px;letter-spacing:0.1em;">오늘 ✦</div>
-              <h4 class="serif" style="font-size:1.25rem;margin-bottom:6px;font-weight:700;">1주년</h4>
-              <p style="font-size:0.82rem;color:var(--muted);line-height:1.9;">벌써 1년이네.<br/>앞으로도 잘 부탁해. 🐥</p>
+              <div
+                style="
+                  font-size: 0.65rem;
+                  color: var(--gold);
+                  font-weight: 600;
+                  margin-bottom: 6px;
+                  letter-spacing: 0.1em;
+                ">
+                오늘 ✦ 2026 · 03 · 07
+              </div>
+              <h4
+                class="serif"
+                style="
+                  font-size: 1.25rem;
+                  margin-bottom: 6px;
+                  font-weight: 700;
+                ">
+                1주년
+              </h4>
+              <p
+                style="
+                  font-size: 0.82rem;
+                  color: var(--muted);
+                  line-height: 1.9;
+                ">
+                1주년 축하해.<br />앞으로도 잘 부탁할게용
+              </p>
             </div>
           </div>
         </div>
@@ -336,37 +1120,87 @@
       <div class="max-w-md mx-auto">
         <div class="text-center mb-12 reveal">
           <p class="section-label mb-3">letter</p>
-          <h2 class="serif" style="font-size:1.8rem;color:var(--ink);font-weight:400;">우주최강 귀염코딱지에게</h2>
+          <h2
+            class="serif"
+            style="font-size: 1.8rem; color: var(--ink); font-weight: 400">
+            우주최강 귀염코딱지에게
+          </h2>
           <div class="line mt-5"></div>
         </div>
-        <div id="envWrap" class="envelope reveal" onclick="openLetter()" style="padding:48px 32px;text-align:center;">
+        <div
+          id="envWrap"
+          class="envelope reveal"
+          onclick="openLetter()"
+          style="padding: 48px 32px; text-align: center">
           <div class="envelope-flap"></div>
-          <div style="position:relative;z-index:1;margin-top:16px;">
-            <div style="font-size:2.4rem;margin-bottom:12px;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.08));">💌</div>
-            <p class="serif" style="color:#a08840;font-size:0.88rem;letter-spacing:0.04em;">눌러서 편지 읽기</p>
-            <p style="font-size:0.62rem;color:#c0a860;margin-top:6px;letter-spacing:0.12em;">OPEN LETTER</p>
+          <div style="position: relative; z-index: 1; margin-top: 16px">
+            <div
+              style="
+                font-size: 2.4rem;
+                margin-bottom: 12px;
+                filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+              ">
+              💌
+            </div>
+            <p
+              class="serif"
+              style="
+                color: #a08840;
+                font-size: 0.88rem;
+                letter-spacing: 0.04em;
+              ">
+              눌러서 편지 읽기
+            </p>
+            <p
+              style="
+                font-size: 0.62rem;
+                color: #c0a860;
+                margin-top: 6px;
+                letter-spacing: 0.12em;
+              ">
+              OPEN LETTER
+            </p>
           </div>
         </div>
-        <div id="letterBox" class="letter-paper px-10 py-12 reveal" style="display:none;">
-          <div class="serif" style="font-size:0.94rem;line-height:2.5;color:#2a2820;position:relative;z-index:1;padding-left:8px;">
-            <p>지영아,</p><br/>
-            <p>벌써 1년이 지났다.</p>
-            <p>생각해보면 참 별거 없는 날들이었는데,</p>
-            <p>네가 있어서 전부 특별했어.</p><br/>
+        <div
+          id="letterBox"
+          class="letter-paper px-10 py-12 reveal"
+          style="display: none">
+          <div
+            class="serif"
+            style="
+              font-size: 0.94rem;
+              line-height: 2.5;
+              color: #2a2820;
+              position: relative;
+              z-index: 1;
+              padding-left: 8px;
+            ">
+            <p>지영아,</p>
+            <br />
+            <p>벌써 1년이 지났네.</p>
+            <p>1년동안 정말 많은 추억을 쌓았던 것 같아.</p>
+            <p>졍이가 있어서 모든 순간들이 특별했어.</p>
+            <br />
             <p>처음 봤을 때부터 뭔가 달랐어.</p>
-            <p>설레는지도 몰랐는데, 계속 생각났거든.</p><br/>
-            <p>같이 밥 먹고, 드라이브하고,</p>
-            <p>아무것도 안 하면서 그냥 있었던 날들.</p>
-            <p>그 모든 게 나한텐 제일 좋은 기억이야.</p><br/>
+            <p>뭔가 모르는 기운이 빨리 잡으라고 했거든 ㅎ</p>
+            <br />
+            <p>너랑 놀고 웃고 술마시고 맛있는거 먹고</p>
+            <p>그냥 누워서 릴스보고 꼬집히고 괴롭힘 당하고..</p>
+            <p>그 모든 것들이 내 일상이 되었어.</p>
+            <br />
             <p>네가 웃을 때 나도 모르게 웃게 되고,</p>
             <p>네가 힘들다 하면 나도 같이 무거워지고.</p>
-            <p>그게 사랑인 것 같아.</p><br/>
+            <p>내한테 가장 소중한 사람이자 내 분신같아.</p>
+            <br />
             <p>잘 맞지 않을 때도 있었고,</p>
             <p>서툴게 마음 전한 날도 많았는데</p>
-            <p>그래도 곁에 있어줘서 고마워.</p><br/>
-            <p>앞으로도 네 옆에 있고 싶어.</p>
-            <p>오래오래, 같이. 🐥</p><br/>
-            <p style="text-align:right;color:var(--gold);">— 항상 네 편, 나</p>
+            <p>그래도 곁에서 받아줘서 고마워</p>
+            <br />
+            <p>앞으로도 지영이 정수리 냄새 계속 맡을래</p>
+            <p>오래오래 옆에 있을게</p>
+            <br />
+            <p style="text-align: right; color: var(--gold)">— 시원</p>
           </div>
         </div>
       </div>
@@ -375,22 +1209,100 @@
     <!-- CLOSING -->
     <section class="py-32 px-6 text-center" style="background: var(--cream)">
       <div class="max-w-sm mx-auto reveal">
-        <div style="font-size:3.5rem;margin-bottom:2rem;animation:pulse 2.5s ease-in-out infinite;">🐥</div>
-        <h2 class="serif" style="font-size:2.6rem;margin-bottom:1.2rem;color:var(--ink);font-weight:800;line-height:1.2;">1년,<br/>고마워</h2>
+        <div
+          style="
+            margin-bottom: 2rem;
+            animation: pulse 2.5s ease-in-out infinite;
+          ">
+          <img
+            src="./images/icon/pompom.png"
+            alt="pompom"
+            style="width: 90px; height: 90px; object-fit: contain" />
+        </div>
+        <h2
+          class="serif"
+          style="
+            font-size: 2.6rem;
+            margin-bottom: 1.2rem;
+            color: var(--ink);
+            font-weight: 800;
+            line-height: 1.2;
+          ">
+          1년,<br />고마워
+        </h2>
         <div class="line mb-6"></div>
-        <p style="font-size:0.88rem;color:var(--muted);line-height:2;margin-bottom:2.5rem;">오지영, 사랑해.</p>
+        <p
+          style="
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 2;
+            margin-bottom: 2.5rem;
+          ">
+          오지영, 사랑해.
+        </p>
         <button
           onclick="duckPop(event)"
-          style="padding:14px 36px;border-radius:999px;background:linear-gradient(135deg,var(--gold),#d4a030);color:#fff;font-size:0.82rem;font-weight:600;border:none;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s;box-shadow:0 6px 24px rgba(232,184,75,0.35);letter-spacing:0.05em;"
-          onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 10px 32px rgba(232,184,75,0.5)';"
-          onmouseout="this.style.transform='';this.style.boxShadow='0 6px 24px rgba(232,184,75,0.35)';">
-          🐥 오리 날리기
+          style="
+            padding: 14px 36px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--gold), #d4a030);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition:
+              transform 0.25s,
+              box-shadow 0.25s;
+            box-shadow: 0 6px 24px rgba(232, 184, 75, 0.35);
+            letter-spacing: 0.05em;
+          "
+          onmouseover="
+            this.style.transform = 'scale(1.05)';
+            this.style.boxShadow = '0 10px 32px rgba(232,184,75,0.5)';
+          "
+          onmouseout="
+            this.style.transform = '';
+            this.style.boxShadow = '0 6px 24px rgba(232,184,75,0.35)';
+          ">
+          <img
+            src="./images/icon/pompom.png"
+            alt="pompom"
+            style="
+              width: 18px;
+              height: 18px;
+              object-fit: contain;
+              vertical-align: middle;
+              margin-right: 4px;
+            " />
+          푸린 날리기
         </button>
       </div>
     </section>
 
-    <footer style="padding:28px;text-align:center;background:#fafaf5;border-top:1px solid #f0e8c0;">
-      <p style="font-size:0.62rem;color:#ccc;letter-spacing:0.15em;">🐥 오지영 · 1주년 · 2026</p>
+    <footer
+      style="
+        padding: 28px;
+        text-align: center;
+        background: #fafaf5;
+        border-top: 1px solid #f0e8c0;
+      ">
+      <p
+        style="
+          font-size: 0.62rem;
+          color: #ccc;
+          letter-spacing: 0.15em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+        ">
+        <img
+          src="./images/icon/pompom.png"
+          alt="pompom"
+          style="width: 14px; height: 14px; object-fit: contain" />
+        오지영 · 1주년 · 2026
+      </p>
     </footer>
 
     <script src="./js/365.js"></script>

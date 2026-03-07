@@ -39,7 +39,7 @@ body {
   border-radius: 2px;
 }
 
-/* ── Noise (numOctaves 4→2 for perf) ── */
+/* ── Noise ── */
 body::before {
   content: "";
   position: fixed;
@@ -542,7 +542,7 @@ body::before {
 }
 
 /* ══════════════════════════════════════
-   갤러리 배지 (강릉 + 경주 공통 구조)
+   갤러리 배지
 ══════════════════════════════════════ */
 .gangneung-card,
 .gyeongju-card {
@@ -575,27 +575,31 @@ body::before {
   box-shadow: 0 2px 8px rgba(140, 90, 20, 0.3);
 }
 
-.gangneung-card .photo-inner::after,
+.gangneung-card .photo-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(20, 60, 100, 0.18), transparent 55%);
+}
+
 .gyeongju-card .photo-inner::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-}
-
-.gangneung-card .photo-inner::after {
-  background: linear-gradient(to top, rgba(20, 60, 100, 0.18), transparent 55%);
-}
-
-.gyeongju-card .photo-inner::after {
   background: linear-gradient(to top, rgba(80, 50, 10, 0.18), transparent 55%);
 }
 
 /* ══════════════════════════════════════
-   슬라이드쇼 공통 (강릉 #slideshow + 경주 #slideshow2)
+   슬라이드쇼 공통
 ══════════════════════════════════════ */
 #slideshow,
-#slideshow2 {
+#slideshow2,
+#slideshow3,
+#slideshow4,
+#slideshow5,
+#slideshow6 {
   position: fixed;
   inset: 0;
   z-index: 5000;
@@ -611,7 +615,11 @@ body::before {
 }
 
 #slideshow.open,
-#slideshow2.open {
+#slideshow2.open,
+#slideshow3.open,
+#slideshow4.open,
+#slideshow5.open,
+#slideshow6.open {
   display: flex;
 }
 
@@ -654,7 +662,6 @@ body::before {
   cursor: pointer;
   transition: color 0.2s;
   line-height: 1;
-  /* 모바일 터치 영역 확보 */
   padding: 12px 16px;
   margin: -8px -8px -8px 0;
   min-width: 48px;
@@ -682,7 +689,6 @@ body::before {
   transition: width linear;
 }
 
-/* 스테이지 */
 .ss-stage {
   position: relative;
   display: flex;
@@ -695,9 +701,12 @@ body::before {
   min-height: 0;
 }
 
-/* 이미지 — 강릉/경주 동일 */
 #ssImg,
-#ssImg2 {
+#ssImg2,
+#ssImg3,
+#ssImg4,
+#ssImg5,
+#ssImg6 {
   max-width: 100%;
   max-height: calc(100vh - 200px);
   object-fit: contain;
@@ -709,11 +718,14 @@ body::before {
 }
 
 #ssImg.fading,
-#ssImg2.fading {
+#ssImg2.fading,
+#ssImg3.fading,
+#ssImg4.fading,
+#ssImg5.fading,
+#ssImg6.fading {
   opacity: 0;
 }
 
-/* 화살표 — 강릉/경주 동일 */
 .ss-arrow {
   position: absolute;
   top: 50%;
@@ -742,18 +754,24 @@ body::before {
   transform: translateY(-50%) scale(1.08);
 }
 
-/* 화살표 위치 — 강릉/경주 모두 적용 */
 #ssArrowL,
-#ssArrowL2 {
+#ssArrowL2,
+#ssArrowL3,
+#ssArrowL4,
+#ssArrowL5,
+#ssArrowL6 {
   left: 4px;
 }
 
 #ssArrowR,
-#ssArrowR2 {
+#ssArrowR2,
+#ssArrowR3,
+#ssArrowR4,
+#ssArrowR5,
+#ssArrowR6 {
   right: 4px;
 }
 
-/* 썸네일 스트립 */
 .ss-strip {
   width: 100%;
   padding: 14px 16px 20px;
@@ -810,9 +828,127 @@ body::before {
   font-size: 1.2rem;
 }
 
-/* ══════════════════════════════════════
-   잠금화면
-══════════════════════════════════════ */
+/* ── 인생네컷 배지 ── */
+.photobooth-card {
+  position: relative;
+}
+
+.photobooth-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+  background: linear-gradient(135deg, #e05080, #b83060);
+  color: #fff;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(180, 40, 80, 0.3);
+}
+
+.photobooth-card .photo-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(120, 20, 50, 0.18), transparent 55%);
+}
+
+/* ── 후쿠오카 배지 ── */
+.fukuoka-card {
+  position: relative;
+}
+
+.fukuoka-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+  background: linear-gradient(135deg, #e07020, #b85010);
+  color: #fff;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(180, 70, 10, 0.3);
+}
+
+.fukuoka-card .photo-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(100, 40, 5, 0.18), transparent 55%);
+}
+
+/* ── 대구 배지 ── */
+.daegu-card {
+  position: relative;
+}
+
+.daegu-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+  background: linear-gradient(135deg, #4a70d4, #2a50b4);
+  color: #fff;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(40, 60, 180, 0.3);
+}
+
+.daegu-card .photo-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(20, 30, 100, 0.18), transparent 55%);
+}
+
+/* ── 우주최강겸둥 배지 ── */
+.gyemdong-card {
+  position: relative;
+}
+
+.gyemdong-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+  background: linear-gradient(135deg, #f06090, #c03060);
+  color: #fff;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(200, 40, 80, 0.3);
+}
+
+.gyemdong-card .photo-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(150, 20, 60, 0.18), transparent 55%);
+}
+
+/* ── 잠금화면 ── */
 @keyframes lcIn {
   from {
     opacity: 0;
@@ -864,18 +1000,6 @@ body::before {
 
   90% {
     transform: translateX(-2px)
-  }
-}
-
-@keyframes duckBob {
-
-  0%,
-  100% {
-    transform: translateY(0) rotate(-4deg)
-  }
-
-  50% {
-    transform: translateY(-10px) rotate(4deg)
   }
 }
 
@@ -934,221 +1058,15 @@ body::before {
   -webkit-text-fill-color: #ffe87a;
 }
 
-/* ── 인생네컷 배지 ── */
-.photobooth-card {
-  position: relative;
-}
+/* ── 잠금화면 duckBob ── */
+@keyframes duckBob {
 
-.photobooth-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 3;
-  background: linear-gradient(135deg, #e05080, #b83060);
-  color: #fff;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  padding: 5px 11px;
-  border-radius: 999px;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 600;
-  pointer-events: none;
-  box-shadow: 0 2px 8px rgba(180, 40, 80, 0.3);
-}
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
 
-.photobooth-card .photo-inner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(to top, rgba(120, 20, 50, 0.18), transparent 55%);
-}
-
-/* ── 슬라이드쇼3 (인생네컷) ── */
-#slideshow3 {
-  position: fixed;
-  inset: 0;
-  z-index: 5000;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(5, 3, 1, 0.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  animation: fadeIn 0.25s ease;
-  will-change: opacity;
-}
-
-#slideshow3.open {
-  display: flex;
-}
-
-#ssImg3 {
-  max-width: 100%;
-  max-height: calc(100vh - 200px);
-  object-fit: contain;
-  border-radius: 4px;
-  box-shadow: 0 20px 72px rgba(0, 0, 0, 0.65);
-  transition: opacity 0.25s ease;
-  display: block;
-  will-change: opacity;
-}
-
-#ssImg3.fading {
-  opacity: 0;
-}
-
-#ssArrowL3 {
-  left: 4px;
-}
-
-#ssArrowR3 {
-  right: 4px;
-}
-
-/* ── 후쿠오카 배지 ── */
-.fukuoka-card {
-  position: relative;
-}
-
-.fukuoka-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 3;
-  background: linear-gradient(135deg, #e07020, #b85010);
-  color: #fff;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  padding: 5px 11px;
-  border-radius: 999px;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 600;
-  pointer-events: none;
-  box-shadow: 0 2px 8px rgba(180, 70, 10, 0.3);
-}
-
-.fukuoka-card .photo-inner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(to top, rgba(100, 40, 5, 0.18), transparent 55%);
-}
-
-/* ── 슬라이드쇼4 (후쿠오카) ── */
-#slideshow4 {
-  position: fixed;
-  inset: 0;
-  z-index: 5000;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(5, 3, 1, 0.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  animation: fadeIn 0.25s ease;
-  will-change: opacity;
-}
-
-#slideshow4.open {
-  display: flex;
-}
-
-#ssImg4 {
-  max-width: 100%;
-  max-height: calc(100vh - 200px);
-  object-fit: contain;
-  border-radius: 4px;
-  box-shadow: 0 20px 72px rgba(0, 0, 0, 0.65);
-  transition: opacity 0.25s ease;
-  display: block;
-  will-change: opacity;
-}
-
-#ssImg4.fading {
-  opacity: 0;
-}
-
-#ssArrowL4 {
-  left: 4px;
-}
-
-#ssArrowR4 {
-  right: 4px;
-}
-
-/* ── 대구 배지 ── */
-.daegu-card {
-  position: relative;
-}
-
-.daegu-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 3;
-  background: linear-gradient(135deg, #4a70d4, #2a50b4);
-  color: #fff;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  padding: 5px 11px;
-  border-radius: 999px;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 600;
-  pointer-events: none;
-  box-shadow: 0 2px 8px rgba(40, 60, 180, 0.3);
-}
-
-.daegu-card .photo-inner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(to top, rgba(20, 30, 100, 0.18), transparent 55%);
-}
-
-/* ── 슬라이드쇼5 (대구) ── */
-#slideshow5 {
-  position: fixed;
-  inset: 0;
-  z-index: 5000;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(5, 3, 1, 0.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  animation: fadeIn 0.25s ease;
-  will-change: opacity;
-}
-
-#slideshow5.open {
-  display: flex;
-}
-
-#ssImg5 {
-  max-width: 100%;
-  max-height: calc(100vh - 200px);
-  object-fit: contain;
-  border-radius: 4px;
-  box-shadow: 0 20px 72px rgba(0, 0, 0, 0.65);
-  transition: opacity 0.25s ease;
-  display: block;
-  will-change: opacity;
-}
-
-#ssImg5.fading {
-  opacity: 0;
-}
-
-#ssArrowL5 {
-  left: 4px;
-}
-
-#ssArrowR5 {
-  right: 4px;
+  50% {
+    transform: translateY(-10px) rotate(4deg);
+  }
 }

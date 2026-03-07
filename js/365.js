@@ -1,3 +1,90 @@
+/* ── 잠금화면 ── */
+function lockFocus(el) {
+  el.style.borderColor = "rgba(255,210,50,0.7)"; el.style.borderBottomColor = "#ffd040";
+  el.style.boxShadow = "0 0 0 3px rgba(255,200,40,0.12),0 0 16px rgba(255,180,0,0.12)";
+  el.style.background = "rgba(255,200,50,0.14)";
+}
+function lockBlur(el) {
+  el.style.borderColor = "rgba(255,190,40,0.25)"; el.style.borderBottomColor = "rgba(255,180,30,0.6)";
+  el.style.boxShadow = "none"; el.style.background = "rgba(255,200,50,0.1)";
+}
+function onlyNums(el) { el.value = el.value.replace(/\D/g, ""); }
+
+function checkDate() {
+  const y = document.getElementById("inYear").value.trim();
+  const m = document.getElementById("inMonth").value.trim().padStart(2, "0");
+  const d = document.getElementById("inDay").value.trim().padStart(2, "0");
+  if (y.length < 4 || m.length < 2 || d.length < 2) return;
+  if (`${y}-${m}-${d}` === "2025-03-07") {
+    const lock = document.getElementById("lockScreen");
+    const duck = document.getElementById("lockDuck");
+    duck.style.animation = "none";
+    duck.innerHTML = '<div style="font-size:4rem;">🎉</div>';
+    for (let i = 0; i < 28; i++) {
+      setTimeout(() => {
+        const el = document.createElement("img");
+        const ang = Math.random() * Math.PI * 2, dist = 90 + Math.random() * 170;
+        el.src = "./images/icon/pompom.png";
+        const size = 28 + Math.random() * 24;
+        el.style.cssText = `position:fixed;left:50%;top:50%;width:${size}px;height:${size}px;object-fit:contain;pointer-events:none;z-index:99999;transition:transform 1s cubic-bezier(.2,.8,.3,1),opacity 1s;opacity:1`;
+        document.body.appendChild(el);
+        requestAnimationFrame(() => {
+          el.style.transform = `translate(calc(-50% + ${Math.cos(ang) * dist}px),calc(-50% + ${Math.sin(ang) * dist}px)) scale(0.2) rotate(${Math.random() * 360}deg)`;
+          el.style.opacity = "0";
+        });
+        setTimeout(() => el.remove(), 1100);
+      }, i * 35);
+    }
+    setTimeout(() => {
+      lock.style.transition = "opacity 1s ease"; lock.style.opacity = "0";
+      setTimeout(() => { lock.style.display = "none"; }, 1000);
+    }, 1000);
+  } else {
+    const msg = document.getElementById("lockErrMsg");
+    const inputs = document.getElementById("dateInputs");
+    msg.style.opacity = "1";
+    inputs.classList.remove("lock-shake"); void inputs.offsetWidth; inputs.classList.add("lock-shake");
+    ["inYear", "inMonth", "inDay"].forEach(id => {
+      const el = document.getElementById(id);
+      el.style.borderBottomColor = "rgba(255,100,80,0.8)"; el.style.boxShadow = "0 0 0 3px rgba(255,80,60,0.08)";
+      setTimeout(() => { el.style.borderBottomColor = "rgba(255,180,30,0.5)"; el.style.boxShadow = "none"; }, 700);
+    });
+    document.getElementById("inDay").value = "";
+    setTimeout(() => { msg.style.opacity = "0"; }, 2600);
+    document.getElementById("inYear").focus();
+  }
+}
+
+/* ── 잠금화면 파티클 ── */
+(function () {
+  const c = document.getElementById("lockCanvas");
+  if (!c) return;
+  let W, H, pts = [];
+  function resize() { W = c.width = innerWidth; H = c.height = innerHeight; }
+  function mkPt() {
+    return {
+      x: Math.random() * W, y: Math.random() * H + H,
+      vx: (Math.random() - .5) * .4, vy: -(Math.random() * .6 + .2),
+      a: Math.random() * .5 + .1, r: Math.random() * 1.5 + .3,
+      life: 0, maxLife: 200 + Math.random() * 300
+    };
+  }
+  for (let i = 0; i < 60; i++) { pts.push(mkPt()); pts[i].y = Math.random() * H; }
+  function draw() {
+    const ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, W, H);
+    pts.forEach((p, i) => {
+      p.life++; p.x += p.vx; p.y += p.vy;
+      const fade = p.life < 30 ? p.life / 30 : p.life > p.maxLife - 30 ? 1 - (p.life - (p.maxLife - 30)) / 30 : 1;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,${180 + Math.random() * 60 | 0},20,${p.a * fade * .7})`; ctx.fill();
+      if (p.life > p.maxLife) pts[i] = mkPt();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener("resize", resize); resize(); draw();
+})();
+
 /* ── D+ count ── */
 const start = new Date("2025-03-07");
 document.getElementById("dayCount").textContent =
@@ -34,14 +121,14 @@ function openLetter() {
 
 /* ── Duck pop ── */
 function duckPop(e) {
-  const items = ["🐥", "🐥", "🐥", "🐣", "💛", "✨", "🌟", "🌼", "💝"];
   for (let i = 0; i < 30; i++) {
     setTimeout(() => {
-      const el = document.createElement("div");
+      const el = document.createElement("img");
       const ang = Math.random() * Math.PI * 2;
       const dist = 70 + Math.random() * 160;
-      el.textContent = items[Math.random() * items.length | 0];
-      el.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;font-size:${0.9 + Math.random()}rem;pointer-events:none;z-index:9000;transition:transform .9s cubic-bezier(.2,.8,.3,1),opacity .9s ease;opacity:1`;
+      el.src = "./images/icon/pompom.png";
+      const size = 20 + Math.random() * 20;
+      el.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:${size}px;height:${size}px;object-fit:contain;pointer-events:none;z-index:9000;transition:transform .9s cubic-bezier(.2,.8,.3,1),opacity .9s ease;opacity:1`;
       document.body.appendChild(el);
       requestAnimationFrame(() => {
         el.style.transform = `translate(${Math.cos(ang) * dist}px,${Math.sin(ang) * dist}px) scale(.3) rotate(${Math.random() * 360}deg)`;
@@ -273,7 +360,7 @@ function checkDate() {
       setTimeout(() => {
         const el = document.createElement("div");
         const ang = Math.random() * Math.PI * 2, dist = 90 + Math.random() * 170;
-        el.textContent = ["🐥", "🐣", "💛", "✨", "🌟", "🌼", "🐥"][Math.random() * 7 | 0];
+        el.textContent = ["🍮", "🍮", "💛", "✨", "🌟", "🌼", "🍮"][Math.random() * 7 | 0];
         el.style.cssText = `position:fixed;left:50%;top:50%;font-size:${0.9 + Math.random() * 1.3}rem;pointer-events:none;z-index:9999;transition:transform 1s cubic-bezier(.2,.8,.3,1),opacity 1s;opacity:1`;
         document.body.appendChild(el);
         requestAnimationFrame(() => {
