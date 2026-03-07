@@ -52,8 +52,8 @@ function duckPop(e) {
   }
 }
 
-/* ── 일반 photo-card 줌 (강릉/경주 카드 제외) ── */
-document.querySelectorAll(".photo-card:not(.gangneung-card):not(.gyeongju-card)").forEach(card => {
+/* ── 일반 photo-card 줌 (슬라이드쇼 카드 제외) ── */
+document.querySelectorAll(".photo-card:not(.gangneung-card):not(.gyeongju-card):not(.photobooth-card):not(.fukuoka-card):not(.daegu-card):not(.gyemdong-card)").forEach(card => {
   card.addEventListener("click", () => {
     const ov = document.createElement("div");
     ov.style.cssText = "position:fixed;inset:0;background:rgba(20,18,14,.75);z-index:1000;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(10px);animation:fadeIn .25s ease";
@@ -66,7 +66,7 @@ document.querySelectorAll(".photo-card:not(.gangneung-card):not(.gyeongju-card)"
 });
 
 /* ══════════════════════════════════════════════════════
-   슬라이드쇼 팩토리 — 강릉/경주 공통 로직 하나로 통합
+   슬라이드쇼 팩토리
 ══════════════════════════════════════════════════════ */
 const AUTOPLAY_DELAY = 3500;
 
@@ -77,7 +77,6 @@ function createSlideshow({ id, images, base, idxElId, totalElId, imgElId, stripE
   const el = document.getElementById(id);
   const imgEl = document.getElementById(imgElId);
 
-  /* 썸네일 스트립 빌드 */
   function buildStrip() {
     document.getElementById(stripElId).innerHTML = images.map((f, i) =>
       `<div class="ss-dot${i === idx ? " active" : ""}" id="${id}_dot_${i}" onclick="${id}_go(${i})">
@@ -101,7 +100,6 @@ function createSlideshow({ id, images, base, idxElId, totalElId, imgElId, stripE
     }, 200);
   }
 
-  /* 자동재생 */
   function startAuto() {
     if (!autoOn) return;
     stopAuto();
@@ -119,7 +117,6 @@ function createSlideshow({ id, images, base, idxElId, totalElId, imgElId, stripE
     if (bar) { bar.style.transition = "none"; bar.style.width = "0%"; }
   }
 
-  /* 탐색 */
   function move(dir) {
     idx = (idx + dir + images.length) % images.length;
     document.getElementById(idxElId).textContent = idx + 1;
@@ -135,14 +132,12 @@ function createSlideshow({ id, images, base, idxElId, totalElId, imgElId, stripE
     if (autoOn) { stopAuto(); startAuto(); }
   }
 
-  /* 키보드 */
   function onKey(e) {
     if (e.key === "ArrowLeft") move(-1);
     if (e.key === "ArrowRight") move(1);
     if (e.key === "Escape") close();
   }
 
-  /* 열기/닫기 */
   function open(startIdx) {
     idx = startIdx || 0;
     el.classList.add("open");
@@ -161,7 +156,6 @@ function createSlideshow({ id, images, base, idxElId, totalElId, imgElId, stripE
     stopAuto();
   }
 
-  /* AUTO 버튼 토글 */
   function toggleAuto() {
     autoOn = !autoOn;
     const btn = document.getElementById(autoBtnId);
@@ -178,22 +172,18 @@ function createSlideshow({ id, images, base, idxElId, totalElId, imgElId, stripE
     }
   }
 
-  /* 배경 클릭 닫기 */
   el.addEventListener("click", e => { if (e.target === el) close(); });
 
-  /* 터치 스와이프 */
   let tx = 0;
   el.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
   el.addEventListener("touchend", e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) move(dx < 0 ? 1 : -1); });
 
-  /* 전역 노출 (HTML onclick 바인딩용) */
   window[`${id}_open`] = open;
   window[`${id}_close`] = close;
   window[`${id}_move`] = move;
   window[`${id}_go`] = go;
   window[`${id}_toggleAuto`] = toggleAuto;
 
-  /* ── 모바일 대응: 닫기 버튼에 직접 touchend 리스너 ── */
   const num = id.replace("slideshow", "");
   const closeBtnId = num === "" ? "ssCloseBtn" : `ssCloseBtn${num}`;
   setTimeout(() => {
@@ -231,12 +221,8 @@ createSlideshow({
     "KakaoTalk_20260305_104517673_19.jpg",
   ],
   base: "./images/first/",
-  idxElId: "ssIdx",
-  totalElId: "ssTotal",
-  imgElId: "ssImg",
-  stripElId: "ssStrip",
-  progressElId: "ssProgress",
-  autoBtnId: "ssAutoBtn",
+  idxElId: "ssIdx", totalElId: "ssTotal", imgElId: "ssImg",
+  stripElId: "ssStrip", progressElId: "ssProgress", autoBtnId: "ssAutoBtn",
   fallbackEmoji: "🌊",
 });
 
@@ -257,12 +243,8 @@ createSlideshow({
     "KakaoTalk_20260305_104533933_10.jpg",
   ],
   base: "./images/second/",
-  idxElId: "ssIdx2",
-  totalElId: "ssTotal2",
-  imgElId: "ssImg2",
-  stripElId: "ssStrip2",
-  progressElId: "ssProgress2",
-  autoBtnId: "ssAutoBtn2",
+  idxElId: "ssIdx2", totalElId: "ssTotal2", imgElId: "ssImg2",
+  stripElId: "ssStrip2", progressElId: "ssProgress2", autoBtnId: "ssAutoBtn2",
   fallbackEmoji: "🏛️",
 });
 
@@ -373,12 +355,8 @@ createSlideshow({
     "KakaoTalk_20260305_133543598_15.jpg",
   ],
   base: "./images/third/",
-  idxElId: "ssIdx3",
-  totalElId: "ssTotal3",
-  imgElId: "ssImg3",
-  stripElId: "ssStrip3",
-  progressElId: "ssProgress3",
-  autoBtnId: "ssAutoBtn3",
+  idxElId: "ssIdx3", totalElId: "ssTotal3", imgElId: "ssImg3",
+  stripElId: "ssStrip3", progressElId: "ssProgress3", autoBtnId: "ssAutoBtn3",
   fallbackEmoji: "📸",
 });
 
@@ -415,11 +393,66 @@ createSlideshow({
     "KakaoTalk_20260307_102604166_26.jpg",
   ],
   base: "./images/fourth/",
-  idxElId: "ssIdx4",
-  totalElId: "ssTotal4",
-  imgElId: "ssImg4",
-  stripElId: "ssStrip4",
-  progressElId: "ssProgress4",
-  autoBtnId: "ssAutoBtn4",
+  idxElId: "ssIdx4", totalElId: "ssTotal4", imgElId: "ssImg4",
+  stripElId: "ssStrip4", progressElId: "ssProgress4", autoBtnId: "ssAutoBtn4",
   fallbackEmoji: "✈️",
+});
+
+/* ── 대구 슬라이드쇼 ── */
+createSlideshow({
+  id: "slideshow5",
+  images: [
+    "KakaoTalk_20260307_104300036_05.jpg",
+    "KakaoTalk_20260307_104300036.jpg",
+    "KakaoTalk_20260307_104300036_01.jpg",
+    "KakaoTalk_20260307_104300036_02.jpg",
+    "KakaoTalk_20260307_104300036_03.jpg",
+    "KakaoTalk_20260307_104300036_04.jpg",
+    "KakaoTalk_20260307_104300036_06.jpg",
+    "KakaoTalk_20260307_104300036_07.jpg",
+    "KakaoTalk_20260307_104300036_08.jpg",
+    "KakaoTalk_20260307_104300036_09.jpg",
+    "KakaoTalk_20260307_104328523.jpg",
+    "KakaoTalk_20260307_104328523_01.jpg",
+  ],
+  base: "./images/fifth/",
+  idxElId: "ssIdx5", totalElId: "ssTotal5", imgElId: "ssImg5",
+  stripElId: "ssStrip5", progressElId: "ssProgress5", autoBtnId: "ssAutoBtn5",
+  fallbackEmoji: "🎡",
+});
+
+/* ── 우주최강겸둥 슬라이드쇼 ── */
+createSlideshow({
+  id: "slideshow6",
+  images: [
+    "KakaoTalk_20260307_105306661_08.jpg",
+    "KakaoTalk_20260307_105306661.jpg",
+    "KakaoTalk_20260307_105306661_01.jpg",
+    "KakaoTalk_20260307_105306661_02.jpg",
+    "KakaoTalk_20260307_105306661_03.jpg",
+    "KakaoTalk_20260307_105306661_04.jpg",
+    "KakaoTalk_20260307_105306661_05.png",
+    "KakaoTalk_20260307_105306661_06.png",
+    "KakaoTalk_20260307_105306661_07.png",
+    "KakaoTalk_20260307_105306661_09.jpg",
+    "KakaoTalk_20260307_105306661_10.jpg",
+    "KakaoTalk_20260307_105306661_11.jpg",
+    "KakaoTalk_20260307_105306661_12.jpg",
+    "KakaoTalk_20260307_105306661_13.webp",
+    "KakaoTalk_20260307_105306661_14.jpg",
+    "KakaoTalk_20260307_105306661_15.jpg",
+    "KakaoTalk_20260307_105306661_16.jpg",
+    "KakaoTalk_20260307_105306661_17.webp",
+    "KakaoTalk_20260307_105306661_18.jpg",
+    "KakaoTalk_20260307_105306661_19.jpg",
+    "KakaoTalk_20260307_105306661_20.jpg",
+    "KakaoTalk_20260307_105306661_21.jpg",
+    "KakaoTalk_20260307_105306661_22.jpg",
+    "KakaoTalk_20260307_105306661_23.jpg",
+    "KakaoTalk_20260307_105306661_24.jpg",
+  ],
+  base: "./images/sixth/",
+  idxElId: "ssIdx6", totalElId: "ssTotal6", imgElId: "ssImg6",
+  stripElId: "ssStrip6", progressElId: "ssProgress6", autoBtnId: "ssAutoBtn6",
+  fallbackEmoji: "🐥",
 });

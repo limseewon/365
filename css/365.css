@@ -867,6 +867,18 @@ body::before {
   }
 }
 
+@keyframes duckBob {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg)
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(4deg)
+  }
+}
+
 .lb {
   position: absolute;
   border-radius: 50%;
@@ -1065,5 +1077,78 @@ body::before {
 }
 
 #ssArrowR4 {
+  right: 4px;
+}
+
+/* ── 대구 배지 ── */
+.daegu-card {
+  position: relative;
+}
+
+.daegu-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+  background: linear-gradient(135deg, #4a70d4, #2a50b4);
+  color: #fff;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(40, 60, 180, 0.3);
+}
+
+.daegu-card .photo-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(20, 30, 100, 0.18), transparent 55%);
+}
+
+/* ── 슬라이드쇼5 (대구) ── */
+#slideshow5 {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 3, 1, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: fadeIn 0.25s ease;
+  will-change: opacity;
+}
+
+#slideshow5.open {
+  display: flex;
+}
+
+#ssImg5 {
+  max-width: 100%;
+  max-height: calc(100vh - 200px);
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 72px rgba(0, 0, 0, 0.65);
+  transition: opacity 0.25s ease;
+  display: block;
+  will-change: opacity;
+}
+
+#ssImg5.fading {
+  opacity: 0;
+}
+
+#ssArrowL5 {
+  left: 4px;
+}
+
+#ssArrowR5 {
   right: 4px;
 }
