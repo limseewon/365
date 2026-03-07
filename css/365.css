@@ -654,7 +654,16 @@ body::before {
   cursor: pointer;
   transition: color 0.2s;
   line-height: 1;
-  padding: 4px 8px;
+  /* 모바일 터치 영역 확보 */
+  padding: 12px 16px;
+  margin: -8px -8px -8px 0;
+  min-width: 48px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .ss-close:hover {
