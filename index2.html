@@ -130,9 +130,17 @@
             </div>
             <p class="photo-cap">인생네컷 📸</p>
           </div>
-          <div class="photo-card reveal" style="--r:2.8deg;margin-top:-10px;transition-delay:0.22s">
-            <div class="photo-inner" style="background:linear-gradient(135deg,#fff8e0,#ffecc0)">🌅</div>
-            <p class="photo-cap">같이 본 노을</p>
+          <div class="photo-card fukuoka-card reveal" style="--r:2.8deg;margin-top:-10px;transition-delay:0.22s" onclick="slideshow4_open(0)">
+            <div class="fukuoka-badge">✈️ 후쿠오카</div>
+            <div class="photo-inner">
+              <img src="./images/fourth/KakaoTalk_20260307_102604166_05.jpg" loading="lazy" alt="후쿠오카"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff0e0,#ffe0c0);flex-direction:column;gap:8px;">
+                <span style="font-size:2.8rem">✈️</span>
+                <span style="font-size:0.58rem;color:#c07030;letter-spacing:0.1em;font-family:'Noto Sans KR',sans-serif;">후쿠오카</span>
+              </div>
+            </div>
+            <p class="photo-cap">후쿠오카 ✈️</p>
           </div>
           <div class="photo-card reveal" style="--r:-2.2deg;transition-delay:0.28s">
             <div class="photo-inner" style="background:linear-gradient(135deg,#f8f8f0,#f0f0e0)">☕</div>
@@ -156,7 +164,7 @@
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
           <button id="ssAutoBtn" onclick="slideshow_toggleAuto()" style="min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;background:none;border:1px solid rgba(255,200,60,0.25);border-radius:999px;color:rgba(255,210,100,0.6);font-size:0.6rem;letter-spacing:0.12em;padding:5px 12px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;">▶ AUTO</button>
-          <button class="ss-close" onclick="slideshow_close()">✕</button>
+          <button class="ss-close" id="ssCloseBtn">✕</button>
         </div>
       </div>
       <div class="ss-progress" id="ssProgress"></div>
@@ -177,7 +185,7 @@
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
           <button id="ssAutoBtn2" onclick="slideshow2_toggleAuto()" style="min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;background:none;border:1px solid rgba(255,200,60,0.25);border-radius:999px;color:rgba(255,210,100,0.6);font-size:0.6rem;letter-spacing:0.12em;padding:5px 12px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;">▶ AUTO</button>
-          <button class="ss-close" onclick="slideshow2_close()">✕</button>
+          <button class="ss-close" id="ssCloseBtn2">✕</button>
         </div>
       </div>
       <div class="ss-progress" id="ssProgress2"></div>
@@ -198,7 +206,7 @@
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
           <button id="ssAutoBtn3" onclick="slideshow3_toggleAuto()" style="min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;background:none;border:1px solid rgba(255,200,60,0.25);border-radius:999px;color:rgba(255,210,100,0.6);font-size:0.6rem;letter-spacing:0.12em;padding:5px 12px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;">▶ AUTO</button>
-          <button class="ss-close" onclick="slideshow3_close()">✕</button>
+          <button class="ss-close" id="ssCloseBtn3">✕</button>
         </div>
       </div>
       <div class="ss-progress" id="ssProgress3"></div>
@@ -209,7 +217,27 @@
       </div>
       <div class="ss-strip" id="ssStrip3"></div>
     </div>
-      <div class="max-w-md mx-auto">
+
+    <!-- ══ 후쿠오카 슬라이드쇼 ══ -->
+    <div id="slideshow4">
+      <div class="ss-topbar">
+        <div>
+          <div class="ss-title">✈️ 후쿠오카</div>
+          <div class="ss-counter"><span id="ssIdx4">1</span> / <span id="ssTotal4">1</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <button id="ssAutoBtn4" onclick="slideshow4_toggleAuto()" style="min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;background:none;border:1px solid rgba(255,200,60,0.25);border-radius:999px;color:rgba(255,210,100,0.6);font-size:0.6rem;letter-spacing:0.12em;padding:5px 12px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;">▶ AUTO</button>
+          <button class="ss-close" id="ssCloseBtn4">✕</button>
+        </div>
+      </div>
+      <div class="ss-progress" id="ssProgress4"></div>
+      <div class="ss-stage">
+        <button class="ss-arrow" id="ssArrowL4" onclick="slideshow4_move(-1)">‹</button>
+        <img id="ssImg4" src="" alt="후쿠오카"/>
+        <button class="ss-arrow" id="ssArrowR4" onclick="slideshow4_move(1)">›</button>
+      </div>
+      <div class="ss-strip" id="ssStrip4"></div>
+    </div>
         <div class="text-center mb-16 reveal">
           <p class="section-label mb-3">our story</p>
           <h2 class="serif" style="font-size: 2rem; color: var(--ink); font-weight: 400;">1년의 기록</h2>

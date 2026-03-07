@@ -192,6 +192,17 @@ function createSlideshow({ id, images, base, idxElId, totalElId, imgElId, stripE
   window[`${id}_move`] = move;
   window[`${id}_go`] = go;
   window[`${id}_toggleAuto`] = toggleAuto;
+
+  /* ── 모바일 대응: 닫기 버튼에 직접 touchend 리스너 ── */
+  const num = id.replace("slideshow", "");
+  const closeBtnId = num === "" ? "ssCloseBtn" : `ssCloseBtn${num}`;
+  setTimeout(() => {
+    const closeBtn = document.getElementById(closeBtnId);
+    if (closeBtn) {
+      closeBtn.addEventListener("touchend", e => { e.preventDefault(); e.stopPropagation(); close(); }, { passive: false });
+      closeBtn.addEventListener("click", e => { e.stopPropagation(); close(); });
+    }
+  }, 0);
 }
 
 /* ── 강릉여행 슬라이드쇼 ── */
@@ -369,4 +380,46 @@ createSlideshow({
   progressElId: "ssProgress3",
   autoBtnId: "ssAutoBtn3",
   fallbackEmoji: "📸",
+});
+
+/* ── 후쿠오카 슬라이드쇼 ── */
+createSlideshow({
+  id: "slideshow4",
+  images: [
+    "KakaoTalk_20260307_102604166_05.jpg",
+    "KakaoTalk_20260307_102604166.jpg",
+    "KakaoTalk_20260307_102604166_01.jpg",
+    "KakaoTalk_20260307_102604166_02.jpg",
+    "KakaoTalk_20260307_102604166_03.jpg",
+    "KakaoTalk_20260307_102604166_04.jpg",
+    "KakaoTalk_20260307_102604166_06.jpg",
+    "KakaoTalk_20260307_102604166_07.jpg",
+    "KakaoTalk_20260307_102604166_08.jpg",
+    "KakaoTalk_20260307_102604166_09.jpg",
+    "KakaoTalk_20260307_102604166_10.jpg",
+    "KakaoTalk_20260307_102604166_11.jpg",
+    "KakaoTalk_20260307_102604166_12.jpg",
+    "KakaoTalk_20260307_102604166_13.jpg",
+    "KakaoTalk_20260307_102604166_14.jpg",
+    "KakaoTalk_20260307_102604166_15.jpg",
+    "KakaoTalk_20260307_102604166_16.jpg",
+    "KakaoTalk_20260307_102604166_17.jpg",
+    "KakaoTalk_20260307_102604166_18.jpg",
+    "KakaoTalk_20260307_102604166_19.jpg",
+    "KakaoTalk_20260307_102604166_20.png",
+    "KakaoTalk_20260307_102604166_21.jpg",
+    "KakaoTalk_20260307_102604166_22.webp",
+    "KakaoTalk_20260307_102604166_23.webp",
+    "KakaoTalk_20260307_102604166_24.jpg",
+    "KakaoTalk_20260307_102604166_25.webp",
+    "KakaoTalk_20260307_102604166_26.jpg",
+  ],
+  base: "./images/fourth/",
+  idxElId: "ssIdx4",
+  totalElId: "ssTotal4",
+  imgElId: "ssImg4",
+  stripElId: "ssStrip4",
+  progressElId: "ssProgress4",
+  autoBtnId: "ssAutoBtn4",
+  fallbackEmoji: "✈️",
 });

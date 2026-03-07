@@ -625,7 +625,7 @@ body::before {
   align-items: center;
   justify-content: space-between;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent);
-  pointer-events: none;
+  z-index: 10;
 }
 
 .ss-topbar button {
@@ -992,5 +992,78 @@ body::before {
 }
 
 #ssArrowR3 {
+  right: 4px;
+}
+
+/* ── 후쿠오카 배지 ── */
+.fukuoka-card {
+  position: relative;
+}
+
+.fukuoka-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+  background: linear-gradient(135deg, #e07020, #b85010);
+  color: #fff;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(180, 70, 10, 0.3);
+}
+
+.fukuoka-card .photo-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(100, 40, 5, 0.18), transparent 55%);
+}
+
+/* ── 슬라이드쇼4 (후쿠오카) ── */
+#slideshow4 {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 3, 1, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: fadeIn 0.25s ease;
+  will-change: opacity;
+}
+
+#slideshow4.open {
+  display: flex;
+}
+
+#ssImg4 {
+  max-width: 100%;
+  max-height: calc(100vh - 200px);
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 72px rgba(0, 0, 0, 0.65);
+  transition: opacity 0.25s ease;
+  display: block;
+  will-change: opacity;
+}
+
+#ssImg4.fading {
+  opacity: 0;
+}
+
+#ssArrowL4 {
+  left: 4px;
+}
+
+#ssArrowR4 {
   right: 4px;
 }
