@@ -253,3 +253,8 @@ function deleteTodo(id) {
 function escHtml(str) {
   return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
+
+// ── PWA 서비스워커 등록 ──
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/365/sw.js');
+}

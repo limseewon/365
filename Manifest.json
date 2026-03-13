@@ -1,0 +1,22 @@
+{
+  "name": "귀염딱지와의 일정",
+  "short_name": "우리 일정",
+  "description": "우리 둘만의 일정 📅",
+  "start_url": "/365/schedule.html",
+  "display": "standalone",
+  "background_color": "#f7f5f2",
+  "theme_color": "#d4845a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/365/images/schedule/KakaoTalk_20260313_152401282.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/365/images/schedule/KakaoTalk_20260313_152401282.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
