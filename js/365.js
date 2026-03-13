@@ -4,7 +4,7 @@ fetch("https://api.ipify.org?format=json")
   .then(data => {
     const webhookUrl = "https://script.google.com/macros/s/AKfycbxaOX9RWdkF0bqHrQfRDWR5Y8d1er-VszJWtzVVWujUwVi-M8BfInZbSuwb5QAL7ZUg/exec";
     const ua = encodeURIComponent(navigator.userAgent);
-    fetch(`${webhookUrl}?ip=${data.ip}&ua=${ua}`);
+    fetch(`${webhookUrl}?ip=${data.ip}&ua=${ua}`, { mode: "no-cors" });
   })
   .catch(() => { });
 
