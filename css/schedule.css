@@ -7,19 +7,19 @@
 }
 
 :root {
-  --bg: #fafaf8;
+  --bg: #f7f5f2;
   --surface: #ffffff;
-  --border: #e8e4de;
-  --text: #2a2724;
-  --text-sub: #8a8278;
-  --accent: #c8956c;
-  --accent-light: #f5ede4;
-  --accent-dark: #a8724e;
-  --today: #e8f4e8;
-  --today-text: #4a8a4a;
+  --border: #ece9e3;
+  --text: #1e1c1a;
+  --text-sub: #9a9188;
+  --accent: #d4845a;
+  --accent-light: #fdf1ea;
+  --accent-dark: #b56840;
+  --done: #b0a89e;
   --danger: #e07070;
-  --shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-  --radius: 12px;
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --radius: 14px;
 }
 
 body {
@@ -28,6 +28,7 @@ body {
   color: var(--text);
   min-height: 100vh;
   font-size: 14px;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── 헤더 ── */
@@ -42,7 +43,7 @@ body {
 .header-inner {
   max-width: 480px;
   margin: 0 auto;
-  padding: 14px 20px;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -50,41 +51,41 @@ body {
 
 .logo {
   font-family: 'Nanum Myeongjo', serif;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--text);
-  letter-spacing: -0.3px;
+  letter-spacing: -0.5px;
 }
 
 .today-badge {
   font-size: 12px;
   color: var(--text-sub);
-  font-weight: 400;
+  background: var(--bg);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
 }
 
 /* ── 메인 ── */
 .main {
   max-width: 480px;
   margin: 0 auto;
-  padding: 20px 16px 60px;
+  padding: 20px 16px 80px;
 }
 
 /* ── 탭 ── */
 .tabs {
   display: flex;
-  gap: 4px;
-  background: var(--border);
-  border-radius: 10px;
-  padding: 3px;
+  gap: 6px;
   margin-bottom: 20px;
 }
 
 .tab {
   flex: 1;
-  padding: 8px;
-  border: none;
-  background: transparent;
-  border-radius: 8px;
+  padding: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  border-radius: 10px;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 13px;
   font-weight: 500;
@@ -94,9 +95,10 @@ body {
 }
 
 .tab.active {
-  background: var(--surface);
-  color: var(--text);
-  box-shadow: var(--shadow);
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+  font-weight: 600;
 }
 
 /* ── 탭 콘텐츠 ── */
@@ -106,30 +108,45 @@ body {
 
 .tab-content.active {
   display: block;
+  animation: fadeUp 0.2s ease;
 }
 
-/* ── 캘린더 ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ══ 캘린더 ══ */
 .calendar-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  padding: 0 2px;
 }
 
 .cal-title {
   font-family: 'Nanum Myeongjo', serif;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text);
 }
 
 .nav-btn {
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--border);
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--border);
   background: var(--surface);
-  border-radius: 8px;
-  font-size: 18px;
+  border-radius: 10px;
+  font-size: 20px;
+  line-height: 1;
   color: var(--text-sub);
   cursor: pointer;
   display: flex;
@@ -141,39 +158,41 @@ body {
 .nav-btn:hover {
   border-color: var(--accent);
   color: var(--accent);
+  background: var(--accent-light);
 }
 
 .calendar-grid {
   background: var(--surface);
   border-radius: var(--radius);
   border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
-  box-shadow: var(--shadow);
+  padding: 8px;
 }
 
 .day-label {
   display: inline-block;
   width: calc(100% / 7);
   text-align: center;
-  padding: 10px 0 8px;
+  padding: 8px 0 6px;
   font-size: 11px;
   font-weight: 600;
   color: var(--text-sub);
   letter-spacing: 0.5px;
-  border-bottom: 1px solid var(--border);
 }
 
 .day-label:first-child {
-  color: #e07070;
+  color: #e07878;
 }
 
 .day-label:last-child {
-  color: #7090c8;
+  color: #789ae0;
 }
 
 .cal-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
 }
 
 .cal-day {
@@ -184,45 +203,41 @@ body {
   justify-content: center;
   gap: 3px;
   cursor: pointer;
-  border-radius: 8px;
-  margin: 2px;
+  border-radius: 10px;
   transition: all 0.15s;
-  position: relative;
 }
 
-.cal-day:hover {
+.cal-day:hover:not(.empty) {
   background: var(--accent-light);
 }
 
 .cal-day.empty {
   cursor: default;
-}
-
-.cal-day.empty:hover {
-  background: transparent;
+  pointer-events: none;
 }
 
 .cal-day.today .cal-day-num {
   background: var(--accent);
-  color: white;
-  width: 26px;
-  height: 26px;
+  color: white !important;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 600;
 }
 
-.cal-day.selected {
+.cal-day.selected:not(.today) {
   background: var(--accent-light);
 }
 
 .cal-day.sunday .cal-day-num {
-  color: #e07070;
+  color: #e07878;
 }
 
 .cal-day.saturday .cal-day-num {
-  color: #7090c8;
+  color: #789ae0;
 }
 
 .cal-day-num {
@@ -241,29 +256,18 @@ body {
   height: 4px;
   border-radius: 50%;
   background: var(--accent);
+  opacity: 0.7;
 }
 
 /* ── 날짜 패널 ── */
 .day-panel {
-  margin-top: 16px;
+  margin-top: 14px;
   background: var(--surface);
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
-  animation: slideDown 0.2s ease;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  animation: fadeUp 0.2s ease;
 }
 
 .day-panel-header {
@@ -272,6 +276,9 @@ body {
   justify-content: space-between;
   padding: 14px 16px;
   border-bottom: 1px solid var(--border);
+}
+
+.day-panel-header span {
   font-weight: 600;
   font-size: 14px;
 }
@@ -281,36 +288,37 @@ body {
   font-family: 'Noto Sans KR', sans-serif;
   color: var(--accent);
   background: var(--accent-light);
-  border: none;
-  border-radius: 6px;
-  padding: 5px 10px;
+  border: 1px solid rgba(212, 132, 90, 0.2);
+  border-radius: 8px;
+  padding: 6px 12px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0.15s;
 }
 
 .add-btn:hover {
   background: var(--accent);
   color: white;
+  border-color: var(--accent);
 }
 
 .day-events {
-  padding: 8px 12px 12px;
+  padding: 6px 10px 10px;
 }
 
 .event-empty {
   text-align: center;
   color: var(--text-sub);
   font-size: 13px;
-  padding: 16px 0;
+  padding: 18px 0;
 }
 
 .event-item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   padding: 10px 8px;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: background 0.15s;
 }
 
@@ -318,28 +326,34 @@ body {
   background: var(--bg);
 }
 
-.event-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+.event-bar {
+  width: 3px;
+  height: 36px;
+  border-radius: 2px;
   background: var(--accent);
-  margin-top: 5px;
   flex-shrink: 0;
 }
 
 .event-info {
   flex: 1;
+  min-width: 0;
 }
 
 .event-title {
   font-size: 14px;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .event-memo {
   font-size: 12px;
   color: var(--text-sub);
   margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .event-del {
@@ -347,11 +361,16 @@ body {
   border: none;
   color: var(--text-sub);
   cursor: pointer;
-  font-size: 14px;
-  padding: 2px 4px;
-  border-radius: 4px;
+  font-size: 13px;
+  padding: 4px 6px;
+  border-radius: 6px;
   transition: all 0.15s;
   flex-shrink: 0;
+  opacity: 0;
+}
+
+.event-item:hover .event-del {
+  opacity: 1;
 }
 
 .event-del:hover {
@@ -359,39 +378,40 @@ body {
   color: var(--danger);
 }
 
-/* ── 할일 ── */
+/* ══ 할일 ══ */
 .todo-input-wrap {
   display: flex;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .todo-input {
   flex: 1;
-  padding: 11px 14px;
-  border: 1px solid var(--border);
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
   border-radius: var(--radius);
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   color: var(--text);
   background: var(--surface);
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .todo-input:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(212, 132, 90, 0.1);
 }
 
 .todo-add-btn {
-  padding: 11px 18px;
+  padding: 12px 20px;
   background: var(--accent);
   color: white;
   border: none;
   border-radius: var(--radius);
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
   white-space: nowrap;
@@ -399,6 +419,10 @@ body {
 
 .todo-add-btn:hover {
   background: var(--accent-dark);
+}
+
+.todo-add-btn:active {
+  transform: scale(0.97);
 }
 
 .todo-list {
@@ -412,33 +436,24 @@ body {
   align-items: center;
   gap: 12px;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius);
-  padding: 13px 14px;
-  box-shadow: var(--shadow);
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
   transition: all 0.2s;
-  animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  animation: fadeUp 0.2s ease;
 }
 
 .todo-item.done {
-  opacity: 0.5;
+  opacity: 0.55;
+  border-color: transparent;
+  background: var(--bg);
+  box-shadow: none;
 }
 
 .todo-check {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   border: 2px solid var(--border);
   cursor: pointer;
@@ -446,13 +461,15 @@ body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.15s;
-  font-size: 11px;
+  transition: all 0.2s;
+  font-size: 12px;
   color: transparent;
+  background: var(--surface);
 }
 
 .todo-check:hover {
   border-color: var(--accent);
+  background: var(--accent-light);
 }
 
 .todo-item.done .todo-check {
@@ -464,13 +481,14 @@ body {
 .todo-text {
   flex: 1;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.5;
   transition: all 0.2s;
+  word-break: break-all;
 }
 
 .todo-item.done .todo-text {
   text-decoration: line-through;
-  color: var(--text-sub);
+  color: var(--done);
 }
 
 .todo-del {
@@ -478,10 +496,15 @@ body {
   border: none;
   color: var(--text-sub);
   cursor: pointer;
-  font-size: 14px;
-  padding: 2px 4px;
-  border-radius: 4px;
+  font-size: 13px;
+  padding: 4px 6px;
+  border-radius: 6px;
   transition: all 0.15s;
+  opacity: 0;
+}
+
+.todo-item:hover .todo-del {
+  opacity: 1;
 }
 
 .todo-del:hover {
@@ -489,37 +512,52 @@ body {
   color: var(--danger);
 }
 
+.todo-empty {
+  text-align: center;
+  color: var(--text-sub);
+  font-size: 13px;
+  padding: 30px 0;
+}
+
 /* ── 모달 ── */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 200;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: 20px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
   animation: fadeIn 0.2s ease;
 }
 
-.modal {
-  background: var(--surface);
-  border-radius: 16px;
-  width: 100%;
-  max-width: 360px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  animation: slideUp 0.25s ease;
-}
-
-@keyframes slideUp {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
   }
 
   to {
     opacity: 1;
+  }
+}
+
+.modal {
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.12);
+  animation: slideUp 0.25s cubic-bezier(.32, 1, .32, 1);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
     transform: translateY(0);
   }
 }
@@ -534,27 +572,28 @@ body {
 
 .modal-title {
   font-family: 'Nanum Myeongjo', serif;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
 }
 
 .modal-close {
-  background: none;
+  background: var(--bg);
   border: none;
   color: var(--text-sub);
   cursor: pointer;
-  font-size: 16px;
-  padding: 4px;
-  border-radius: 4px;
-  transition: color 0.15s;
+  font-size: 14px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: all 0.15s;
 }
 
 .modal-close:hover {
+  background: var(--border);
   color: var(--text);
 }
 
 .modal-body {
-  padding: 18px 20px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -563,43 +602,46 @@ body {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
 }
 
 .form-group label {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   color: var(--text-sub);
-  letter-spacing: 0.3px;
+  letter-spacing: 0.6px;
 }
 
 .form-input {
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  padding: 11px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   color: var(--text);
   outline: none;
-  transition: border-color 0.2s;
+  background: var(--bg);
+  transition: all 0.2s;
 }
 
 .form-input:focus {
   border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(212, 132, 90, 0.1);
 }
 
 .modal-footer {
   display: flex;
   gap: 8px;
-  padding: 0 20px 18px;
+  padding: 0 20px 20px;
 }
 
 .btn-cancel {
   flex: 1;
-  padding: 11px;
+  padding: 13px;
   background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 500;
@@ -609,19 +651,19 @@ body {
 }
 
 .btn-cancel:hover {
-  border-color: var(--text-sub);
   color: var(--text);
+  border-color: var(--text-sub);
 }
 
 .btn-save {
-  flex: 1;
-  padding: 11px;
+  flex: 2;
+  padding: 13px;
   background: var(--accent);
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: white;
   cursor: pointer;
   transition: background 0.15s;
@@ -629,12 +671,4 @@ body {
 
 .btn-save:hover {
   background: var(--accent-dark);
-}
-
-/* ── 로딩 ── */
-.loading-msg {
-  text-align: center;
-  color: var(--text-sub);
-  font-size: 13px;
-  padding: 20px 0;
 }
