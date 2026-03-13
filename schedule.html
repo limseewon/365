@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>우리 일정 📅</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&family=Nanum+Myeongjo:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="./css/schedule.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <h1 class="logo">📅 우리 일정</h1>
+        <div class="header-right">
+          <span id="todayBadge" class="today-badge"></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- 탭 -->
+      <div class="tabs">
+        <button
+          class="tab active"
+          data-tab="calendar"
+          onclick="switchTab('calendar')">
+          캘린더
+        </button>
+        <button class="tab" data-tab="todo" onclick="switchTab('todo')">
+          할일
+        </button>
+      </div>
+
+      <!-- 캘린더 탭 -->
+      <div id="tab-calendar" class="tab-content active">
+        <div class="calendar-nav">
+          <button class="nav-btn" onclick="changeMonth(-1)">‹</button>
+          <span id="calTitle" class="cal-title"></span>
+          <button class="nav-btn" onclick="changeMonth(1)">›</button>
+        </div>
+        <div class="calendar-grid">
+          <div class="day-label">일</div>
+          <div class="day-label">월</div>
+          <div class="day-label">화</div>
+          <div class="day-label">수</div>
+          <div class="day-label">목</div>
+          <div class="day-label">금</div>
+          <div class="day-label">토</div>
+          <div id="calDays" class="cal-days"></div>
+        </div>
+
+        <!-- 선택된 날 일정 -->
+        <div id="dayPanel" class="day-panel" style="display: none">
+          <div class="day-panel-header">
+            <span id="dayPanelTitle"></span>
+            <button class="add-btn" onclick="openEventModal()">
+              + 일정 추가
+            </button>
+          </div>
+          <div id="dayEvents" class="day-events"></div>
+        </div>
+      </div>
+
+      <!-- 할일 탭 -->
+      <div id="tab-todo" class="tab-content">
+        <div class="todo-input-wrap">
+          <input
+            id="todoInput"
+            type="text"
+            placeholder="할일을 입력하세요..."
+            class="todo-input"
+            onkeydown="if (event.key === 'Enter') addTodo();" />
+          <button class="todo-add-btn" onclick="addTodo()">추가</button>
+        </div>
+        <div id="todoList" class="todo-list"></div>
+      </div>
+    </main>
+
+    <!-- 일정 추가 모달 -->
+    <div
+      id="eventModal"
+      class="modal-overlay"
+      style="display: none"
+      onclick="if (event.target === this) closeEventModal();">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">일정 추가</h3>
+          <button class="modal-close" onclick="closeEventModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>날짜</label>
+            <input id="eventDate" type="date" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>제목</label>
+            <input
+              id="eventTitle"
+              type="text"
+              placeholder="일정 제목"
+              class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>메모 (선택)</label>
+            <input
+              id="eventMemo"
+              type="text"
+              placeholder="메모"
+              class="form-input" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" onclick="closeEventModal()">취소</button>
+          <button class="btn-save" onclick="saveEvent()">저장</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/schedule.js"></script>
+  </body>
+</html>
