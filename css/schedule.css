@@ -170,9 +170,13 @@ body {
   padding: 8px;
 }
 
+.day-labels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
 .day-label {
-  display: inline-block;
-  width: calc(100% / 7);
   text-align: center;
   padding: 8px 0 6px;
   font-size: 11px;

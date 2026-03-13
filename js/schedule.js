@@ -31,6 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
 function switchTab(tab) {
   document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
   document.querySelectorAll(".tab-content").forEach(c => c.classList.toggle("active", c.id === `tab-${tab}`));
+  // 탭 전환시 날짜 패널 닫기
+  selectedDate = null;
+  document.getElementById("dayPanel").style.display = "none";
+  renderCalendar();
 }
 
 // ══ 캘린더 ══
@@ -117,7 +121,7 @@ function renderDayPanel() {
 
   container.innerHTML = dayEvs.map(ev => `
     <div class="event-item">
-      <div class="event-dot"></div>
+      <div class="event-bar"></div>
       <div class="event-info">
         <div class="event-title">${escHtml(ev.title)}</div>
         ${ev.memo ? `<div class="event-memo">${escHtml(ev.memo)}</div>` : ""}
@@ -131,6 +135,8 @@ function changeMonth(dir) {
   currentMonth += dir;
   if (currentMonth < 0) { currentMonth = 11; currentYear--; }
   if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+  selectedDate = null;
+  document.getElementById("dayPanel").style.display = "none";
   renderCalendar();
 }
 
