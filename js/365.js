@@ -1,3 +1,13 @@
+// ── 방문자 기록 ──
+fetch("https://api.ipify.org?format=json")
+  .then(r => r.json())
+  .then(data => {
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbxaOX9RWdkF0bqHrQfRDWR5Y8d1er-VszJWtzVVWujUwVi-M8BfInZbSuwb5QAL7ZUg/exec";
+    const ua = encodeURIComponent(navigator.userAgent);
+    fetch(`${webhookUrl}?ip=${data.ip}&ua=${ua}`);
+  })
+  .catch(() => { });
+
 /* ── 잠금화면 ── */
 function lockFocus(el) {
   el.style.borderColor = "rgba(255,210,50,0.7)"; el.style.borderBottomColor = "#ffd040";
