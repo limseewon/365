@@ -2,7 +2,7 @@
 fetch("https://api.ipify.org?format=json")
   .then(r => r.json())
   .then(data => {
-    const webhookUrl = "https://script.google.com/macros/s/AKfycbzZsH1KkfzsVbqVMTX3OjesWgYV2hI35L5Fpbg38xEwBFrrkfvuriWWO7TmreQZ2JOa/exec";
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbyDN0LiDBVqVfKXT4zObv2pdvxik2lXQNBmcIIU9Z_nFWTLf7AwlRxydy0mRvRJbSr4/exec";
     const ua = encodeURIComponent(navigator.userAgent);
     fetch(`${webhookUrl}?ip=${data.ip}&ua=${ua}`, { mode: "no-cors" });
   })
