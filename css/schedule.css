@@ -12,9 +12,18 @@
   --border: #ece9e3;
   --text: #1e1c1a;
   --text-sub: #9a9188;
+
+  /* 기존 주 포인트 (따뜻한 오렌지) */
   --accent: #d4845a;
   --accent-light: #fdf1ea;
   --accent-dark: #b56840;
+
+  /* 지영이 노란색 포인트 */
+  --yellow: #f5c842;
+  --yellow-light: #fffbea;
+  --yellow-dark: #d4a800;
+  --yellow-border: rgba(245, 200, 66, 0.35);
+
   --done: #b0a89e;
   --danger: #e07070;
   --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
@@ -23,7 +32,7 @@
 }
 
 body {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -50,20 +59,22 @@ body {
 }
 
 .logo {
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: "Nanum Myeongjo", serif;
   font-size: 19px;
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.5px;
 }
 
+/* 오늘 날짜 배지 → 노란색 */
 .today-badge {
   font-size: 12px;
-  color: var(--text-sub);
-  background: var(--bg);
+  color: #8a6d00;
+  background: var(--yellow-light);
   padding: 4px 10px;
   border-radius: 20px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--yellow-border);
+  font-weight: 600;
 }
 
 /* ── 메인 ── */
@@ -86,7 +97,7 @@ body {
   border: 1.5px solid var(--border);
   background: var(--surface);
   border-radius: 10px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: var(--text-sub);
@@ -94,7 +105,16 @@ body {
   transition: all 0.2s;
 }
 
-.tab.active {
+/* 일기 탭 활성 → 노란색 */
+.tab[data-tab="diary"].active {
+  border-color: var(--yellow);
+  color: #8a6d00;
+  background: var(--yellow-light);
+  font-weight: 600;
+}
+
+/* 캘린더/할일 탭 활성 → 기존 오렌지 */
+.tab.active:not([data-tab="diary"]) {
   border-color: var(--accent);
   color: var(--accent);
   background: var(--accent-light);
@@ -116,7 +136,6 @@ body {
     opacity: 0;
     transform: translateY(6px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -133,7 +152,7 @@ body {
 }
 
 .cal-title {
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: "Nanum Myeongjo", serif;
   font-size: 18px;
   font-weight: 700;
   color: var(--text);
@@ -188,7 +207,6 @@ body {
 .day-label:first-child {
   color: #e07878;
 }
-
 .day-label:last-child {
   color: #789ae0;
 }
@@ -220,26 +238,25 @@ body {
   pointer-events: none;
 }
 
+/* 오늘 날짜 → 노란색 원 */
 .cal-day.today .cal-day-num {
-  background: var(--accent);
-  color: white !important;
+  background: var(--yellow);
+  color: #5a4300 !important;
   width: 28px;
   height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .cal-day.selected:not(.today) {
   background: var(--accent-light);
 }
-
 .cal-day.sunday .cal-day-num {
   color: #e07878;
 }
-
 .cal-day.saturday .cal-day-num {
   color: #789ae0;
 }
@@ -255,12 +272,13 @@ body {
   gap: 2px;
 }
 
+/* 일정 점 → 노란색 */
 .cal-dot {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--accent);
-  opacity: 0.7;
+  background: var(--yellow-dark);
+  opacity: 0.85;
 }
 
 /* ── 날짜 패널 ── */
@@ -289,7 +307,7 @@ body {
 
 .add-btn {
   font-size: 12px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   color: var(--accent);
   background: var(--accent-light);
   border: 1px solid rgba(212, 132, 90, 0.2);
@@ -376,7 +394,6 @@ body {
 .event-item:hover .event-del {
   opacity: 1;
 }
-
 .event-del:hover {
   background: #fee;
   color: var(--danger);
@@ -394,12 +411,14 @@ body {
   padding: 12px 14px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   color: var(--text);
   background: var(--surface);
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .todo-input:focus {
@@ -413,7 +432,7 @@ body {
   color: white;
   border: none;
   border-radius: var(--radius);
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -424,7 +443,6 @@ body {
 .todo-add-btn:hover {
   background: var(--accent-dark);
 }
-
 .todo-add-btn:active {
   transform: scale(0.97);
 }
@@ -472,14 +490,15 @@ body {
 }
 
 .todo-check:hover {
-  border-color: var(--accent);
-  background: var(--accent-light);
+  border-color: var(--yellow);
+  background: var(--yellow-light);
 }
 
+/* 완료된 할일 체크 → 노란색 */
 .todo-item.done .todo-check {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: #5a4300;
 }
 
 .todo-text {
@@ -510,20 +529,396 @@ body {
 .todo-item:hover .todo-del {
   opacity: 1;
 }
-
 .todo-del:hover {
   background: #fee;
   color: var(--danger);
 }
 
-.todo-empty {
-  text-align: center;
-  color: var(--text-sub);
-  font-size: 13px;
-  padding: 30px 0;
+/* ══ 일기 탭 ══ */
+.diary-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
-/* ── 모달 ── */
+.diary-topbar-title {
+  font-family: "Nanum Myeongjo", serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* 일기 쓰기 버튼 → 노란색 */
+.diary-topbar .add-btn {
+  color: #8a6d00;
+  background: var(--yellow-light);
+  border: 1px solid var(--yellow-border);
+}
+
+.diary-topbar .add-btn:hover {
+  background: var(--yellow);
+  color: #3d2f00;
+  border-color: var(--yellow);
+}
+
+.diary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 빈 상태 */
+.diary-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-sub);
+}
+
+.diary-empty-icon {
+  font-size: 48px;
+  margin-bottom: 14px;
+  opacity: 0.5;
+}
+
+.diary-empty-state p {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--text-sub);
+}
+
+.diary-empty-sub {
+  font-size: 12px !important;
+  opacity: 0.7;
+}
+
+/* 일기 카드 */
+.diary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s,
+    transform 0.15s;
+  animation: fadeUp 0.25s ease;
+}
+
+.diary-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+/* 미디어 썸네일 */
+.diary-card-media-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.diary-card-media-wrap img,
+.diary-card-media-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.diary-card-media-count {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.45);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+  backdrop-filter: blur(4px);
+}
+
+.diary-card-video-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+/* 카드 텍스트 */
+.diary-card-body {
+  padding: 14px 16px 16px;
+}
+
+.diary-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.diary-card-date {
+  font-size: 11px;
+  color: var(--text-sub);
+  font-weight: 500;
+}
+
+.diary-card-mood {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.diary-card-title {
+  font-family: "Nanum Myeongjo", serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diary-card-preview {
+  font-size: 13px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 텍스트 only 카드 → 노란색 왼쪽 바 */
+.diary-card.text-only .diary-card-body {
+  padding: 18px 16px;
+  border-left: 3px solid var(--yellow);
+}
+
+/* ── 일기 작성 모달 ── */
+.diary-textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+/* 미디어 업로드 → 노란색 */
+.media-upload-area {
+  border: 2px dashed var(--yellow-border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--yellow-light);
+}
+
+.media-upload-area:hover {
+  border-color: var(--yellow);
+  background: #fff8d0;
+}
+
+.media-upload-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.media-upload-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.media-upload-sub {
+  font-size: 11px;
+  color: var(--text-sub);
+}
+
+/* 미디어 미리보기 */
+.media-preview-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.media-preview-item {
+  position: relative;
+  width: calc(33.333% - 6px);
+  aspect-ratio: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+.media-preview-item img,
+.media-preview-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.media-preview-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  border: none;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* 기분 피커 */
+.mood-picker {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mood-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.mood-btn:hover {
+  border-color: var(--yellow);
+  background: var(--yellow-light);
+  transform: scale(1.1);
+}
+
+/* 선택된 기분 → 노란색 */
+.mood-btn.selected {
+  border-color: var(--yellow);
+  background: var(--yellow-light);
+  box-shadow: 0 0 0 3px rgba(245, 200, 66, 0.25);
+}
+
+/* ── 일기 상세보기 ── */
+.diary-view-header-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.diary-view-mood {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.diary-view-date-label {
+  font-size: 13px;
+  color: var(--text-sub);
+  font-weight: 500;
+}
+
+.diary-del-btn {
+  font-size: 12px;
+  font-family: "Noto Sans KR", sans-serif;
+  color: var(--danger);
+  background: #fff0f0;
+  border: 1px solid rgba(224, 112, 112, 0.2);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+
+.diary-del-btn:hover {
+  background: var(--danger);
+  color: white;
+}
+
+.diary-view-body {
+  padding-top: 4px;
+}
+
+.diary-view-title {
+  font-family: "Nanum Myeongjo", serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+/* 상세보기 미디어 그리드 */
+.diary-view-media {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.diary-view-media:empty {
+  display: none;
+  margin: 0;
+}
+
+.diary-view-media-item {
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: var(--bg);
+}
+
+.diary-view-media-item:first-child:only-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 16/9;
+}
+
+.diary-view-media-item img,
+.diary-view-media-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.diary-view-content {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ══ 공통 모달 ══ */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -536,11 +931,17 @@ body {
   animation: fadeIn 0.2s ease;
 }
 
+/* 일기 모달은 가운데 정렬 */
+#diaryModal,
+#diaryViewModal {
+  align-items: center;
+  padding: 20px 0;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
@@ -552,15 +953,44 @@ body {
   width: 100%;
   max-width: 480px;
   box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.12);
-  animation: slideUp 0.25s cubic-bezier(.32, 1, .32, 1);
+  animation: slideUp 0.25s cubic-bezier(0.32, 1, 0.32, 1);
   padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* 일기 모달은 모든 모서리 둥글게 */
+.diary-modal,
+.diary-view-modal {
+  border-radius: 20px;
+  width: calc(100% - 32px);
+  max-height: 88vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation: fadeScaleIn 0.25s cubic-bezier(0.32, 1, 0.32, 1);
+  padding-bottom: 0;
+}
+
+/* 일기 모달 헤더 → 노란색 포인트 */
+.diary-modal .modal-header,
+.diary-view-modal .modal-header {
+  border-bottom: 2px solid var(--yellow);
+  background: linear-gradient(to bottom, var(--yellow-light), var(--surface));
+}
+
+@keyframes fadeScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes slideUp {
   from {
     transform: translateY(100%);
   }
-
   to {
     transform: translateY(0);
   }
@@ -575,7 +1005,7 @@ body {
 }
 
 .modal-title {
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: "Nanum Myeongjo", serif;
   font-size: 17px;
   font-weight: 700;
 }
@@ -620,7 +1050,7 @@ body {
   padding: 11px 13px;
   border: 1.5px solid var(--border);
   border-radius: 10px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   color: var(--text);
   outline: none;
@@ -628,10 +1058,18 @@ body {
   transition: all 0.2s;
 }
 
+/* 일반 모달 input focus */
 .form-input:focus {
   border-color: var(--accent);
   background: var(--surface);
   box-shadow: 0 0 0 3px rgba(212, 132, 90, 0.1);
+}
+
+/* 일기 모달 내 input focus → 노란색 */
+.diary-modal .form-input:focus {
+  border-color: var(--yellow);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(245, 200, 66, 0.15);
 }
 
 .modal-footer {
@@ -646,7 +1084,7 @@ body {
   background: var(--bg);
   border: 1.5px solid var(--border);
   border-radius: 12px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-sub);
@@ -665,7 +1103,7 @@ body {
   background: var(--accent);
   border: none;
   border-radius: 12px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: white;
@@ -675,4 +1113,543 @@ body {
 
 .btn-save:hover {
   background: var(--accent-dark);
+}
+
+/* 일기 저장 버튼 → 노란색 */
+.diary-modal .btn-save {
+  background: var(--yellow);
+  color: #3d2f00;
+}
+
+.diary-modal .btn-save:hover {
+  background: var(--yellow-dark);
+  color: white;
+}
+
+.loading-msg {
+  text-align: center;
+  color: var(--text-sub);
+  font-size: 13px;
+  padding: 30px 0;
+}
+
+/* ══ 날씨 탭 ══ */
+.weather-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.weather-topbar-title {
+  font-family: "Nanum Myeongjo", serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.weather-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 로딩 */
+.weather-loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-sub);
+}
+
+.weather-loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--yellow-border);
+  border-top-color: var(--yellow);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 14px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.weather-loading p {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+.weather-error {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--text-sub);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ── 날씨 카드 ── */
+.weather-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  animation: fadeUp 0.3s ease;
+}
+
+/* ── 헤더 ── */
+.wx-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 20px 20px 16px;
+  background: linear-gradient(135deg, #1e1c1a 0%, #3a3530 100%);
+  color: white;
+}
+
+.wx-location {
+  font-family: "Nanum Myeongjo", serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 2px;
+}
+
+.wx-location-sub {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.wx-temp-big {
+  font-family: "Nanum Myeongjo", serif;
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.wx-deg {
+  font-size: 32px;
+  letter-spacing: 0;
+  opacity: 0.8;
+}
+
+.wx-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.wx-main-emoji {
+  font-size: 52px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.wx-condition {
+  font-size: 13px;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+.wx-hilo {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.wx-hilo .hi {
+  color: #ff8a65;
+}
+.wx-hilo .lo {
+  color: #90caf9;
+  opacity: 0.9;
+}
+
+/* ── 비 배너 ── */
+.wx-rain-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  border-bottom: 1px solid var(--border);
+}
+
+.wx-rain-banner.clear {
+  background: var(--yellow-light);
+  color: #6b5000;
+}
+
+.wx-rain-banner.rain {
+  background: #eef4fc;
+  color: #1a3a60;
+}
+
+.wx-rain-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.wx-rain-text > div + div {
+  border-top: 1px dashed rgba(90, 143, 212, 0.2);
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
+/* ── 코멘트 카드들 ── */
+.wx-comments {
+  padding: 12px 12px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wx-comment-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+}
+
+.wx-cc-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wx-cc-icon {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.wx-cc-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-sub);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.wx-cc-value {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.wx-cc-comment {
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 1.5;
+  padding-left: 32px;
+}
+
+/* ── 시간별 차트 섹션 ── */
+.hourly-section {
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+
+.hourly-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 6px;
+}
+
+.hourly-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-sub);
+  letter-spacing: 0.3px;
+}
+
+.hourly-day-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.hourly-day-tab {
+  font-size: 11px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.hourly-day-tab.active {
+  background: #3a7bd5;
+  border-color: #3a7bd5;
+  color: white;
+}
+
+.hourly-scroll-wrap {
+  overflow: hidden;
+}
+
+/* 막대 차트 — 0~24시 전체 스크롤 */
+.hourly-bar-wrap {
+  display: flex;
+  gap: 2px;
+  padding: 4px 12px 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.hourly-bar-wrap::-webkit-scrollbar {
+  height: 3px;
+}
+.hourly-bar-wrap::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.hourly-bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 44px;
+  flex-shrink: 0;
+  padding: 6px 3px 4px;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+
+.hourly-bar-item.hourly-now {
+  background: var(--accent-light);
+}
+
+.hourly-bar-item.hourly-now .hourly-time {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* 강수확률 % — 항상 보임 */
+.hourly-prob {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-sub);
+  height: 16px;
+  line-height: 16px;
+  min-width: 32px;
+  text-align: center;
+}
+
+.hourly-prob.rainy {
+  color: #3a7bd5;
+}
+.hourly-prob.zero {
+  color: #ccc;
+  font-weight: 500;
+}
+
+/* 막대 — 넓고 뚜렷하게 */
+.hourly-bar-track {
+  width: 20px;
+  height: 56px;
+  background: #eef0f3;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hourly-bar-fill {
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hourly-bar-fill.no-rain {
+  background: #d4d8e0;
+  opacity: 0.6;
+}
+.hourly-bar-fill.has-rain {
+  background: linear-gradient(to top, #2463c4, #74b3f7);
+}
+.hourly-bar-fill.heavy-rain {
+  background: linear-gradient(to top, #0d2b6e, #2463c4);
+}
+
+.hourly-emoji {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.hourly-temp {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.hourly-time {
+  font-size: 10px;
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+
+/* 범례 */
+.hourly-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 16px 12px;
+  font-size: 10px;
+  color: var(--text-sub);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.legend-dot.rain {
+  background: #3a7bd5;
+}
+.legend-dot.clear {
+  background: #d4d8e0;
+}
+
+.hourly-legend span + span {
+  margin-left: 2px;
+}
+.hourly-legend .legend-dot + .legend-dot {
+  margin-left: 10px;
+}
+
+/* ── 5일 예보 ── */
+.wx-forecast-wrap {
+  border-top: 1px solid var(--border);
+  padding: 0 0 0;
+}
+
+.wx-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-sub);
+  letter-spacing: 0.3px;
+  padding: 12px 16px 6px;
+}
+
+.weather-forecast {
+  display: flex;
+  background: var(--bg);
+}
+
+.forecast-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 4px 12px;
+  border-right: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.forecast-item:last-child {
+  border-right: none;
+}
+
+.forecast-item.forecast-today {
+  background: var(--yellow-light);
+}
+
+.forecast-day {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+
+.forecast-today .forecast-day {
+  color: #8a6d00;
+}
+
+.forecast-emoji {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.forecast-temp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.forecast-high {
+  font-size: 13px;
+  font-weight: 700;
+  color: #e64a19;
+}
+
+.forecast-low {
+  font-size: 11px;
+  color: #5c8fd4;
+}
+
+.forecast-rain {
+  font-size: 10px;
+  font-weight: 700;
+  color: #3a7bd5;
+  height: 14px;
+}
+
+.forecast-rain:not(.active) {
+  opacity: 0.3;
+  color: var(--text-sub);
+}
+
+/* 업데이트 */
+.weather-updated {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-sub);
+  padding: 8px 0 2px;
+}
+
+.weather-refresh-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 11px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.weather-refresh-btn:hover {
+  color: var(--accent-dark);
+}
+
+/* 대기질 */
+:root {
+  --blue-rain: #3a7bd5;
+  --blue-rain-light: #eef4fc;
 }

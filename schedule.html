@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link rel="manifest" href="./manifest.json" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -11,10 +10,8 @@
     <link
       rel="apple-touch-icon"
       href="./images/schedule/KakaoTalk_20260313_152401282.jpg" />
-
-    <!-- SNS/카카오 공유 썸네일 -->
-    <meta property="og:title" content="귀염딱지와의 일정" />
-    <meta property="og:description" content="우리 둘만의 일정 📅" />
+    <meta property="og:title" content="우리의 공간" />
+    <meta property="og:description" content="우리의 공간 📅" />
     <meta
       property="og:image"
       content="https://limseewon.github.io/365/images/schedule/KakaoTalk_20260313_152401282.jpg" />
@@ -30,7 +27,7 @@
   <body>
     <header class="header">
       <div class="header-inner">
-        <h1 class="logo">📅 귀염딱지와의 일정</h1>
+        <h1 class="logo">📅 우리의 공간</h1>
         <span id="todayBadge" class="today-badge"></span>
       </div>
     </header>
@@ -45,6 +42,12 @@
         </button>
         <button class="tab" data-tab="todo" onclick="switchTab('todo')">
           할일
+        </button>
+        <button class="tab" data-tab="diary" onclick="switchTab('diary')">
+          일기
+        </button>
+        <button class="tab" data-tab="weather" onclick="switchTab('weather')">
+          날씨
         </button>
       </div>
 
@@ -67,7 +70,6 @@
           </div>
           <div id="calDays" class="cal-days"></div>
         </div>
-
         <div id="dayPanel" class="day-panel" style="display: none">
           <div class="day-panel-header">
             <span id="dayPanelTitle"></span>
@@ -91,6 +93,36 @@
           <button class="todo-add-btn" onclick="addTodo()">추가</button>
         </div>
         <div id="todoList" class="todo-list"></div>
+      </div>
+
+      <!-- 일기 탭 -->
+      <div id="tab-diary" class="tab-content">
+        <div class="diary-topbar">
+          <span class="diary-topbar-title">우리의 하루 💌</span>
+          <button class="add-btn" onclick="openDiaryModal()">
+            + 일기 쓰기
+          </button>
+        </div>
+        <div id="diaryList" class="diary-list">
+          <div class="diary-empty-state">
+            <div class="diary-empty-icon">📷</div>
+            <p>아직 기록이 없어요</p>
+            <p class="diary-empty-sub">오늘의 사진이나 영상을 남겨봐요 🌸</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 날씨 탭 -->
+      <div id="tab-weather" class="tab-content">
+        <div class="weather-topbar">
+          <span class="weather-topbar-title">오늘의 날씨 🌤️</span>
+        </div>
+        <div id="weatherContent" class="weather-content">
+          <div class="weather-loading">
+            <div class="weather-loading-spinner"></div>
+            <p>날씨 불러오는 중...</p>
+          </div>
+        </div>
       </div>
     </main>
 
@@ -130,6 +162,143 @@
         <div class="modal-footer">
           <button class="btn-cancel" onclick="closeEventModal()">취소</button>
           <button class="btn-save" onclick="saveEvent()">저장</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 일기 작성 모달 -->
+    <div
+      id="diaryModal"
+      class="modal-overlay"
+      style="display: none"
+      onclick="if (event.target === this) closeDiaryModal();">
+      <div class="modal diary-modal">
+        <div class="modal-header">
+          <h3 class="modal-title">일기 쓰기</h3>
+          <button class="modal-close" onclick="closeDiaryModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>날짜</label>
+            <input id="diaryDate" type="date" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>제목</label>
+            <input
+              id="diaryTitle"
+              type="text"
+              placeholder="오늘의 제목..."
+              class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>내용</label>
+            <textarea
+              id="diaryContent"
+              placeholder="오늘 하루를 기록해요 ✍️"
+              class="form-input diary-textarea"></textarea>
+          </div>
+          <div class="form-group">
+            <label>사진 / 영상</label>
+            <div
+              class="media-upload-area"
+              onclick="document.getElementById('diaryMediaInput').click()">
+              <div class="media-upload-icon">📎</div>
+              <div class="media-upload-text">사진이나 영상을 선택하세요</div>
+              <div class="media-upload-sub">JPG, PNG, GIF, MP4, MOV 등</div>
+            </div>
+            <input
+              id="diaryMediaInput"
+              type="file"
+              accept="image/*,video/*"
+              multiple
+              style="display: none"
+              onchange="handleMediaSelect(event)" />
+            <div id="mediaPreviewWrap" class="media-preview-wrap"></div>
+          </div>
+          <div class="form-group">
+            <label>오늘의 기분</label>
+            <div class="mood-picker">
+              <button
+                class="mood-btn"
+                data-mood="😊"
+                onclick="selectMood(this)">
+                😊
+              </button>
+              <button
+                class="mood-btn"
+                data-mood="🥰"
+                onclick="selectMood(this)">
+                🥰
+              </button>
+              <button
+                class="mood-btn"
+                data-mood="😆"
+                onclick="selectMood(this)">
+                😆
+              </button>
+              <button
+                class="mood-btn"
+                data-mood="😌"
+                onclick="selectMood(this)">
+                😌
+              </button>
+              <button
+                class="mood-btn"
+                data-mood="🥺"
+                onclick="selectMood(this)">
+                🥺
+              </button>
+              <button
+                class="mood-btn"
+                data-mood="😢"
+                onclick="selectMood(this)">
+                😢
+              </button>
+              <button
+                class="mood-btn"
+                data-mood="😴"
+                onclick="selectMood(this)">
+                😴
+              </button>
+              <button
+                class="mood-btn"
+                data-mood="🤩"
+                onclick="selectMood(this)">
+                🤩
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" onclick="closeDiaryModal()">취소</button>
+          <button class="btn-save" onclick="saveDiary()">저장</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 일기 상세보기 모달 -->
+    <div
+      id="diaryViewModal"
+      class="modal-overlay"
+      style="display: none"
+      onclick="if (event.target === this) closeDiaryViewModal();">
+      <div class="modal diary-view-modal">
+        <div class="modal-header">
+          <div class="diary-view-header-info">
+            <span id="diaryViewMood" class="diary-view-mood"></span>
+            <span id="diaryViewDate" class="diary-view-date-label"></span>
+          </div>
+          <div style="display: flex; gap: 6px; align-items: center">
+            <button class="diary-del-btn" id="diaryViewDelBtn">삭제</button>
+            <button class="modal-close" onclick="closeDiaryViewModal()">
+              ✕
+            </button>
+          </div>
+        </div>
+        <div class="modal-body diary-view-body">
+          <h2 id="diaryViewTitle" class="diary-view-title"></h2>
+          <div id="diaryViewMedia" class="diary-view-media"></div>
+          <p id="diaryViewContent" class="diary-view-content"></p>
         </div>
       </div>
     </div>
