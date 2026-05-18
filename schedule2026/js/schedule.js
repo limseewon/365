@@ -51,7 +51,10 @@ function loadEvents() {
 }
 
 function onEventsLoaded(data) {
-  events = Array.isArray(data) ? data : [];
+  events = Array.isArray(data) ? data.map(e => ({
+    ...e,
+    date: e.date ? new Date(e.date).toLocaleDateString('sv-SE') : e.date
+  })) : [];
   renderCalendar();
 }
 
@@ -895,5 +898,5 @@ function escHtml(str) {
 }
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/365/sw.js');
+  navigator.serviceWorker.register('/365/schedule2026/sw.js');
 }
