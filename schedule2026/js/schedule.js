@@ -1,4 +1,4 @@
-const API = "https://script.google.com/macros/s/AKfycbz5KjFugTBHG0klbIBr0JEMzklFzlfEiUt9FuuwkN0dpqYtPQqFOkrF6beNU5Kvt1o/exec";
+const API = "https://script.google.com/macros/s/AKfycbwHk9pciO9b2u6TmsCd2UuOTWfvTyeBfDkz-V3laKIm_ei7bJkZYakQ5LtHPwUk4_DD/exec";
 
 // ── 방문자 기록 ──
 fetch("https://api.ipify.org?format=json")
