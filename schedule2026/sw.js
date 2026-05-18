@@ -1,5 +1,5 @@
 // 버전 바꾸면 캐시 자동 갱신됨
-const CACHE = "our-space-2026-v1";
+const CACHE = "our-space-2026-v2";
 
 const ASSETS = [
   "/365/schedule2026/schedule.html",
