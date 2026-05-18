@@ -428,7 +428,7 @@ function deleteDiary(id) {
 
 // ══ 날씨 ══
 const LOCATIONS = [
-  { name: "hoegi", label: "회기동", desc: "동대문구", lat: 37.5894, lon: 127.0547 },
+  { name: "cheongna", label: "청라동", desc: "인천 서구", lat: 37.5386, lon: 126.6477 },
   { name: "eungam", label: "응암동", desc: "은평구", lat: 37.6019, lon: 126.9196 }
 ];
 
