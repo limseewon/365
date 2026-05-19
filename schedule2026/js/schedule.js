@@ -1,13 +1,20 @@
 const API = "https://script.google.com/macros/s/AKfycbzY-79D6nHJCy5ciy7-Czc2NXpNpwBYcguEgouR8o0bCoS7cnfddlD9fTrbw5HOvOM/exec";
 
 // ── 방문자 기록 ──
+function _visitCb() {}
+
+function _sendVisit(ip) {
+  const ua = encodeURIComponent(navigator.userAgent);
+  const s = document.createElement("script");
+  s.src = `${API}?action=visit&ip=${encodeURIComponent(ip)}&ua=${ua}&callback=_visitCb`;
+  document.head.appendChild(s);
+  setTimeout(() => s.remove(), 5000);
+}
+
 fetch("https://api.ipify.org?format=json")
   .then(r => r.json())
-  .then(data => {
-    const ua = encodeURIComponent(navigator.userAgent);
-    fetch(`${API}?action=visit&ip=${data.ip}&ua=${ua}`, { mode: "no-cors" });
-  })
-  .catch(() => { });
+  .then(data => _sendVisit(data.ip))
+  .catch(() => _sendVisit('알 수 없음'));
 
 // ── 상태 ──
 let events = [];
