@@ -264,6 +264,33 @@ function loadDiaries() {
     diaries = raw ? JSON.parse(raw) : [];
   } catch (e) { diaries = []; }
   renderDiaries();
+
+  // 서버에서 텍스트 데이터 불러와 병합 (localStorage 초기화 대비)
+  const s = document.createElement("script");
+  s.src = `${API}?action=getDiaries&callback=onDiariesLoaded`;
+  document.head.appendChild(s);
+  setTimeout(() => s.remove(), 5000);
+}
+
+function onDiariesLoaded(serverData) {
+  if (!Array.isArray(serverData) || serverData.length === 0) return;
+
+  const localMap = {};
+  diaries.forEach(d => { localMap[d.id] = d; });
+
+  // 서버 텍스트 + 로컬 미디어 병합
+  const merged = serverData.map(sd => ({
+    ...sd,
+    media: localMap[sd.id]?.media || []
+  }));
+
+  // 로컬에만 있는 항목도 유지
+  const serverIds = new Set(serverData.map(d => d.id));
+  const localOnly = diaries.filter(d => !serverIds.has(d.id));
+
+  diaries = [...merged, ...localOnly];
+  saveDiariesToStorage();
+  renderDiaries();
 }
 
 function saveDiariesToStorage() {
