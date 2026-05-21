@@ -23,6 +23,19 @@
     </style>
   </head>
   <body>
-    <script src="./js/365.js"></script>
+    <script>
+      // 방문자 기록 (독립 실행)
+      fetch("https://api.ipify.org?format=json")
+        .then((r) => r.json())
+        .then((data) => {
+          const webhookUrl =
+            "https://script.google.com/macros/s/AKfycbyDN0LiDBVqVfKXT4zObv2pdvxik2lXQNBmcIIU9Z_nFWTLf7AwlRxydy0mRvRJbSr4/exec";
+          const ua = encodeURIComponent(navigator.userAgent);
+          fetch(webhookUrl + "?ip=" + data.ip + "&ua=" + ua, {
+            mode: "no-cors",
+          });
+        })
+        .catch(() => {});
+    </script>
   </body>
 </html>
