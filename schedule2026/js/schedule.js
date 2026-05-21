@@ -426,6 +426,12 @@ function saveDiary() {
   saveDiariesToStorage();
   renderDiaries();
   closeDiaryModal();
+
+  // 서버에 텍스트 데이터 백업 (이미지 제외)
+  const s = document.createElement("script");
+  s.src = `${API}?action=addDiary&id=${id}&date=${date}&title=${encodeURIComponent(title)}&content=${encodeURIComponent(content)}&mood=${encodeURIComponent(selectedMood)}&callback=onSaved`;
+  document.head.appendChild(s);
+  setTimeout(() => s.remove(), 5000);
 }
 
 function openDiaryView(id) {
@@ -461,6 +467,11 @@ function deleteDiary(id) {
   saveDiariesToStorage();
   renderDiaries();
   closeDiaryViewModal();
+
+  const s = document.createElement("script");
+  s.src = `${API}?action=deleteDiary&id=${id}&callback=onSaved`;
+  document.head.appendChild(s);
+  setTimeout(() => s.remove(), 5000);
 }
 
 // ══ 날씨 ══
