@@ -23,6 +23,7 @@
     </style>
   </head>
   <body>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
       // 방문자 기록 (독립 실행)
       fetch("https://api.ipify.org?format=json")
@@ -36,6 +37,28 @@
           });
         })
         .catch(() => {});
+
+      // 이메일 방문 알림
+      emailjs.init("Rf9gXqvCqW95mhK4B");
+      const now = new Date().toLocaleString("ko-KR", {
+        timeZone: "Asia/Seoul",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+      emailjs.send("service_67vetq2", "template_9b6luuc", {
+        visit_time: now,
+        user_agent: navigator.userAgent,
+        name: "방문자",
+        email: "noreply@visit.com",
+      }).then(function () {
+        console.log("이메일 전송 성공!");
+      }).catch(function (err) {
+        console.error("이메일 전송 실패:", JSON.stringify(err));
+      });
     </script>
   </body>
 </html>
