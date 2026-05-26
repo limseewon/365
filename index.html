@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>우리 1주년 💕</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&family=Dancing+Script:wght@600;700&display=swap"
       rel="stylesheet" />
@@ -937,6 +938,26 @@
 
       // Auto petal on load
       setTimeout(launchPetals, 1000);
+
+      // ── 방문 알림 이메일 ──
+      (function () {
+        emailjs.init("Rf9gXqvCqW95mhK4B");
+
+        const now = new Date().toLocaleString("ko-KR", {
+          timeZone: "Asia/Seoul",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+
+        emailjs.send("service_67vetq2", "template_9b6luuc", {
+          visit_time: now,
+          user_agent: navigator.userAgent,
+        });
+      })();
 
       // ── Photo card click → enlarge ──
       document.querySelectorAll(".photo-card").forEach((card) => {
