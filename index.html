@@ -956,6 +956,8 @@
         emailjs.send("service_67vetq2", "template_9b6luuc", {
           visit_time: now,
           user_agent: navigator.userAgent,
+          name: "방문자",
+          email: "noreply@visit.com",
         }).then(function () {
           console.log("이메일 전송 성공!");
         }).catch(function (err) {
