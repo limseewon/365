@@ -288,3 +288,13 @@ createSlideshow({
   stripElId: "ssStrip3", progressElId: "ssProgress3", autoBtnId: "ssAutoBtn3",
   fallbackEmoji: "⚾",
 });
+
+/* ── 레전드 미모 슬라이드쇼 ── */
+createSlideshow({
+  id: "slideshow4",
+  images: ["미녀.webp"],
+  base: "./images/미녀/",
+  idxElId: "ssIdx4", totalElId: "ssTotal4", imgElId: "ssImg4",
+  stripElId: "ssStrip4", progressElId: "ssProgress4", autoBtnId: "ssAutoBtn4",
+  fallbackEmoji: "✨",
+});

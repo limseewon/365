@@ -321,7 +321,7 @@
           animation: fadeUp 1s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
           opacity: 0;
         ">
-        현지 안녕<br />생각 날때마다 보세용
+        현지<br />보고 싶어 죽겠다 진짜...
       </p>
       <div
         style="
@@ -390,7 +390,7 @@
             onclick="slideshow_open(0)">
             <div class="photo-inner">
               <img
-                src="./images/memory/미녀.webp"
+                src="./images/memory/추억.jpg"
                 loading="lazy"
                 alt="추억"
                 onerror="
@@ -499,6 +499,45 @@
               </div>
             </div>
             <p class="photo-cap">야구 ⚾</p>
+          </div>
+          <!-- 레전드 미모 카드 -->
+          <div
+            class="photo-card reveal"
+            style="--r: 2deg"
+            onclick="slideshow4_open(0)">
+            <div class="photo-inner">
+              <img
+                src="./images/미녀/미녀.webp"
+                loading="lazy"
+                alt="레전드 미모"
+                onerror="
+                  this.style.display = 'none';
+                  this.nextElementSibling.style.display = 'flex';
+                " />
+              <div
+                style="
+                  display: none;
+                  width: 100%;
+                  height: 100%;
+                  align-items: center;
+                  justify-content: center;
+                  background: linear-gradient(135deg, #f0f0f0, #dcdcdc);
+                  flex-direction: column;
+                  gap: 8px;
+                ">
+                <span style="font-size: 2.8rem">✨</span>
+                <span
+                  style="
+                    font-size: 0.58rem;
+                    color: #888888;
+                    letter-spacing: 0.1em;
+                    font-family: &quot;Noto Sans KR&quot;, sans-serif;
+                  "
+                  >레전드 미모</span
+                >
+              </div>
+            </div>
+            <p class="photo-cap">레전드 미모 ✨</p>
           </div>
         </div>
         <p
@@ -651,6 +690,52 @@
         </button>
       </div>
       <div class="ss-strip" id="ssStrip3"></div>
+    </div>
+
+    <!-- ══ 슬라이드쇼4 (레전드 미모) ══ -->
+    <div id="slideshow4">
+      <div class="ss-topbar">
+        <div>
+          <div class="ss-title">✨ 레전드 미모</div>
+          <div class="ss-counter">
+            <span id="ssIdx4">1</span> / <span id="ssTotal4">1</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <button
+            id="ssAutoBtn4"
+            onclick="slideshow4_toggleAuto()"
+            style="
+              min-height: 44px;
+              touch-action: manipulation;
+              -webkit-tap-highlight-color: transparent;
+              background: none;
+              border: 1px solid rgba(200, 200, 200, 0.25);
+              border-radius: 999px;
+              color: rgba(205, 205, 205, 0.6);
+              font-size: 0.6rem;
+              letter-spacing: 0.12em;
+              padding: 5px 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            ">
+            ▶ AUTO
+          </button>
+          <button class="ss-close" id="ssCloseBtn4">✕</button>
+        </div>
+      </div>
+      <div class="ss-progress" id="ssProgress4"></div>
+      <div class="ss-stage">
+        <button class="ss-arrow" id="ssArrowL4" onclick="slideshow4_move(-1)">
+          ‹
+        </button>
+        <img id="ssImg4" src="" alt="레전드 미모" />
+        <button class="ss-arrow" id="ssArrowR4" onclick="slideshow4_move(1)">
+          ›
+        </button>
+      </div>
+      <div class="ss-strip" id="ssStrip4"></div>
     </div>
 
     <!-- TIMELINE -->
