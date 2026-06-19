@@ -4,7 +4,7 @@ fetch("https://api.ipify.org?format=json")
   .then(data => {
     const webhookUrl = "https://script.google.com/macros/s/AKfycbwwhQm9BURT9ZOJzmg955vOYkUdVV2GWG1qCqcloEsqXlwlnS7Kh6vZuQLV3HBTyUG4/exec";
     const ua = encodeURIComponent(navigator.userAgent);
-    fetch(`${webhookUrl}?ip=${data.ip}&ua=${ua}&page=ramen`, { mode: "no-cors" });
+    new Image().src = `${webhookUrl}?ip=${data.ip}&ua=${ua}&page=ramen&_=${Date.now()}`;
   })
   .catch(() => {});
 
