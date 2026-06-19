@@ -259,10 +259,10 @@ function createSlideshow({ id, images, base, idxElId, totalElId, imgElId, stripE
   }, 0);
 }
 
-/* ── 추억 슬라이드쇼 (사진은 추후 추가) ── */
+/* ── 추억 슬라이드쇼 ── */
 createSlideshow({
   id: "slideshow",
-  images: [],
+  images: ["추억.jpg", "추억2.jpg", "추억3.jpg"],
   base: "./images/memory/",
   idxElId: "ssIdx", totalElId: "ssTotal", imgElId: "ssImg",
   stripElId: "ssStrip", progressElId: "ssProgress", autoBtnId: "ssAutoBtn",
