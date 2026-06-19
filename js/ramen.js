@@ -1,3 +1,13 @@
+// ── 방문자 기록 ──
+fetch("https://api.ipify.org?format=json")
+  .then(r => r.json())
+  .then(data => {
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbwwhQm9BURT9ZOJzmg955vOYkUdVV2GWG1qCqcloEsqXlwlnS7Kh6vZuQLV3HBTyUG4/exec";
+    const ua = encodeURIComponent(navigator.userAgent);
+    fetch(`${webhookUrl}?ip=${data.ip}&ua=${ua}&page=ramen`, { mode: "no-cors" });
+  })
+  .catch(() => {});
+
 /* ── 잠금화면 ── */
 function lockFocus(el) {
   el.style.borderColor = "rgba(180,180,180,0.7)"; el.style.borderBottomColor = "#d8d8d8";
